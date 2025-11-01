@@ -76,7 +76,7 @@ const Services: React.FC = () => {
 
 
   return (
-    <section ref={ref} id="services" className="bg-black pt-20 md:pt-32 pb-28 md:pb-48 relative">
+    <section ref={ref} id="services" className="bg-black pt-20 md:pt-24 pb-24 md:pb-36 relative">
       <div className="container mx-auto px-6 text-center">
         <h2 className={`text-4xl font-bold font-heading mb-16 text-white transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
           {translations.title}

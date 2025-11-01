@@ -37,7 +37,7 @@ const Contact: React.FC = () => {
   const whatsappLink = `https://wa.me/${siteConfig.contact.whatsappNumber}`;
 
   return (
-    <section ref={ref} id="contact" className="bg-gray-900 pt-20 md:pt-32 pb-28 md:pb-48 relative">
+    <section ref={ref} id="contact" className="bg-gray-900 pt-20 md:pt-24 pb-24 md:pb-36 relative">
       <div className="container mx-auto px-6">
         <h2 className={`text-4xl font-bold font-heading text-center mb-12 text-yellow-400 transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>{`${translations.titlePrefix} ${lawyerName}`}</h2>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
