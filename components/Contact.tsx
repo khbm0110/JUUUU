@@ -62,15 +62,23 @@ const Contact: React.FC = () => {
               <p>{siteConfig.contact.address}</p>
             </div>
 
-            <a href={siteConfig.contact.googleMapsLink} target="_blank" rel="noopener noreferrer" className="w-full group">
-              <div className="w-full h-48 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative">
-                <img src="https://images.unsplash.com/photo-1569336415962-a42945a473db?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Map Location" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"/>
-                <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-10 flex items-center justify-center transition-all duration-300">
-                  <p className="text-white font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm bg-black/30 p-2 rounded">
-                    {translations.viewOnMap}
-                  </p>
-                </div>
-              </div>
+            <div className="w-full h-64 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative">
+              <iframe
+                title={translations.addressTitle}
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.593361528601!2d-7.64332802434526!3d33.58980757333634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d3ab514571e9%3A0x4d32f52316fde5de!2sMa%C3%AEtre%20Fatima%20Azzahraa%20HASSAR!5e0!3m2!1sen!2sma!4v1716305541675!5m2!1sen!2sma"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                marginHeight={0}
+                marginWidth={0}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full"
+                style={{ filter: 'grayscale(0.8) contrast(1.2) opacity(0.8)' }}
+              ></iframe>
+            </div>
+            <a href={siteConfig.contact.googleMapsLink} target="_blank" rel="noopener noreferrer" className="inline-block mt-4 text-yellow-400 hover:underline">
+              {translations.viewOnMap}
             </a>
           </div>
 

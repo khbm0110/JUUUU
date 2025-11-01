@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useContext } from 'react';
 import { useTypewriter } from '../hooks/useTypewriter';
 import { AppContext } from '../contexts/AppContext';
@@ -45,8 +46,10 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <section className="py-20 md:py-28 flex items-center bg-gradient-to-r from-black via-gray-900 to-[#3a301f] text-white overflow-hidden">
-        <div className="container mx-auto px-6 flex items-center">
+      <section 
+        className="relative bg-black py-20 md:py-28 flex items-center text-white overflow-hidden"
+      >
+        <div className="container mx-auto px-6 flex items-center relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-center w-full">
             
             {/* Text Content */}

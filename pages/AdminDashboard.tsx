@@ -1,6 +1,8 @@
 
 
 
+
+
 // FIX: Imported `ReactNode` to resolve a type error in the `CollapsibleSection` component.
 import React, { useState, useContext, useEffect, ChangeEvent, ReactElement, ReactNode } from 'react';
 import { AppContext } from '../contexts/AppContext';
@@ -438,21 +440,10 @@ const AboutEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetS
         }));
     };
 
-    const handleHeroChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setData(prev => ({
-            ...prev,
-            hero: {
-                ...(prev.hero || { imageUrl: '' }),
-                [e.target.name]: e.target.value
-            }
-        }));
-    };
-
     return (
          <div className="space-y-6 max-w-xl">
             <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-2">Images du Site</h3>
             <AdminInput label="URL de l'image de profil (section À Propos)" name="profileImageUrl" value={data.about?.profileImageUrl || ''} onChange={handleAboutChange} />
-            <AdminInput label="URL de l'image (section Hero)" name="imageUrl" value={data.hero?.imageUrl || ''} onChange={handleHeroChange} />
              <p className="text-gray-400 text-sm">Pour modifier les textes de la section "À Propos", allez dans l'onglet "Langues".</p>
         </div>
     );

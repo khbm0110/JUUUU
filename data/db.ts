@@ -1,19 +1,17 @@
 
 
+
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
   about: {
-    profileImageUrl: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1887&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  hero: {
-    imageUrl: "https://images.unsplash.com/photo-1590650035252-a773f3453b32?q=80&w=2070&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    profileImageUrl: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   contact: {
     email: "contact@hassar-law.com",
     whatsappNumber: "212616351285",
     address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33",
-    googleMapsLink: "https://www.google.com/maps/search/?api=1&query=Boulevard+Taib+Naciri,+Résidence+Mohamed+Reda,+3ème+étage,+N°+33",
+    googleMapsLink: "https://www.google.com/maps/place/?q=place_id:ChIJ6rq1UUVspg0RDTL1I1G_3t4",
   },
   socials: {
     linkedin: "https://www.linkedin.com",
@@ -176,74 +174,74 @@ export const initialDb: SiteData = {
       },
     },
     [Language.AR]: {
-      lawyerName: "الأستاذة فاطمة الزهراء حصار",
+      lawyerName: "المحامية فاطمة الزهراء حصار",
       header: {
         nav: [
-            { name: 'الرئيسية', href: '#hero' },
-            { name: 'عنا', href: '#about' },
-            { name: 'الخدمات', href: '#services' },
-            { name: 'الشهادات', href: '#testimonials' },
-            { name: 'اتصل بنا', href: '#contact' },
+          { name: 'الرئيسية', href: '#hero' },
+          { name: 'عني', href: '#about' },
+          { name: 'الخدمات', href: '#services' },
+          { name: 'الشهادات', href: '#testimonials' },
+          { name: 'اتصل بنا', href: '#contact' },
         ],
       },
       hero: {
         title: 'محاميتكم الموثوقة للدفاع عن حقوقكم',
-        subtitle: 'استشارات ودعم وخبرة قانونية في خدمتكم.',
+        subtitle: 'استشارة، مواكبة وخبرة قانونية في خدمتكم.',
         ctaCall: 'اتصل الآن',
         ctaAppointment: 'حجز موعد',
       },
       about: {
-        titlePrefix: 'نبذة عن',
-        p1: 'بفضل خبرتها الراسخة وشغفها بالعدالة، أسست الأستاذة فاطمة الزهراء حصار مكتبها إيماناً منها بأن كل موكل يستحق دفاعاً دقيقاً وشخصياً. وهي خريجة أرقى الجامعات، وتجمع بين الخبرة الفنية والصفات الإنسانية لتقدم لكم تمثيلاً قانونياً من الدرجة الأولى.',
-        p2: 'تعتمد منهجها على الاستماع والشفافية والالتزام الراسخ. سواء كنتم أفراداً أو شركات، تلتزم الأستاذة حصار بحماية مصالحكم بعزم واحترافية.',
+        titlePrefix: 'عن',
+        p1: 'بفضل خبرتها الراسخة وشغفها بالعدالة، أسست الأستاذة فاطمة الزهراء حصار مكتبها إيمانا منها بأن كل موكل يستحق دفاعًا دقيقًا وشخصيًا. تخرجت من أرقى الجامعات، وتجمع بين الخبرة التقنية والصفات الإنسانية لتقدم لكم تمثيلاً قانونيًا من الدرجة الأولى.',
+        p2: 'يعتمد نهجها على الاستماع والشفافية والالتزام المطلق. سواء كنتم أفرادًا أو شركات، تلتزم الأستاذة حصار بحماية مصالحكم بعزم واحترافية.',
       },
       stats: {
         items: [
-          { value: 10, label: "سنوات الخبرة", suffix: '+' },
+          { value: 10, label: "سنوات من الخبرة", suffix: '+' },
           { value: 350, label: "قضية تم حلها", suffix: '+' },
-          { value: 18, label: "مجالات التخصص" },
-          { value: 98, label: "معدل النجاح", suffix: '%' },
+          { value: 18, label: "مجال تخصص" },
+          { value: 98, label: "نسبة النجاح", suffix: '%' },
           { value: 100, label: "تقييمات العملاء", suffix: '+' },
-          { value: 4, label: "لغات منطوقة" },
+          { value: 4, label: "لغات متحدث بها" },
         ],
       },
       services: {
         title: 'مجالات خبرتنا',
         items: [
-          { id: 's1', icon: 'briefcase', title: 'قانون الأعمال', description: 'دعم الشركات، من التأسيس إلى حل النزاعات التجارية.' },
+          { id: 's1', icon: 'briefcase', title: 'قانون الأعمال', description: 'مواكبة الشركات، من التأسيس إلى حل النزاعات التجارية.' },
           { id: 's2', icon: 'building', title: 'قانون العقارات', description: 'استشارات وتمثيل في جميع معاملاتكم ونزاعاتكم العقارية.' },
-          { id: 's3', icon: 'family', title: 'قانون الأسرة', description: 'المساعدة في قضايا الطلاق وحضانة الأطفال والميراث بإنسانية وسرية.' },
-          { id: 's4', icon: 'scale', title: 'الاستشارات القانونية', description: 'خبرة في خدمتكم لتوقع المخاطر وتأمين مشاريعكم.' },
+          { id: 's3', icon: 'family', title: 'قانون الأسرة', description: 'مساعدة في قضايا الطلاق، حضانة الأطفال، والميراث بإنسانية وسرية.' },
+          { id: 's4', icon: 'scale', title: 'استشارات قانونية', description: 'خبرة في خدمتكم لتوقع المخاطر وتأمين مشاريعكم.' },
         ],
       },
       testimonials: {
         title: 'ماذا يقول عملاؤنا'
       },
       contact: {
-        titlePrefix: 'اتصل بـ',
-        intro: 'للحصول على رد سريع، لا تتردد في الاتصال بنا مباشرة عبر واتساب أو البريد الإلكتروني.',
-        whatsapp: 'تحدث عبر واتساب',
+        titlePrefix: 'اتصلوا بـ',
+        intro: "للحصول على رد سريع، لا تترددوا في الاتصال بنا مباشرة عبر الواتساب أو البريد الإلكتروني.",
+        whatsapp: 'محادثة عبر الواتساب',
         emailPrompt: 'أو عبر البريد الإلكتروني:',
         addressTitle: 'عنواننا',
         viewOnMap: 'عرض على خرائط جوجل',
-        form: { name: 'اسمك', email: 'بريدك الإلكتروني', message: 'رسالتك', submit: 'إرسال الرسالة', success: 'تم إرسال الرسالة بنجاح!' },
+        form: { name: 'اسمكم', email: 'بريدكم الإلكتروني', message: 'رسالتكم', submit: 'إرسال الرسالة', success: 'تم إرسال الرسالة بنجاح!' },
         appointmentModal: {
           title: 'حجز موعد',
-          name: 'اسمك الكامل',
-          email: 'عنوان بريدك الإلكتروني',
-          phone: 'رقم هاتفك',
+          name: 'الاسم الكامل',
+          email: 'البريد الإلكتروني',
+          phone: 'رقم الهاتف',
           dateTime: 'التاريخ والوقت المفضل',
           confirmation: 'تلقي التأكيد عبر:',
           bySms: 'رسالة نصية',
-          byEmail: 'البريد الإلكتروني',
+          byEmail: 'بريد إلكتروني',
           submit: 'تأكيد الموعد',
-          success: 'تم إرسال طلبك! سنتصل بك قريبا للتأكيد.',
+          success: 'تم إرسال طلبكم! سنتصل بكم قريبا للتأكيد.',
           close: 'إغلاق',
         },
       },
       footer: {
         copyright: '© 2025 {lawyerName}. جميع الحقوق محفوظة.',
-        legal: 'إشعار قانوني',
+        legal: 'إشعارات قانونية',
       },
     },
   },

@@ -51,10 +51,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         if (!parsedData.appointmentRequests) {
           parsedData.appointmentRequests = [];
         }
-        // Ensure hero object exists for backward compatibility
-        if (!parsedData.hero) {
-            parsedData.hero = initialDb.hero;
-        }
         setState(s => ({ ...s, siteData: parsedData }));
       }
     } catch (error) {

@@ -126,9 +126,6 @@ export interface SiteData {
   about: {
     profileImageUrl: string;
   };
-  hero: {
-    imageUrl: string;
-  };
   contact: {
     email: string;
     whatsappNumber: string;
