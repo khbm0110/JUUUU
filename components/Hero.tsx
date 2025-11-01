@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <section className="h-screen flex items-center bg-gradient-to-r from-black via-gray-900 to-[#3a301f] text-white overflow-hidden">
+      <section className="py-24 md:py-40 flex items-center bg-gradient-to-r from-black via-gray-900 to-[#3a301f] text-white overflow-hidden">
         <div className="container mx-auto px-6 flex items-center">
           <div className="flex flex-col md:flex-row items-center justify-center w-full">
             
@@ -74,18 +74,18 @@ const Hero: React.FC = () => {
              
                <div className="min-h-[50px]">
                 <div
-                 className={`flex flex-col sm:flex-row items-center justify-center gap-4 transition-opacity duration-500 ${showCta ? 'opacity-100' : 'opacity-0'}`}
+                 className={`max-w-lg mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 transition-opacity duration-500 ${showCta ? 'opacity-100' : 'opacity-0'}`}
                >
                   <a
                     href={`tel:+${phoneNumber}`}
-                    className="bg-yellow-500 text-gray-900 font-bold py-3 px-6 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg w-full sm:w-auto flex items-center justify-center gap-2"
+                    className="bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
                   >
                     <PhoneIcon className="h-5 w-5" />
                     <span>{displayNumber}</span>
                   </a>
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="bg-transparent border-2 border-yellow-500 text-yellow-500 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-500 hover:text-gray-900 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                    className="bg-transparent border-2 border-yellow-500 text-yellow-500 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-500 hover:text-gray-900 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
                   >
                     {translations.ctaAppointment}
                   </button>
