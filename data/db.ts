@@ -1,16 +1,17 @@
 
+
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
   about: {
-    profileImageUrl: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    profileImageUrl: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1887&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   hero: {
-    imageUrl: "https://images.unsplash.com/photo-1590650035252-a773f3453b32?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl: "https://images.unsplash.com/photo-1590650035252-a773f3453b32?q=80&w=2070&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   contact: {
     email: "contact@hassar-law.com",
-    whatsappNumber: "212612345678",
+    whatsappNumber: "212616351285",
     address: "123 Rue de la Justice, 75001 Paris, France",
     googleMapsLink: "https://www.google.com/maps/search/?api=1&query=123+Rue+de+la+Justice,+75001+Paris,+France",
   },

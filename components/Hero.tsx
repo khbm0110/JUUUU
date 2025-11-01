@@ -1,14 +1,19 @@
 
-
 import React, { useState, useEffect, useContext } from 'react';
 import { useTypewriter } from '../hooks/useTypewriter';
 import { AppContext } from '../contexts/AppContext';
 import AppointmentModal from './AppointmentModal';
 
+const PhoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+  </svg>
+);
+
 const Hero: React.FC = () => {
   const { state } = useContext(AppContext);
   const { hero: translations } = state.siteData.content[state.language];
-  const { contact: contactInfo, hero: heroData } = state.siteData;
+  const { contact: contactInfo } = state.siteData;
   
   const [typedTitle, isTitleFinished] = useTypewriter(translations.title, 60);
   const [showSubtitle, setShowSubtitle] = useState(false);
@@ -36,26 +41,16 @@ const Hero: React.FC = () => {
 
   const subtitleWords = translations.subtitle.split(' ');
   const phoneNumber = contactInfo.whatsappNumber;
+  const displayNumber = "06 16 35 12 85";
 
   return (
     <>
       <section className="h-screen flex items-center bg-gradient-to-r from-black via-gray-900 to-[#3a301f] text-white overflow-hidden">
         <div className="container mx-auto px-6 flex items-center">
-          <div className="flex flex-col md:flex-row items-center justify-between w-full gap-12">
+          <div className="flex flex-col md:flex-row items-center justify-center w-full">
             
-            {/* Image Content */}
-            <div className="md:w-5/12 hidden md:block">
-              <div className="w-full max-h-[600px] rounded-lg overflow-hidden shadow-2xl border-2 border-gray-700 aspect-[3/4]">
-                <img 
-                  src={heroData.imageUrl} 
-                  alt="Maître Fatima Azzahraa Hassar" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
             {/* Text Content */}
-            <div className="md:w-7/12 text-center md:text-left rtl:md:text-right">
+            <div className="md:w-10/12 lg:w-8/12 text-center">
               <h1 className="text-4xl md:text-6xl font-extrabold font-heading leading-[1.1] tracking-wide mb-4 min-h-[120px] md:min-h-[135px]">
                 {typedTitle}
                 {!isTitleFinished && (
@@ -64,7 +59,7 @@ const Hero: React.FC = () => {
               </h1>
               
               <div className="min-h-[70px] md:min-h-[80px]">
-                <p className="text-lg md:text-xl text-gray-300 mb-6 max-w-xl mx-auto md:mx-0">
+                <p className="text-lg md:text-xl text-gray-300 mb-6 max-w-xl mx-auto">
                   {subtitleWords.map((word, index) => (
                     <span
                       key={index}
@@ -79,13 +74,14 @@ const Hero: React.FC = () => {
              
                <div className="min-h-[50px]">
                 <div
-                 className={`flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 transition-opacity duration-500 ${showCta ? 'opacity-100' : 'opacity-0'}`}
+                 className={`flex flex-col sm:flex-row items-center justify-center gap-4 transition-opacity duration-500 ${showCta ? 'opacity-100' : 'opacity-0'}`}
                >
                   <a
-                    href={`tel:${phoneNumber}`}
-                    className="bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg w-full sm:w-auto"
+                    href={`tel:+${phoneNumber}`}
+                    className="bg-yellow-500 text-gray-900 font-bold py-3 px-6 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg w-full sm:w-auto flex items-center justify-center gap-2"
                   >
-                    {translations.ctaCall}
+                    <PhoneIcon className="h-5 w-5" />
+                    <span>{displayNumber}</span>
                   </a>
                   <button
                     onClick={() => setIsModalOpen(true)}
