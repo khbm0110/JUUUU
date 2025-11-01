@@ -30,7 +30,6 @@ export interface Consultation {
   email: string;
   message: string;
   date: string; // ISO String
-  handled: boolean;
 }
 
 export interface AppointmentRequest {
@@ -41,7 +40,6 @@ export interface AppointmentRequest {
   preferredDateTime: string;
   confirmationMethod: 'sms' | 'email';
   date: string; // ISO String of submission
-  handled: boolean;
 }
 
 export interface Stat {
@@ -79,6 +77,7 @@ export interface Translations {
   contact: {
     titlePrefix: string;
     intro: string;
+    phonePrompt: string;
     whatsapp: string;
     emailPrompt: string;
     addressTitle: string;
@@ -134,8 +133,9 @@ export interface SiteData {
     facebook: string;
   };
   testimonials: Testimonial[];
-  consultations: Consultation[];
-  appointmentRequests: AppointmentRequest[];
+  // DEPRECATED: Consultations and appointments are now handled by an external form service.
+  // consultations: Consultation[];
+  // appointmentRequests: AppointmentRequest[];
   settings: SiteSettings;
   content: SiteContent;
 }

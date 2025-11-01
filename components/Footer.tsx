@@ -4,7 +4,7 @@ import { FacebookIcon } from './icons/FacebookIcon';
 import { AppContext } from '../contexts/AppContext';
 
 const Footer: React.FC = () => {
-  const { state, navigate } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const { footer: translations, lawyerName } = state.siteData.content[state.language];
   const { contact, socials, settings } = state.siteData;
   
@@ -27,10 +27,6 @@ const Footer: React.FC = () => {
             <a href="#" className="hover:text-yellow-400 transition-colors duration-300">
               {translations.legal}
             </a>
-            <span className="text-gray-600">|</span>
-            <button onClick={() => navigate('/login')} className="hover:text-yellow-400 transition-colors duration-300">
-              Admin
-            </button>
         </div>
       </div>
     </footer>

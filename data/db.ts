@@ -1,3 +1,4 @@
+
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
@@ -17,8 +18,8 @@ export const initialDb: SiteData = {
     { id: 't2', name: 'M. Dupont', comment: "Très à l'écoute et d'un grand professionnalisme. Je recommande vivement ses services pour toute affaire familiale.", rating: 5 },
     { id: 't3', name: 'Immo Corp', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellente avocate.', rating: 4 },
   ],
-  consultations: [],
-  appointmentRequests: [],
+  // consultations: [], // Deprecated
+  // appointmentRequests: [], // Deprecated
   settings: {
     themeColor: 'gold',
     copyrightName: "Maître Fatima Azzahraa Hassar"
@@ -71,7 +72,8 @@ export const initialDb: SiteData = {
       },
       contact: {
         titlePrefix: 'Contactez',
-        intro: "Pour une réponse rapide, n'hésitez pas à nous contacter directement via WhatsApp ou par email.",
+        intro: "Pour toute demande, vous pouvez nous joindre via les coordonnées ci-dessous ou en utilisant le formulaire de contact.",
+        phonePrompt: 'Téléphone :',
         whatsapp: 'Discuter sur WhatsApp',
         emailPrompt: 'Ou par email :',
         addressTitle: 'Notre Adresse',
@@ -142,7 +144,8 @@ export const initialDb: SiteData = {
       },
       contact: {
         titlePrefix: 'Contact',
-        intro: 'For a quick response, feel free to contact us directly via WhatsApp or email.',
+        intro: "For any inquiries, you can reach us using the contact details below or by using the contact form.",
+        phonePrompt: 'Phone:',
         whatsapp: 'Chat on WhatsApp',
         emailPrompt: 'Or by email:',
         addressTitle: 'Our Address',
@@ -213,7 +216,8 @@ export const initialDb: SiteData = {
       },
       contact: {
         titlePrefix: 'اتصلوا بـ',
-        intro: "للحصول على رد سريع، لا تترددوا في الاتصال بنا مباشرة عبر الواتساب أو البريد الإلكتروني.",
+        intro: "لأي استفسار، يمكنكم التواصل معنا باستخدام بيانات الاتصال أدناه أو عبر نموذج الاتصال.",
+        phonePrompt: 'الهاتف:',
         whatsapp: 'محادثة عبر الواتساب',
         emailPrompt: 'أو عبر البريد الإلكتروني:',
         addressTitle: 'عنواننا',
