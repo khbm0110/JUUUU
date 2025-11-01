@@ -1,11 +1,13 @@
 
+
+
 // FIX: Imported `ReactNode` to resolve a type error in the `CollapsibleSection` component.
 import React, { useState, useContext, useEffect, ChangeEvent, ReactElement, ReactNode } from 'react';
 import { AppContext } from '../contexts/AppContext';
-import { AdminDashboardIcon, AdminAboutIcon, AdminServicesIcon, AdminConsultationsIcon, AdminContactIcon, AdminTestimonialsIcon, AdminLanguagesIcon, AdminSettingsIcon, AdminLogoutIcon, AdminMenuIcon, AdminCloseIcon, AdminSaveIcon, AdminPlusIcon, AdminDeleteIcon, AdminEditIcon, AdminStarFilledIcon, AdminStarOutlineIcon } from '../components/admin/icons';
-import { Language, Service, Testimonial, SiteData, Consultation } from '../types';
+import { AdminDashboardIcon, AdminAboutIcon, AdminServicesIcon, AdminConsultationsIcon, AdminAppointmentsIcon, AdminContactIcon, AdminTestimonialsIcon, AdminLanguagesIcon, AdminSettingsIcon, AdminLogoutIcon, AdminMenuIcon, AdminCloseIcon, AdminSaveIcon, AdminPlusIcon, AdminDeleteIcon, AdminEditIcon, AdminStarFilledIcon, AdminStarOutlineIcon } from '../components/admin/icons';
+import { Language, Service, Testimonial, SiteData, Consultation, AppointmentRequest } from '../types';
 
-type AdminView = 'dashboard' | 'about' | 'services' | 'consultations' | 'contact' | 'testimonials' | 'languages' | 'settings';
+type AdminView = 'dashboard' | 'about' | 'services' | 'consultations' | 'appointments' | 'contact' | 'testimonials' | 'languages' | 'settings';
 
 
 // --- Reusable Form Components ---
@@ -337,7 +339,8 @@ const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.S
                     {/* BUG FIX: Added optional chaining and fallbacks for all nested properties. */}
                     <AdminTextarea label="Titre Principal (utilisez \n pour un saut de ligne)" value={(currentLangData.hero?.title || '').replace(/\n/g, '\\n')} onChange={(e) => handleTextChange('hero.title', e.target.value)} rows={2} />
                     <AdminInput label="Sous-titre" value={currentLangData.hero?.subtitle || ''} onChange={(e) => handleTextChange('hero.subtitle', e.target.value)} />
-                    <AdminInput label="Texte du bouton (CTA)" value={currentLangData.hero?.cta || ''} onChange={(e) => handleTextChange('hero.cta', e.target.value)} />
+                    <AdminInput label="Texte du bouton (Appel)" value={currentLangData.hero?.ctaCall || ''} onChange={(e) => handleTextChange('hero.ctaCall', e.target.value)} />
+                    <AdminInput label="Texte du bouton (Rendez-vous)" value={currentLangData.hero?.ctaAppointment || ''} onChange={(e) => handleTextChange('hero.ctaAppointment', e.target.value)} />
                 </CollapsibleSection>
                 
                 <CollapsibleSection title="Section À Propos">
@@ -370,12 +373,24 @@ const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.S
                     <AdminInput label="Titre bloc Adresse" value={currentLangData.contact?.addressTitle || ''} onChange={(e) => handleTextChange('contact.addressTitle', e.target.value)} />
                     <AdminInput label="Texte sur la carte" value={currentLangData.contact?.viewOnMap || ''} onChange={(e) => handleTextChange('contact.viewOnMap', e.target.value)} />
                     <div className="pl-4 border-l-2 border-gray-700 space-y-4">
-                        <h4 className="text-md font-semibold text-gray-300">Textes du formulaire</h4>
+                        <h4 className="text-md font-semibold text-gray-300">Textes du formulaire de contact</h4>
                         <AdminInput label="Placeholder Nom" value={currentLangData.contact?.form?.name || ''} onChange={(e) => handleTextChange('contact.form.name', e.target.value)} />
                         <AdminInput label="Placeholder Email" value={currentLangData.contact?.form?.email || ''} onChange={(e) => handleTextChange('contact.form.email', e.target.value)} />
                         <AdminInput label="Placeholder Message" value={currentLangData.contact?.form?.message || ''} onChange={(e) => handleTextChange('contact.form.message', e.target.value)} />
                         <AdminInput label="Texte bouton Envoyer" value={currentLangData.contact?.form?.submit || ''} onChange={(e) => handleTextChange('contact.form.submit', e.target.value)} />
                         <AdminInput label="Message de succès" value={currentLangData.contact?.form?.success || ''} onChange={(e) => handleTextChange('contact.form.success', e.target.value)} />
+                    </div>
+                     <div className="pl-4 border-l-2 border-gray-700 space-y-4 mt-4">
+                        <h4 className="text-md font-semibold text-gray-300">Textes du modal de rendez-vous</h4>
+                        <AdminInput label="Titre du modal" value={currentLangData.contact?.appointmentModal?.title || ''} onChange={(e) => handleTextChange('contact.appointmentModal.title', e.target.value)} />
+                        <AdminInput label="Placeholder Nom" value={currentLangData.contact?.appointmentModal?.name || ''} onChange={(e) => handleTextChange('contact.appointmentModal.name', e.target.value)} />
+                        <AdminInput label="Placeholder Email" value={currentLangData.contact?.appointmentModal?.email || ''} onChange={(e) => handleTextChange('contact.appointmentModal.email', e.target.value)} />
+                        <AdminInput label="Placeholder Téléphone" value={currentLangData.contact?.appointmentModal?.phone || ''} onChange={(e) => handleTextChange('contact.appointmentModal.phone', e.target.value)} />
+                        <AdminInput label="Texte Confirmation" value={currentLangData.contact?.appointmentModal?.confirmation || ''} onChange={(e) => handleTextChange('contact.appointmentModal.confirmation', e.target.value)} />
+                        <AdminInput label="Texte 'Par Email'" value={currentLangData.contact?.appointmentModal?.byEmail || ''} onChange={(e) => handleTextChange('contact.appointmentModal.byEmail', e.target.value)} />
+                        <AdminInput label="Texte 'Par SMS'" value={currentLangData.contact?.appointmentModal?.bySms || ''} onChange={(e) => handleTextChange('contact.appointmentModal.bySms', e.target.value)} />
+                        <AdminInput label="Texte bouton Confirmer" value={currentLangData.contact?.appointmentModal?.submit || ''} onChange={(e) => handleTextChange('contact.appointmentModal.submit', e.target.value)} />
+                        <AdminInput label="Message de succès" value={currentLangData.contact?.appointmentModal?.success || ''} onChange={(e) => handleTextChange('contact.appointmentModal.success', e.target.value)} />
                     </div>
                 </CollapsibleSection>
 
@@ -413,8 +428,7 @@ const ContactEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.Se
 };
 
 const AboutEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
-    // BUG FIX: Updated handleChange to safely handle potentially undefined `prev.about`.
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleAboutChange = (e: ChangeEvent<HTMLInputElement>) => {
         setData(prev => ({ 
             ...prev, 
             about: { 
@@ -424,12 +438,22 @@ const AboutEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetS
         }));
     };
 
+    const handleHeroChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setData(prev => ({
+            ...prev,
+            hero: {
+                ...(prev.hero || { imageUrl: '' }),
+                [e.target.name]: e.target.value
+            }
+        }));
+    };
+
     return (
          <div className="space-y-6 max-w-xl">
-            <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-2">À propos</h3>
-            {/* BUG FIX: Added optional chaining and a fallback to prevent crashes on render. */}
-            <AdminInput label="URL de l'image de profil" name="profileImageUrl" value={data.about?.profileImageUrl || ''} onChange={handleChange} />
-             <p className="text-gray-400 text-sm">Pour modifier les textes de cette section, allez dans l'onglet "Langues".</p>
+            <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-2">Images du Site</h3>
+            <AdminInput label="URL de l'image de profil (section À Propos)" name="profileImageUrl" value={data.about?.profileImageUrl || ''} onChange={handleAboutChange} />
+            <AdminInput label="URL de l'image (section Hero)" name="imageUrl" value={data.hero?.imageUrl || ''} onChange={handleHeroChange} />
+             <p className="text-gray-400 text-sm">Pour modifier les textes de la section "À Propos", allez dans l'onglet "Langues".</p>
         </div>
     );
 };
@@ -506,6 +530,80 @@ const ConsultationsView: React.FC<{ data: SiteData, setData: React.Dispatch<Reac
     );
 };
 
+const AppointmentsView: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
+
+    const toggleHandled = (id: string) => {
+        setData(prevData => {
+            const newData = JSON.parse(JSON.stringify(prevData));
+            if (!newData.appointmentRequests) {
+                newData.appointmentRequests = [];
+            }
+            const appointment = newData.appointmentRequests.find((a: AppointmentRequest) => a.id === id);
+            if (appointment) {
+                appointment.handled = !appointment.handled;
+            }
+            return newData;
+        });
+    };
+
+    const sortedAppointments = [...(data.appointmentRequests || [])].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    
+    if (!sortedAppointments || sortedAppointments.length === 0) {
+        return (
+            <div>
+                <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-4">Demandes de rendez-vous</h3>
+                <div className="bg-gray-800 p-8 rounded-lg border border-gray-700 text-center">
+                    <p className="text-gray-400">Aucune demande de rendez-vous pour le moment.</p>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-4">Demandes de rendez-vous</h3>
+            <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+                <div className="divide-y divide-gray-700">
+                    {sortedAppointments.map((a: AppointmentRequest) => (
+                        <details key={a.id} className="p-4 group">
+                            <summary className="flex items-center justify-between cursor-pointer list-none">
+                                <div className="flex items-center gap-4">
+                                     <span className={`flex-shrink-0 w-3 h-3 rounded-full ${!a.handled ? 'bg-yellow-400' : 'bg-green-500'}`} title={!a.handled ? 'En attente' : 'Traité'}></span>
+                                    <span className="font-semibold text-white w-48 truncate">{a.name}</span>
+                                    <span className="text-gray-400 w-56 truncate hidden md:inline">{new Date(a.preferredDateTime).toLocaleString('fr-FR')}</span>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <span className="text-sm text-gray-500">{new Date(a.date).toLocaleDateString('fr-FR')}</span>
+                                    <span className="transform transition-transform duration-200 group-open:rotate-180">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                          <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </summary>
+                            <div className="mt-4 pt-4 border-t border-gray-700 space-y-2 text-gray-300">
+                               <p><strong className="text-gray-400">Email:</strong> {a.email}</p>
+                               <p><strong className="text-gray-400">Téléphone:</strong> {a.phone}</p>
+                               <p><strong className="text-gray-400">Date souhaitée:</strong> {new Date(a.preferredDateTime).toLocaleString('fr-FR', { dateStyle: 'full', timeStyle: 'short' })}</p>
+                               <p><strong className="text-gray-400">Confirmation via:</strong> {a.confirmationMethod}</p>
+                               <div className="flex justify-end mt-4">
+                                   <button onClick={() => toggleHandled(a.id)} className={`px-3 py-1 text-sm font-bold rounded-full transition-colors ${
+                                       a.handled
+                                       ? 'bg-gray-600 hover:bg-gray-500 text-white'
+                                       : 'bg-yellow-500 hover:bg-yellow-400 text-black'
+                                   }`}>
+                                       {a.handled ? 'Marquer comme non traité' : 'Marquer comme traité'}
+                                   </button>
+                               </div>
+                            </div>
+                        </details>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
 
 // --- Main Admin Dashboard Component ---
 
@@ -536,6 +634,7 @@ const AdminDashboard: React.FC = () => {
             case 'languages': return <LanguageEditor data={localSiteData} setData={setLocalSiteData} />;
             case 'contact': return <ContactEditor data={localSiteData} setData={setLocalSiteData} />;
             case 'consultations': return <ConsultationsView data={localSiteData} setData={setLocalSiteData} />;
+            case 'appointments': return <AppointmentsView data={localSiteData} setData={setLocalSiteData} />;
             case 'about': return <AboutEditor data={localSiteData} setData={setLocalSiteData} />;
             default: return <div className="p-8"><h2 className="text-2xl font-bold text-white">Section en construction</h2></div>;
         }
@@ -557,6 +656,7 @@ const AdminDashboard: React.FC = () => {
                     <NavItem icon={<AdminServicesIcon />} text="Services" active={view === 'services'} onClick={() => setView('services')} isOpen={isSidebarOpen} />
                     <NavItem icon={<AdminTestimonialsIcon />} text="Témoignages" active={view === 'testimonials'} onClick={() => setView('testimonials')} isOpen={isSidebarOpen} />
                     <NavItem icon={<AdminConsultationsIcon />} text="Consultations" active={view === 'consultations'} onClick={() => setView('consultations')} isOpen={isSidebarOpen} />
+                    <NavItem icon={<AdminAppointmentsIcon />} text="Rendez-vous" active={view === 'appointments'} onClick={() => setView('appointments')} isOpen={isSidebarOpen} />
                     <NavItem icon={<AdminContactIcon />} text="Contact" active={view === 'contact'} onClick={() => setView('contact')} isOpen={isSidebarOpen} />
                     <NavItem icon={<AdminLanguagesIcon />} text="Langues" active={view === 'languages'} onClick={() => setView('languages')} isOpen={isSidebarOpen} />
                     <NavItem icon={<AdminSettingsIcon />} text="Paramètres" active={view === 'settings'} onClick={() => setView('settings')} isOpen={isSidebarOpen} />

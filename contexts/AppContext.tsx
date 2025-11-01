@@ -1,5 +1,7 @@
+
+
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { SiteData, Language, Consultation } from '../types';
+import { SiteData, Language, Consultation, AppointmentRequest } from '../types';
 import { initialDb } from '../data/db';
 
 // Hardcoded password for demo purposes
@@ -21,6 +23,7 @@ interface AppContextType {
   login: (password: string) => boolean;
   logout: () => void;
   addConsultation: (consultationData: Omit<Consultation, 'id' | 'date' | 'handled'>) => void;
+  addAppointmentRequest: (appointmentData: Omit<AppointmentRequest, 'id' | 'date' | 'handled'>) => void;
   updateSiteData: (newData: SiteData) => void;
 }
 
@@ -43,6 +46,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         // Ensure consultations array exists for backward compatibility
         if (!parsedData.consultations) {
           parsedData.consultations = [];
+        }
+        // Ensure appointmentRequests array exists
+        if (!parsedData.appointmentRequests) {
+          parsedData.appointmentRequests = [];
+        }
+        // Ensure hero object exists for backward compatibility
+        if (!parsedData.hero) {
+            parsedData.hero = initialDb.hero;
         }
         setState(s => ({ ...s, siteData: parsedData }));
       }
@@ -111,6 +122,22 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       newSiteData.consultations.unshift(newConsultation); // Add to the top
       saveSiteData(newSiteData);
   };
+  
+  const addAppointmentRequest = (appointmentData: Omit<AppointmentRequest, 'id' | 'date' | 'handled'>) => {
+    const newAppointment: AppointmentRequest = {
+      ...appointmentData,
+      id: `app_${Date.now()}`,
+      date: new Date().toISOString(),
+      handled: false,
+    };
+    
+    const newSiteData = JSON.parse(JSON.stringify(state.siteData));
+    if (!newSiteData.appointmentRequests) {
+        newSiteData.appointmentRequests = [];
+    }
+    newSiteData.appointmentRequests.unshift(newAppointment);
+    saveSiteData(newSiteData);
+  };
 
   // This is used by the admin panel to save all changes
   const updateSiteData = (newData: SiteData) => {
@@ -118,7 +145,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   return (
-    <AppContext.Provider value={{ state, setLanguage, navigate, login, logout, addConsultation, updateSiteData }}>
+    <AppContext.Provider value={{ state, setLanguage, navigate, login, logout, addConsultation, addAppointmentRequest, updateSiteData }}>
       {children}
     </AppContext.Provider>
   );

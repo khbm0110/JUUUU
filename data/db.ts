@@ -1,9 +1,11 @@
-
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
   about: {
-    profileImageUrl: "https://picsum.photos/seed/lawyer2/400/400",
+    profileImageUrl: "https://images.unsplash.com/photo-1622126827051-3b6102195e29?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  hero: {
+    imageUrl: "https://images.unsplash.com/photo-1622126827051-3b6102195e29?q=80&w=1887&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   contact: {
     email: "contact@hassar-law.com",
@@ -21,6 +23,7 @@ export const initialDb: SiteData = {
     { id: 't3', name: 'Immo Corp', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellente avocate.', rating: 4 },
   ],
   consultations: [],
+  appointmentRequests: [],
   settings: {
     logoUrl: "",
     themeColor: 'gold',
@@ -41,7 +44,8 @@ export const initialDb: SiteData = {
       hero: {
         title: 'Votre avocate de confiance pour défendre vos droits',
         subtitle: 'Conseil, accompagnement et expertise juridique à votre service.',
-        cta: 'Contactez-nous',
+        ctaCall: 'Appeler maintenant',
+        ctaAppointment: 'Prendre rendez-vous',
       },
       about: {
         titlePrefix: 'À propos de',
@@ -79,6 +83,19 @@ export const initialDb: SiteData = {
         addressTitle: 'Notre Adresse',
         viewOnMap: 'Voir sur Google Maps',
         form: { name: 'Votre nom', email: 'Votre email', message: 'Votre message', submit: 'Envoyer le message', success: 'Message envoyé avec succès !' },
+        appointmentModal: {
+          title: 'Prendre un rendez-vous',
+          name: 'Votre nom complet',
+          email: 'Votre adresse email',
+          phone: 'Votre numéro de téléphone',
+          dateTime: 'Date et heure souhaitées',
+          confirmation: 'Recevoir la confirmation par :',
+          bySms: 'SMS',
+          byEmail: 'Email',
+          submit: 'Confirmer le rendez-vous',
+          success: 'Votre demande a été envoyée ! Nous vous contacterons bientôt pour confirmer.',
+          close: 'Fermer',
+        },
       },
       footer: {
         copyright: '© 2025 {lawyerName}. Tous droits réservés.',
@@ -99,7 +116,8 @@ export const initialDb: SiteData = {
       hero: {
         title: 'Your Trusted Lawyer to Defend Your Rights',
         subtitle: 'Legal advice, support, and expertise at your service.',
-        cta: 'Contact Us',
+        ctaCall: 'Call Now',
+        ctaAppointment: 'Book Appointment',
       },
       about: {
         titlePrefix: 'About',
@@ -136,6 +154,19 @@ export const initialDb: SiteData = {
         addressTitle: 'Our Address',
         viewOnMap: 'View on Google Maps',
         form: { name: 'Your Name', email: 'Your Email', message: 'Your Message', submit: 'Send Message', success: 'Message sent successfully!' },
+        appointmentModal: {
+          title: 'Book an Appointment',
+          name: 'Your Full Name',
+          email: 'Your Email Address',
+          phone: 'Your Phone Number',
+          dateTime: 'Preferred Date & Time',
+          confirmation: 'Receive confirmation via:',
+          bySms: 'SMS',
+          byEmail: 'Email',
+          submit: 'Confirm Appointment',
+          success: 'Your request has been sent! We will contact you shortly to confirm.',
+          close: 'Close',
+        },
       },
       footer: {
         copyright: '© 2025 {lawyerName}. All rights reserved.',
@@ -156,7 +187,8 @@ export const initialDb: SiteData = {
       hero: {
         title: 'محاميتكم الموثوقة للدفاع عن حقوقكم',
         subtitle: 'استشارات ودعم وخبرة قانونية في خدمتكم.',
-        cta: 'اتصل بنا',
+        ctaCall: 'اتصل الآن',
+        ctaAppointment: 'حجز موعد',
       },
       about: {
         titlePrefix: 'نبذة عن',
@@ -193,6 +225,19 @@ export const initialDb: SiteData = {
         addressTitle: 'عنواننا',
         viewOnMap: 'عرض على خرائط جوجل',
         form: { name: 'اسمك', email: 'بريدك الإلكتروني', message: 'رسالتك', submit: 'إرسال الرسالة', success: 'تم إرسال الرسالة بنجاح!' },
+        appointmentModal: {
+          title: 'حجز موعد',
+          name: 'اسمك الكامل',
+          email: 'عنوان بريدك الإلكتروني',
+          phone: 'رقم هاتفك',
+          dateTime: 'التاريخ والوقت المفضل',
+          confirmation: 'تلقي التأكيد عبر:',
+          bySms: 'رسالة نصية',
+          byEmail: 'البريد الإلكتروني',
+          submit: 'تأكيد الموعد',
+          success: 'تم إرسال طلبك! سنتصل بك قريبا للتأكيد.',
+          close: 'إغلاق',
+        },
       },
       footer: {
         copyright: '© 2025 {lawyerName}. جميع الحقوق محفوظة.',

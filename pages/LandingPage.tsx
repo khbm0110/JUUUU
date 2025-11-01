@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -89,7 +90,7 @@ const LandingPage: React.FC = () => {
       />
       <main>
         <div ref={heroRef} id="hero">
-          <Hero scrollToContact={() => scrollToSection('#contact')} />
+          <Hero />
         </div>
         <div ref={aboutRef} id="about">
           <About />
