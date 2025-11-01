@@ -1,12 +1,7 @@
-
-
-
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  about: {
-    profileImageUrl: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
+  heroImageUrl: 'https://i.postimg.cc/kM8xcGzk/360-F-516209984-APT701DWSDCUPz-Er-By-EBy-Urq-Ej-Hw-RYCX.jpg',
   contact: {
     email: "contact@hassar-law.com",
     whatsappNumber: "212616351285",
@@ -25,7 +20,6 @@ export const initialDb: SiteData = {
   consultations: [],
   appointmentRequests: [],
   settings: {
-    logoUrl: "",
     themeColor: 'gold',
     copyrightName: "Maître Fatima Azzahraa Hassar"
   },
@@ -230,7 +224,7 @@ export const initialDb: SiteData = {
           name: 'الاسم الكامل',
           email: 'البريد الإلكتروني',
           phone: 'رقم الهاتف',
-          dateTime: 'التاريخ والوقت المفضل',
+          dateTime: 'التاريخ والوقوف المفضل',
           confirmation: 'تلقي التأكيد عبر:',
           bySms: 'رسالة نصية',
           byEmail: 'بريد إلكتروني',

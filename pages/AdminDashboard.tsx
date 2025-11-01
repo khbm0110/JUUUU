@@ -3,6 +3,7 @@
 
 
 
+
 // FIX: Imported `ReactNode` to resolve a type error in the `CollapsibleSection` component.
 import React, { useState, useContext, useEffect, ChangeEvent, ReactElement, ReactNode } from 'react';
 import { AppContext } from '../contexts/AppContext';
@@ -429,26 +430,6 @@ const ContactEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.Se
     );
 };
 
-const AboutEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
-    const handleAboutChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setData(prev => ({ 
-            ...prev, 
-            about: { 
-                ...(prev.about || {}), 
-                [e.target.name]: e.target.value 
-            } 
-        }));
-    };
-
-    return (
-         <div className="space-y-6 max-w-xl">
-            <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-2">Images du Site</h3>
-            <AdminInput label="URL de l'image de profil (section À Propos)" name="profileImageUrl" value={data.about?.profileImageUrl || ''} onChange={handleAboutChange} />
-             <p className="text-gray-400 text-sm">Pour modifier les textes de la section "À Propos", allez dans l'onglet "Langues".</p>
-        </div>
-    );
-};
-
 const ConsultationsView: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
 
     const toggleHandled = (id: string) => {
@@ -626,7 +607,6 @@ const AdminDashboard: React.FC = () => {
             case 'contact': return <ContactEditor data={localSiteData} setData={setLocalSiteData} />;
             case 'consultations': return <ConsultationsView data={localSiteData} setData={setLocalSiteData} />;
             case 'appointments': return <AppointmentsView data={localSiteData} setData={setLocalSiteData} />;
-            case 'about': return <AboutEditor data={localSiteData} setData={setLocalSiteData} />;
             default: return <div className="p-8"><h2 className="text-2xl font-bold text-white">Section en construction</h2></div>;
         }
     };
@@ -643,7 +623,6 @@ const AdminDashboard: React.FC = () => {
                 </div>
                 <nav className="mt-4 flex-grow overflow-y-auto">
                     <NavItem icon={<AdminDashboardIcon />} text="Tableau de bord" active={view === 'dashboard'} onClick={() => setView('dashboard')} isOpen={isSidebarOpen} />
-                    <NavItem icon={<AdminAboutIcon />} text="À propos" active={view === 'about'} onClick={() => setView('about')} isOpen={isSidebarOpen} />
                     <NavItem icon={<AdminServicesIcon />} text="Services" active={view === 'services'} onClick={() => setView('services')} isOpen={isSidebarOpen} />
                     <NavItem icon={<AdminTestimonialsIcon />} text="Témoignages" active={view === 'testimonials'} onClick={() => setView('testimonials')} isOpen={isSidebarOpen} />
                     <NavItem icon={<AdminConsultationsIcon />} text="Consultations" active={view === 'consultations'} onClick={() => setView('consultations')} isOpen={isSidebarOpen} />

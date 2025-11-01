@@ -111,7 +111,6 @@ export interface Translations {
 }
 
 export interface SiteSettings {
-  logoUrl: string;
   themeColor: 'gold' | 'blue'; // Example setting
   copyrightName: string;
 }
@@ -123,9 +122,7 @@ export interface SiteContent {
 }
 
 export interface SiteData {
-  about: {
-    profileImageUrl: string;
-  };
+  heroImageUrl?: string;
   contact: {
     email: string;
     whatsappNumber: string;

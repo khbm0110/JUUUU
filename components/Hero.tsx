@@ -14,7 +14,7 @@ const PhoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 const Hero: React.FC = () => {
   const { state } = useContext(AppContext);
   const { hero: translations } = state.siteData.content[state.language];
-  const { contact: contactInfo } = state.siteData;
+  const { contact: contactInfo, heroImageUrl } = state.siteData;
   
   const [typedTitle, isTitleFinished] = useTypewriter(translations.title, 60);
   const [showSubtitle, setShowSubtitle] = useState(false);
@@ -47,8 +47,10 @@ const Hero: React.FC = () => {
   return (
     <>
       <section 
-        className="relative bg-black py-20 md:py-28 flex items-center text-white overflow-hidden"
+        className="relative bg-black py-20 md:py-28 flex items-center text-white overflow-hidden bg-cover bg-center"
+        style={heroImageUrl ? { backgroundImage: `url(${heroImageUrl})` } : {}}
       >
+        <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
         <div className="container mx-auto px-6 flex items-center relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-center w-full">
             
