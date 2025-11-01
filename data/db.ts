@@ -12,8 +12,8 @@ export const initialDb: SiteData = {
   contact: {
     email: "contact@hassar-law.com",
     whatsappNumber: "212616351285",
-    address: "123 Rue de la Justice, 75001 Paris, France",
-    googleMapsLink: "https://www.google.com/maps/search/?api=1&query=123+Rue+de+la+Justice,+75001+Paris,+France",
+    address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33",
+    googleMapsLink: "https://www.google.com/maps/search/?api=1&query=Boulevard+Taib+Naciri,+Résidence+Mohamed+Reda,+3ème+étage,+N°+33",
   },
   socials: {
     linkedin: "https://www.linkedin.com",
