@@ -1,3 +1,4 @@
+
 // FIX: Imported `ReactNode` to resolve a type error in the `CollapsibleSection` component.
 import React, { useState, useContext, useEffect, ChangeEvent, ReactElement, ReactNode } from 'react';
 import { AppContext } from '../contexts/AppContext';
@@ -64,7 +65,7 @@ const DashboardHome: React.FC<{ siteData: SiteData }> = ({ siteData }) => {
 
     return (
         <div>
-            <h2 className="text-3xl font-bold text-white mb-2">Bienvenue Maître Benmoussa</h2>
+            <h2 className="text-3xl font-bold text-white mb-2">Bienvenue Maître Hassar</h2>
             <p className="text-gray-400 mb-8">Voici un aperçu de votre site.</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">

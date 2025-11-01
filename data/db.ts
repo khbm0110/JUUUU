@@ -1,3 +1,4 @@
+
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
@@ -5,7 +6,7 @@ export const initialDb: SiteData = {
     profileImageUrl: "https://picsum.photos/seed/lawyer2/400/400",
   },
   contact: {
-    email: "contact@benmoussa-law.com",
+    email: "contact@hassar-law.com",
     whatsappNumber: "212612345678",
     address: "123 Rue de la Justice, 75001 Paris, France",
     googleMapsLink: "https://www.google.com/maps/search/?api=1&query=123+Rue+de+la+Justice,+75001+Paris,+France",
@@ -15,19 +16,19 @@ export const initialDb: SiteData = {
     facebook: "https://www.facebook.com",
   },
   testimonials: [
-    { id: 't1', name: 'Société A', comment: 'Une expertise et une réactivité hors pair. Maître Benmoussa a été un atout majeur dans notre litige commercial.', rating: 5 },
+    { id: 't1', name: 'Société A', comment: 'Une expertise et une réactivité hors pair. Maître Hassar a été un atout majeur dans notre litige commercial.', rating: 5 },
     { id: 't2', name: 'M. Dupont', comment: "Très à l'écoute et d'un grand professionnalisme. Je recommande vivement ses services pour toute affaire familiale.", rating: 5 },
-    { id: 't3', name: 'Immo Corp', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellent avocat.', rating: 4 },
+    { id: 't3', name: 'Immo Corp', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellente avocate.', rating: 4 },
   ],
   consultations: [],
   settings: {
     logoUrl: "",
     themeColor: 'gold',
-    copyrightName: "Maître Khalid Benmoussa"
+    copyrightName: "Maître Fatima Azzahraa Hassar"
   },
   content: {
     [Language.FR]: {
-      lawyerName: "Maître Khalid Benmoussa",
+      lawyerName: "Maître Fatima Azzahraa Hassar",
       header: {
         nav: [
           { name: 'Accueil', href: '#hero' },
@@ -38,14 +39,14 @@ export const initialDb: SiteData = {
         ],
       },
       hero: {
-        title: 'Votre avocat de confiance pour défendre vos droits',
+        title: 'Votre avocate de confiance pour défendre vos droits',
         subtitle: 'Conseil, accompagnement et expertise juridique à votre service.',
         cta: 'Contactez-nous',
       },
       about: {
         titlePrefix: 'À propos de',
-        p1: 'Fort d\'une solide expérience et d\'une passion pour la justice, Maître Khalid Benmoussa a fondé son cabinet avec la conviction que chaque client mérite une défense rigoureuse et personnalisée. Diplômé des plus grandes universités, il allie expertise technique et qualités humaines pour vous offrir une représentation juridique de premier ordre.',
-        p2: 'Son approche est fondée sur l\'écoute, la transparence et un engagement sans faille. Que vous soyez un particulier ou une entreprise, Maître Benmoussa s\'engage à protéger vos intérêts avec détermination et professionnalisme.',
+        p1: 'Forte d\'une solide expérience et d\'une passion pour la justice, Maître Fatima Azzahraa Hassar a fondé son cabinet avec la conviction que chaque client mérite une défense rigoureuse et personnalisée. Diplômée des plus grandes universités, elle allie expertise technique et qualités humaines pour vous offrir une représentation juridique de premier ordre.',
+        p2: 'Son approche est fondée sur l\'écoute, la transparence et un engagement sans faille. Que vous soyez un particulier ou une entreprise, Maître Hassar s\'engage à protéger vos intérêts avec détermination et professionnalisme.',
       },
       stats: {
         items: [
@@ -85,7 +86,7 @@ export const initialDb: SiteData = {
       },
     },
     [Language.EN]: {
-      lawyerName: "Khalid Benmoussa, Esq.",
+      lawyerName: "Fatima Azzahraa Hassar, Esq.",
       header: {
         nav: [
             { name: 'Home', href: '#hero' },
@@ -102,8 +103,8 @@ export const initialDb: SiteData = {
       },
       about: {
         titlePrefix: 'About',
-        p1: 'With solid experience and a passion for justice, Khalid Benmoussa founded his firm with the belief that every client deserves a rigorous and personalized defense. A graduate of top universities, he combines technical expertise with human qualities to offer you first-class legal representation.',
-        p2: 'His approach is based on listening, transparency, and unwavering commitment. Whether you are an individual or a business, Mr. Benmoussa is committed to protecting your interests with determination and professionalism.',
+        p1: 'With solid experience and a passion for justice, Fatima Azzahraa Hassar founded her firm with the belief that every client deserves a rigorous and personalized defense. A graduate of top universities, she combines technical expertise with human qualities to offer you first-class legal representation.',
+        p2: 'Her approach is based on listening, transparency, and unwavering commitment. Whether you are an individual or a business, Ms. Hassar is committed to protecting your interests with determination and professionalism.',
       },
       stats: {
         items: [
@@ -142,7 +143,7 @@ export const initialDb: SiteData = {
       },
     },
     [Language.AR]: {
-      lawyerName: "الأستاذ خالد بن موسى",
+      lawyerName: "الأستاذة فاطمة الزهراء حصار",
       header: {
         nav: [
             { name: 'الرئيسية', href: '#hero' },
@@ -153,14 +154,14 @@ export const initialDb: SiteData = {
         ],
       },
       hero: {
-        title: 'محاميك الموثوق للدفاع عن حقوقك',
+        title: 'محاميتكم الموثوقة للدفاع عن حقوقكم',
         subtitle: 'استشارات ودعم وخبرة قانونية في خدمتكم.',
         cta: 'اتصل بنا',
       },
       about: {
         titlePrefix: 'نبذة عن',
-        p1: 'بفضل خبرته الراسخة وشغفه بالعدالة، أسس الأستاذ خالد بن موسى مكتبه إيماناً منه بأن كل موكل يستحق دفاعاً دقيقاً وشخصياً. وهو خريج أرقى الجامعات، ويجمع بين الخبرة الفنية والصفات الإنسانية ليقدم لكم تمثيلاً قانونياً من الدرجة الأولى.',
-        p2: 'يعتمد منهجه على الاستماع والشفافية والالتزام الراسخ. سواء كنتم أفراداً أو شركات، يلتزم الأستاذ بن موسى بحماية مصالحكم بعزم واحترافية.',
+        p1: 'بفضل خبرتها الراسخة وشغفها بالعدالة، أسست الأستاذة فاطمة الزهراء حصار مكتبها إيماناً منها بأن كل موكل يستحق دفاعاً دقيقاً وشخصياً. وهي خريجة أرقى الجامعات، وتجمع بين الخبرة الفنية والصفات الإنسانية لتقدم لكم تمثيلاً قانونياً من الدرجة الأولى.',
+        p2: 'تعتمد منهجها على الاستماع والشفافية والالتزام الراسخ. سواء كنتم أفراداً أو شركات، تلتزم الأستاذة حصار بحماية مصالحكم بعزم واحترافية.',
       },
       stats: {
         items: [

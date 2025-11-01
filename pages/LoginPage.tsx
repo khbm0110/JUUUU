@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import { useAppContext } from '../contexts/AppContext';
 
 const LoginPage: React.FC = () => {
   const { login, navigate } = useAppContext();
-  const [email, setEmail] = useState('admin@benmoussa.com');
+  const [email, setEmail] = useState('admin@hassar.com');
   const [password, setPassword] = useState('123456');
   const [error, setError] = useState('');
 
@@ -11,7 +12,7 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     setError('');
     // Email check is bypassed for this demo
-    if (email !== 'admin@benmoussa.com') {
+    if (email !== 'admin@hassar.com') {
       setError('Email ou mot de passe incorrect.');
       return;
     }
