@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <section className="py-24 md:py-40 flex items-center bg-gradient-to-r from-black via-gray-900 to-[#3a301f] text-white overflow-hidden">
+      <section className="py-20 md:py-28 flex items-center bg-gradient-to-r from-black via-gray-900 to-[#3a301f] text-white overflow-hidden">
         <div className="container mx-auto px-6 flex items-center">
           <div className="flex flex-col md:flex-row items-center justify-center w-full">
             
