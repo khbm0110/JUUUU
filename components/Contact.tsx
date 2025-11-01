@@ -63,7 +63,7 @@ const Contact: React.FC = () => {
 
             <a href={siteConfig.contact.googleMapsLink} target="_blank" rel="noopener noreferrer" className="w-full group">
               <div className="w-full h-48 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative">
-                <img src="https://picsum.photos/seed/map/600/300" alt="Map Location" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"/>
+                <img src="https://images.unsplash.com/photo-1569336415962-a42945a473db?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Map Location" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"/>
                 <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-10 flex items-center justify-center transition-all duration-300">
                   <p className="text-white font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm bg-black/30 p-2 rounded">
                     {translations.viewOnMap}

@@ -1,11 +1,12 @@
+
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
   about: {
-    profileImageUrl: "https://images.unsplash.com/photo-1622126827051-3b6102195e29?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    profileImageUrl: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   hero: {
-    imageUrl: "https://images.unsplash.com/photo-1622126827051-3b6102195e29?q=80&w=1887&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageUrl: "https://images.unsplash.com/photo-1590650035252-a773f3453b32?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   contact: {
     email: "contact@hassar-law.com",
