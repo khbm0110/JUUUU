@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useInView } from '../hooks/useInView';
 import { AppContext } from '../contexts/AppContext';
 import Stats from './Stats';
+import CurvedSeparator from './CurvedSeparator';
 
 const About: React.FC = () => {
   const { state } = useContext(AppContext);
@@ -11,7 +12,8 @@ const About: React.FC = () => {
   const [ref, isInView] = useInView({ threshold: 0.2, triggerOnce: true });
 
   return (
-    <section ref={ref} className="bg-gray-900 py-20 md:py-32 overflow-hidden">
+    <section ref={ref} className="bg-gray-900 relative pt-28 md:pt-48 pb-28 md:pb-48">
+      <CurvedSeparator type="top" colorClass="text-gray-900" />
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
           <div className={`md:w-1/3 flex justify-center transition-all duration-1000 ease-out ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 rtl:translate-x-10'}`}>
@@ -31,6 +33,7 @@ const About: React.FC = () => {
         </div>
         <Stats />
       </div>
+      <CurvedSeparator type="bottom" colorClass="text-black" />
     </section>
   );
 };
