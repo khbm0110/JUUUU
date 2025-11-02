@@ -22,18 +22,25 @@ const CurvedSeparator: React.FC<CurvedSeparatorProps> = ({ colorClass, type }) =
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1440 320"
         preserveAspectRatio="none"
-        className="relative block w-[calc(100%+1.3px)] h-[100px] md:h-[160px]"
+        className="relative block w-[calc(100%+1.3px)] h-[100px] md:h-[150px]"
       >
-        {/* Layer 1: semi-transparent background wave */}
+        <defs>
+          <filter id="strong-shadow-filter" x="-20%" y="-20%" width="140%" height="140%">
+            <feOffset dx="0" dy="15" in="SourceAlpha" result="offOut" />
+            <feGaussianBlur stdDeviation="8" in="offOut" result="blurOut" />
+            <feComponentTransfer in="blurOut" result="opacOut">
+              <feFuncA type="linear" slope="0.5" />
+            </feComponentTransfer>
+            <feMerge>
+              <feMergeNode in="opacOut" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
         <path
-          d="M0,224L48,208C96,192,192,160,288,165.3C384,171,480,213,576,208C672,203,768,149,864,144C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          d="M0,160L60,181.3C120,203,240,245,360,250.7C480,256,600,224,720,197.3C840,171,960,149,1080,160C1200,171,1320,213,1380,234.7L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
           className={`fill-current ${colorClass}`}
-          style={{ opacity: 0.4 }}
-        />
-        {/* Layer 2: opaque foreground wave */}
-        <path
-          d="M0,160L48,170.7C96,181,192,203,288,202.7C384,203,480,181,576,154.7C672,128,768,96,864,112C960,128,1056,192,1152,213.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          className={`fill-current ${colorClass}`}
+          style={{ filter: `url(#strong-shadow-filter)` }}
         />
       </svg>
     </div>
