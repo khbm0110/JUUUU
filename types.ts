@@ -1,4 +1,5 @@
 
+
 export enum Language {
   FR = 'fr',
   EN = 'en',
@@ -95,6 +96,7 @@ export interface Translations {
       name: string;
       email: string;
       phone: string;
+      subject: string;
       dateTime: string;
       confirmation: string;
       bySms: string;

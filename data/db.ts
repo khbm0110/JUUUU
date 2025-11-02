@@ -1,4 +1,5 @@
 
+
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
@@ -33,6 +34,7 @@ export const initialDb: SiteData = {
           { name: 'À propos', href: '#about' },
           { name: 'Services', href: '#services' },
           { name: 'Témoignages', href: '#testimonials' },
+          { name: 'Rendez-vous', href: '#appointment' },
           { name: 'Contact', href: '#contact' },
         ],
       },
@@ -85,6 +87,7 @@ export const initialDb: SiteData = {
           name: 'Votre nom complet',
           email: 'Votre adresse email',
           phone: 'Votre numéro de téléphone',
+          subject: 'Sujet de la consultation',
           dateTime: 'Date et heure souhaitées',
           confirmation: 'Recevoir la confirmation par :',
           bySms: 'SMS',
@@ -107,6 +110,7 @@ export const initialDb: SiteData = {
             { name: 'About', href: '#about' },
             { name: 'Services', href: '#services' },
             { name: 'Testimonials', href: '#testimonials' },
+            { name: 'Booking', href: '#appointment' },
             { name: 'Contact', href: '#contact' },
         ],
       },
@@ -158,6 +162,7 @@ export const initialDb: SiteData = {
           name: 'Your Full Name',
           email: 'Your Email Address',
           phone: 'Your Phone Number',
+          subject: 'Reason for Appointment',
           dateTime: 'Preferred Date & Time',
           confirmation: 'Receive confirmation via:',
           bySms: 'SMS',
@@ -180,6 +185,7 @@ export const initialDb: SiteData = {
           { name: 'عني', href: '#about' },
           { name: 'الخدمات', href: '#services' },
           { name: 'الشهادات', href: '#testimonials' },
+          { name: 'حجز موعد', href: '#appointment' },
           { name: 'اتصل بنا', href: '#contact' },
         ],
       },
@@ -231,6 +237,7 @@ export const initialDb: SiteData = {
           name: 'الاسم الكامل',
           email: 'البريد الإلكتروني',
           phone: 'رقم الهاتف',
+          subject: 'سبب الموعد',
           dateTime: 'التاريخ والوقوف المفضل',
           confirmation: 'تلقي التأكيد عبر:',
           bySms: 'رسالة نصية',

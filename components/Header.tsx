@@ -7,9 +7,10 @@ import { useAppContext } from '../contexts/AppContext';
 interface HeaderProps {
   scrollToSection: (sectionId: string) => void;
   activeSection: string;
+  openAppointmentModal: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection }) => {
+const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openAppointmentModal }) => {
   const { state, setLanguage } = useAppContext();
   const { language } = state;
   const { lawyerName, header: translations } = state.siteData.content[language];
@@ -33,7 +34,11 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection }) => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    scrollToSection(href);
+    if (href === '#appointment') {
+      openAppointmentModal();
+    } else {
+      scrollToSection(href);
+    }
     setIsMobileMenuOpen(false);
   };
   

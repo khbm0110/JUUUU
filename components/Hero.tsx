@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTypewriter } from '../hooks/useTypewriter';
 import { AppContext } from '../contexts/AppContext';
-import AppointmentModal from './AppointmentModal';
 
 const PhoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
@@ -11,7 +10,11 @@ const PhoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  openAppointmentModal: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
   const { state } = useContext(AppContext);
   const { hero: translations } = state.siteData.content[state.language];
   const { contact: contactInfo, heroImageUrl } = state.siteData;
@@ -19,7 +22,6 @@ const Hero: React.FC = () => {
   const [typedTitle, isTitleFinished] = useTypewriter(translations.title, 60);
   const [showSubtitle, setShowSubtitle] = useState(false);
   const [showCta, setShowCta] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // When title typing is finished, wait 500ms then show the subtitle
   useEffect(() => {
@@ -89,7 +91,7 @@ const Hero: React.FC = () => {
                     <span>{displayNumber}</span>
                   </a>
                   <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={openAppointmentModal}
                     className="bg-transparent border-2 border-yellow-500 text-yellow-500 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-500 hover:text-gray-900 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
                   >
                     {translations.ctaAppointment}
@@ -101,7 +103,6 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </section>
-      <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };

@@ -11,8 +11,8 @@ const SideNav: React.FC<SideNavProps> = ({ activeSection, scrollToSection }) => 
   const { state } = useContext(AppContext);
   const { language } = state;
   // FIX: Filter navLinks to only include in-page hash links for scrolling.
-  // This prevents errors when a non-scrollable link like '/admin' is in the nav array.
-  const navLinks = state.siteData.content[language].header.nav.filter(link => link.href.startsWith('#'));
+  // This prevents errors when a non-scrollable link like '#appointment' is in the nav array.
+  const navLinks = state.siteData.content[language].header.nav.filter(link => link.href.startsWith('#') && link.href !== '#appointment');
 
   const handleNavClick = (e: React.MouseEvent<HTMLButtonElement>, href: string) => {
     e.preventDefault();

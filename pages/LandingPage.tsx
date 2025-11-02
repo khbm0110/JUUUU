@@ -1,4 +1,5 @@
 
+
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -10,11 +11,13 @@ import SideNav from '../components/SideNav';
 import Testimonials from '../components/Testimonials';
 import { AppContext } from '../contexts/AppContext';
 import { Language } from '../types';
+import AppointmentModal from '../components/AppointmentModal';
 
 const LandingPage: React.FC = () => {
   const { state } = useContext(AppContext);
   const { language } = state;
   const [activeSection, setActiveSection] = useState<string>('#hero');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -73,6 +76,8 @@ const LandingPage: React.FC = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
   
+  const openAppointmentModal = () => setIsModalOpen(true);
+
   useEffect(() => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === Language.AR ? 'rtl' : 'ltr';
@@ -83,6 +88,7 @@ const LandingPage: React.FC = () => {
       <Header
         scrollToSection={scrollToSection}
         activeSection={activeSection}
+        openAppointmentModal={openAppointmentModal}
       />
       <SideNav
         activeSection={activeSection}
@@ -90,7 +96,7 @@ const LandingPage: React.FC = () => {
       />
       <main>
         <div ref={heroRef} id="hero">
-          <Hero />
+          <Hero openAppointmentModal={openAppointmentModal} />
         </div>
         <div ref={aboutRef} id="about">
           <About />
@@ -106,6 +112,7 @@ const LandingPage: React.FC = () => {
         </div>
       </main>
       <Footer />
+      <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
