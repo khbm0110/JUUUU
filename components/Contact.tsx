@@ -1,14 +1,12 @@
 
+
 import React, { useState, useContext } from 'react';
 import { useInView } from '../hooks/useInView';
 import { AppContext } from '../contexts/AppContext';
 import CurvedSeparator from './CurvedSeparator';
-
-const PhoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-    </svg>
-  );
+import { PhoneIcon } from './icons/PhoneIcon';
+import { EmailIcon } from './icons/EmailIcon';
+import { LocationIcon } from './icons/LocationIcon';
 
 const Contact: React.FC = () => {
   const { state } = useContext(AppContext);
@@ -57,26 +55,46 @@ const Contact: React.FC = () => {
         <h2 className={`text-4xl font-bold font-heading text-center mb-12 text-yellow-400 transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>{`${translations.titlePrefix} ${lawyerName}`}</h2>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Left Column: Contact Info, Address & Map */}
-          <div className={`flex flex-col items-center md:items-start text-center md:text-left rtl:md:text-right transition-all duration-1000 ease-out ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 rtl:translate-x-10'}`}>
-            <div className="mb-8 text-center md:text-left rtl:md:text-right w-full">
-              <p className="text-gray-400 mb-6">{translations.intro}</p>
-              
-              <div className="text-gray-400 mb-6">
-                  {translations.phonePrompt}
-                  <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-yellow-400 hover:underline inline-flex items-center gap-2 ml-2 rtl:mr-2 rtl:ml-0">
-                      <PhoneIcon className="w-4 h-4" />
-                      <span>{displayNumber}</span>
+          <div className={`flex flex-col items-center md:items-start transition-all duration-1000 ease-out ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 rtl:translate-x-10'}`}>
+            <p className="text-gray-400 leading-relaxed mb-10 text-center md:text-left rtl:md:text-right">{translations.intro}</p>
+            
+            <div className="space-y-8 mb-10 w-full">
+              {/* Phone */}
+              <div className="flex items-start gap-5">
+                <div className="bg-gray-800 p-4 rounded-full border border-gray-700 flex-shrink-0 shadow-md">
+                  <PhoneIcon className="w-6 h-6 text-yellow-400"/>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">{translations.phonePrompt}</h3>
+                  <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-gray-400 hover:text-yellow-400 transition-colors">
+                    {displayNumber}
                   </a>
+                </div>
               </div>
 
-              <div className="text-gray-400">
-                  {translations.emailPrompt} <a href={`mailto:${siteConfig.contact.email}`} className="text-yellow-400 hover:underline">{siteConfig.contact.email}</a>
+              {/* Email */}
+              <div className="flex items-start gap-5">
+                <div className="bg-gray-800 p-4 rounded-full border border-gray-700 flex-shrink-0 shadow-md">
+                  <EmailIcon className="w-6 h-6 text-yellow-400"/>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">{translations.emailPrompt}</h3>
+                  <a href={`mailto:${siteConfig.contact.email}`} className="text-gray-400 hover:text-yellow-400 transition-colors">
+                    {siteConfig.contact.email}
+                  </a>
+                </div>
               </div>
-            </div>
-            
-            <div className="text-gray-400 mb-6 text-left rtl:text-right w-full">
-              <h3 className="font-bold text-lg text-white mb-2">{translations.addressTitle}</h3>
-              <p>{siteConfig.contact.address}</p>
+
+              {/* Address */}
+              <div className="flex items-start gap-5">
+                <div className="bg-gray-800 p-4 rounded-full border border-gray-700 flex-shrink-0 shadow-md">
+                  <LocationIcon className="w-6 h-6 text-yellow-400"/>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">{translations.addressTitle}</h3>
+                  <p className="text-gray-400">{siteConfig.contact.address}</p>
+                </div>
+              </div>
             </div>
 
             <div className="w-full h-64 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative">
