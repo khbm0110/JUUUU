@@ -52,7 +52,7 @@ const Contact: React.FC = () => {
       <div className="container mx-auto px-6">
         <h2 className={`text-4xl font-bold font-heading text-center mb-12 text-yellow-400 transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>{`${translations.titlePrefix} ${lawyerName}`}</h2>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Left Column: Contact Info, Address & Map */}
+          {/* Left Column: Contact Info */}
           <div className={`flex flex-col items-center md:items-start transition-all duration-1000 ease-out ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 rtl:translate-x-10'}`}>
             <p className="text-gray-400 leading-relaxed mb-10 text-center md:text-left rtl:md:text-right">{translations.intro}</p>
             
@@ -94,25 +94,6 @@ const Contact: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            <div className="w-full h-64 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative">
-              <iframe
-                title={translations.addressTitle}
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3325.136359332123!2d-7.6763056!3d33.5498333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDMyJzU5LjQiTiA3wrA0MCczNC43Ilc!5e0!3m2!1sen!2sma!4v1762105363005!5m2!1sen!2sma"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                scrolling="no"
-                marginHeight={0}
-                marginWidth={0}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full"
-                style={{ filter: 'grayscale(0.8) contrast(1.2) opacity(0.8)' }}
-              ></iframe>
-            </div>
-            <a href={siteConfig.contact.googleMapsLink} target="_blank" rel="noopener noreferrer" className="inline-block mt-4 text-yellow-400 hover:underline">
-              {translations.viewOnMap}
-            </a>
           </div>
           
           {/* Right Column: Form */}
@@ -169,6 +150,28 @@ const Contact: React.FC = () => {
               </button>
             </form>
             )}
+          </div>
+          
+          {/* Map Section */}
+          <div className={`md:col-span-2 mt-8 transition-all duration-1000 ease-out delay-500 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="w-full h-80 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative">
+              <iframe
+                title={translations.addressTitle}
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3325.136359332123!2d-7.6763056!3d33.5498333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDMyJzU5LjQiTiA3wrA0MCczNC43Ilc!5e0!3m2!1sen!2sma!4v1762105363005!5m2!1sen!2sma"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                marginHeight={0}
+                marginWidth={0}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full"
+                style={{ filter: 'grayscale(0.8) contrast(1.2) opacity(0.8)' }}
+              ></iframe>
+            </div>
+            <a href={siteConfig.contact.googleMapsLink} target="_blank" rel="noopener noreferrer" className="inline-block mt-4 text-yellow-400 hover:underline">
+              {translations.viewOnMap}
+            </a>
           </div>
         </div>
       </div>
