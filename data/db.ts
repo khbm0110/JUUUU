@@ -4,7 +4,7 @@ import { SiteData, Language } from '../types';
 export const initialDb: SiteData = {
   heroImageUrl: 'https://i.postimg.cc/kM8xcGzk/360-F-516209984-APT701DWSDCUPz-Er-By-EBy-Urq-Ej-Hw-RYCX.jpg',
   contact: {
-    email: "contact@hassar-law.com",
+    email: "contact@cabinethassar.ma",
     whatsappNumber: "212616351285",
     address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33",
     googleMapsLink: "https://www.google.com/maps/place/?q=place_id:ChIJ6rq1UUVspg0RDTL1I1G_3t4",
@@ -54,7 +54,7 @@ export const initialDb: SiteData = {
           { value: 18, label: "Domaines de spécialisation" },
           { value: 98, label: "Taux de réussite", suffix: '%' },
           { value: 100, label: "Avis Clients", suffix: '+' },
-          { value: 4, label: "Langues Parlées" },
+          { value: 3, label: "Langues Parlées" },
         ],
       },
       services: {
@@ -127,7 +127,7 @@ export const initialDb: SiteData = {
           { value: 18, label: "Areas of Expertise" },
           { value: 98, label: "Success Rate", suffix: '%' },
           { value: 100, label: "Client Reviews", suffix: '+' },
-          { value: 4, label: "Languages Spoken" },
+          { value: 3, label: "Languages Spoken" },
         ],
       },
       services: {
@@ -199,7 +199,7 @@ export const initialDb: SiteData = {
           { value: 18, label: "مجال تخصص" },
           { value: 98, label: "نسبة النجاح", suffix: '%' },
           { value: 100, label: "تقييمات العملاء", suffix: '+' },
-          { value: 4, label: "لغات متحدث بها" },
+          { value: 3, label: "لغات متحدث بها" },
         ],
       },
       services: {

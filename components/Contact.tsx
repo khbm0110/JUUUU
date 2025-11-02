@@ -56,8 +56,24 @@ const Contact: React.FC = () => {
       <div className="container mx-auto px-6">
         <h2 className={`text-4xl font-bold font-heading text-center mb-12 text-yellow-400 transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>{`${translations.titlePrefix} ${lawyerName}`}</h2>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Left Column: Address & Map */}
+          {/* Left Column: Contact Info, Address & Map */}
           <div className={`flex flex-col items-center md:items-start text-center md:text-left rtl:md:text-right transition-all duration-1000 ease-out ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 rtl:translate-x-10'}`}>
+            <div className="mb-8 text-center md:text-left rtl:md:text-right w-full">
+              <p className="text-gray-400 mb-6">{translations.intro}</p>
+              
+              <div className="text-gray-400 mb-6">
+                  {translations.phonePrompt}
+                  <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-yellow-400 hover:underline inline-flex items-center gap-2 ml-2 rtl:mr-2 rtl:ml-0">
+                      <PhoneIcon className="w-4 h-4" />
+                      <span>{displayNumber}</span>
+                  </a>
+              </div>
+
+              <div className="text-gray-400">
+                  {translations.emailPrompt} <a href={`mailto:${siteConfig.contact.email}`} className="text-yellow-400 hover:underline">{siteConfig.contact.email}</a>
+              </div>
+            </div>
+            
             <div className="text-gray-400 mb-6 text-left rtl:text-right w-full">
               <h3 className="font-bold text-lg text-white mb-2">{translations.addressTitle}</h3>
               <p>{siteConfig.contact.address}</p>
@@ -83,24 +99,8 @@ const Contact: React.FC = () => {
             </a>
           </div>
           
-          {/* Right Column: Contact Info & Form */}
+          {/* Right Column: Form */}
           <div className={`transition-all duration-1000 ease-out delay-300 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 rtl:-translate-x-10'}`}>
-            <div className="mb-8 text-center md:text-left rtl:md:text-right">
-              <p className="text-gray-400 mb-6">{translations.intro}</p>
-              
-              <div className="text-gray-400 mb-6">
-                  {translations.phonePrompt}
-                  <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-yellow-400 hover:underline inline-flex items-center gap-2 ml-2 rtl:mr-2 rtl:ml-0">
-                      <PhoneIcon className="w-4 h-4" />
-                      <span>{displayNumber}</span>
-                  </a>
-              </div>
-
-              <div className="text-gray-400">
-                  {translations.emailPrompt} <a href={`mailto:${siteConfig.contact.email}`} className="text-yellow-400 hover:underline">{siteConfig.contact.email}</a>
-              </div>
-            </div>
-
             {formSubmitted ? (
                <div className="bg-gray-800 p-8 rounded-lg text-center h-full flex items-center justify-center">
                  <p className="text-xl text-green-400">{translations.form.success}</p>
