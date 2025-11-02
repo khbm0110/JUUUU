@@ -53,9 +53,7 @@ export const initialDb: SiteData = {
       stats: {
         items: [
           { value: 10, label: "Ans d'expérience", suffix: '+' },
-          { value: 350, label: "Cas Résolus", suffix: '+' },
           { value: 18, label: "Domaines de spécialisation" },
-          { value: 98, label: "Taux de réussite", suffix: '%' },
           { value: 100, label: "Avis Clients", suffix: '+' },
           { value: 3, label: "Langues Parlées" },
         ],
@@ -130,9 +128,7 @@ export const initialDb: SiteData = {
       stats: {
         items: [
           { value: 10, label: "Years of Experience", suffix: '+' },
-          { value: 350, label: "Cases Solved", suffix: '+' },
           { value: 18, label: "Areas of Expertise" },
-          { value: 98, label: "Success Rate", suffix: '%' },
           { value: 100, label: "Client Reviews", suffix: '+' },
           { value: 3, label: "Languages Spoken" },
         ],
@@ -206,9 +202,7 @@ export const initialDb: SiteData = {
       stats: {
         items: [
           { value: 10, label: "سنوات من الخبرة", suffix: '+' },
-          { value: 350, label: "قضية تم حلها", suffix: '+' },
           { value: 18, label: "مجال تخصص" },
-          { value: 98, label: "نسبة النجاح", suffix: '%' },
           { value: 100, label: "تقييمات العملاء", suffix: '+' },
           { value: 3, label: "لغات متحدث بها" },
         ],
