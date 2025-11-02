@@ -96,7 +96,9 @@ export interface Translations {
       email: string;
       phone: string;
       subject: string;
-      dateTime: string;
+      dateLabel: string;
+      timeLabel: string;
+      weekendWarning: string;
       confirmation: string;
       bySms: string;
       byEmail: string;

@@ -7,7 +7,6 @@ import { ScaleIcon } from './icons/ScaleIcon';
 import { useInView } from '../hooks/useInView';
 import { ChevronLeftIcon } from './icons/ChevronLeftIcon';
 import { ChevronRightIcon } from './icons/ChevronRightIcon';
-import CurvedSeparator from './CurvedSeparator';
 
 // FIX: Changed JSX.Element to React.ReactElement to resolve namespace error.
 const iconMap: { [key: string]: React.ReactElement } = {
@@ -76,7 +75,7 @@ const Services: React.FC = () => {
 
 
   return (
-    <section ref={ref} id="services" className="bg-black pt-20 md:pt-24 pb-32 md:pb-48 relative">
+    <section ref={ref} id="services" className="bg-black pt-20 md:pt-24 pb-20 md:pb-24 relative">
       <div className="container mx-auto px-6 text-center">
         <h2 className={`text-4xl font-bold font-heading mb-16 text-white transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
           {translations.title}
@@ -155,7 +154,6 @@ const Services: React.FC = () => {
           </div>
         )}
       </div>
-      <CurvedSeparator type="bottom" colorClass="text-gray-900" />
     </section>
   );
 };

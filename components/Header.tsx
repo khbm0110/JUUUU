@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Language } from '../types';
 import { HamburgerIcon } from './icons/HamburgerIcon';
 import { CloseIcon } from './icons/CloseIcon';
+import { LogoIcon } from './icons/LogoIcon';
 import { useAppContext } from '../contexts/AppContext';
 
 interface HeaderProps {
@@ -13,7 +14,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openAppointmentModal }) => {
   const { state, setLanguage } = useAppContext();
   const { language } = state;
-  const { lawyerName, header: translations } = state.siteData.content[language];
+  const { header: translations } = state.siteData.content[language];
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -51,8 +52,13 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openApp
     <>
       <header className="bg-black bg-opacity-50 backdrop-blur-lg sticky top-0 z-40 transition-all duration-300">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <a href="#hero" onClick={(e) => handleNavClick(e, '#hero')} aria-label="Go to homepage" className="text-xl md:text-2xl font-bold font-heading text-white transition-colors hover:text-yellow-400">
-            {lawyerName}
+          <a
+            href="#hero"
+            onClick={(e) => handleNavClick(e, '#hero')}
+            aria-label="Go to homepage"
+            className="group flex items-center"
+          >
+            <LogoIcon className="h-12 w-auto transition-opacity duration-300 group-hover:opacity-80" />
           </a>
           
           {/* Desktop Navigation */}

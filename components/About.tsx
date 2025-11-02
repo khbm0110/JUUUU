@@ -12,7 +12,7 @@ const About: React.FC = () => {
   const [ref, isInView] = useInView({ threshold: 0.2, triggerOnce: true });
 
   return (
-    <section ref={ref} id="about" className="bg-gray-900 relative pt-28 md:pt-40 pb-32 md:pb-48">
+    <section ref={ref} id="about" className="bg-gray-900 relative pt-28 md:pt-40 pb-20 md:pb-24">
       <CurvedSeparator type="top" colorClass="text-gray-800" />
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 items-start">
@@ -45,7 +45,6 @@ const About: React.FC = () => {
           )}
         </div>
       </div>
-      <CurvedSeparator type="bottom" colorClass="text-black" />
     </section>
   );
 };

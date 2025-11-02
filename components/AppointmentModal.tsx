@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import { CloseIcon } from './icons/CloseIcon';
 
@@ -7,14 +7,42 @@ interface AppointmentModalProps {
   onClose: () => void;
 }
 
+// Helper to format a Date object to 'YYYY-MM-DD' string, respecting local timezone.
+const formatDateForInput = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const getNextBusinessDay = () => {
+  const today = new Date();
+  let nextDay = new Date(today.getTime());
+  nextDay.setDate(today.getDate() + 1);
+
+  while (nextDay.getDay() === 0 || nextDay.getDay() === 6) { // Sunday or Saturday
+    nextDay.setDate(nextDay.getDate() + 1);
+  }
+  return formatDateForInput(nextDay);
+};
+
 const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) => {
   const { state } = useContext(AppContext);
   const translations = state.siteData.content[state.language].contact.appointmentModal;
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
 
-  // IMPORTANT: Replace this placeholder with your new Google Apps Script Web App URL
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedDate(getNextBusinessDay());
+      setSelectedTime('');
+      setIsSubmitted(false);
+    }
+  }, [isOpen]);
+
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEayCRLvVf1aSJ0m7_WvUTe2pG9MTd8jnhPPm2X-HgLBO-MtP3f11df0iW8HGkZUPw8g/exec";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,7 +63,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
             form.reset();
             setTimeout(() => {
                 onClose();
-                setTimeout(() => setIsSubmitted(false), 300); // Reset for next time
+                setTimeout(() => setIsSubmitted(false), 300);
             }, 4000);
         } else {
             alert('An error occurred. Please try again.');
@@ -45,6 +73,20 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
     } finally {
         setIsSubmitting(false);
     }
+  };
+  
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Parse the date string 'YYYY-MM-DD' as local time to avoid timezone issues.
+    // The `replace` trick makes browsers interpret it as local time, not UTC.
+    const date = new Date(e.target.value.replace(/-/g, '/'));
+    const day = date.getDay();
+
+    if (day === 6 || day === 0) { // Saturday or Sunday
+      alert(translations.weekendWarning);
+      return; // Do not update state for invalid day
+    }
+    setSelectedDate(e.target.value);
+    setSelectedTime('');
   };
 
   if (!isOpen) return null;
@@ -69,11 +111,39 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
               className="space-y-4"
             >
               <input type="hidden" name="formType" value="appointment" />
+              <input type="hidden" name="preferredDateTime" value={selectedDate && selectedTime ? `${selectedDate}T${selectedTime}` : ''} />
+              
               <input type="text" name="name" placeholder={translations.name} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
               <input type="email" name="email" placeholder={translations.email} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
               <input type="tel" name="phone" placeholder={translations.phone} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
               <input type="text" name="subject" placeholder={translations.subject} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-              <input type="datetime-local" name="preferredDateTime" title={translations.dateTime} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
+
+              <div>
+                <label htmlFor="appointmentDate" className="text-sm font-medium text-gray-400 mb-2 block">{translations.dateLabel}</label>
+                <input 
+                  type="date" 
+                  id="appointmentDate"
+                  value={selectedDate}
+                  min={getNextBusinessDay()}
+                  onChange={handleDateChange}
+                  required 
+                  className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="appointmentTime" className="text-sm font-medium text-gray-400 mb-2 block">{translations.timeLabel}</label>
+                <input
+                  type="time"
+                  id="appointmentTime"
+                  value={selectedTime}
+                  onChange={(e) => setSelectedTime(e.target.value)}
+                  min="08:30"
+                  max="16:30"
+                  required
+                  className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
+                />
+              </div>
 
               <fieldset className="pt-2">
                 <legend className="text-sm font-medium text-gray-400 mb-2">{translations.confirmation}</legend>
@@ -91,7 +161,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
               
               <button 
                 type="submit" 
-                disabled={isSubmitting}
+                disabled={isSubmitting || !selectedTime}
                 className="w-full bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Envoi en cours...' : translations.submit}

@@ -22,28 +22,35 @@ const Testimonials: React.FC = () => {
   if (testimonials.length === 0) return null;
 
   return (
-    <section ref={ref} id="testimonials" className="bg-gray-900 py-20 md:py-24 overflow-hidden">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className={`text-4xl font-bold font-heading mb-16 text-white transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
-          {translations.title}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className={`bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700 text-center transition-all duration-500 ease-out transform hover:-translate-y-2 ${
-                isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <StarRating rating={testimonial.rating} />
-              <p className="text-gray-400 my-4 italic">"{testimonial.comment}"</p>
-              <h3 className="font-bold text-lg text-white">- {testimonial.name}</h3>
-            </div>
-          ))}
+    <>
+      <section ref={ref} id="testimonials" className="bg-gray-900 pt-20 md:pt-24 overflow-hidden">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className={`text-4xl font-bold font-heading mb-16 text-white transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
+            {translations.title}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={testimonial.id}
+                className={`bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700 text-center transition-all duration-500 ease-out transform hover:-translate-y-2 ${
+                  isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
+                <StarRating rating={testimonial.rating} />
+                <p className="text-gray-400 my-4 italic">"{testimonial.comment}"</p>
+                <h3 className="font-bold text-lg text-white">- {testimonial.name}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <div className="bg-gray-900 py-10 md:py-12">
+        <div className="container mx-auto px-6">
+            <hr className="border-t border-gray-700" />
         </div>
       </div>
-    </section>
+    </>
   );
 };
 
