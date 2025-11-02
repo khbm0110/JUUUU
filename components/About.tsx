@@ -24,7 +24,6 @@ const About: React.FC = () => {
               <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
               <p className="text-gray-400 leading-relaxed">{translations.p2}</p>
             </div>
-            <Stats />
           </div>
 
           {/* Image Column */}
@@ -40,6 +39,7 @@ const About: React.FC = () => {
                   className="relative z-10 rounded-lg shadow-2xl w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                   style={{ aspectRatio: '4/5' }}
                 />
+                <Stats />
               </div>
             </div>
           )}
