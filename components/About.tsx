@@ -46,10 +46,10 @@ const About: React.FC = () => {
     <section ref={ref} id="about" className="bg-gray-900 relative pt-28 md:pt-40 pb-32 md:pb-48">
       <ThreeDWaveSeparator />
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 items-start">
           
           {/* Text Content Column */}
-          <div className={aboutImageUrl ? 'md:col-span-3' : 'md:col-span-5'}>
+          <div className={aboutImageUrl ? 'md:col-span-2' : 'md:col-span-3'}>
             <div className={`transition-all duration-1000 ease-out delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} text-center md:text-left rtl:md:text-right`}>
               <h2 className="text-4xl font-bold font-heading mb-6 text-yellow-400">{`${translations.titlePrefix} ${lawyerName}`}</h2>
               <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
@@ -59,8 +59,8 @@ const About: React.FC = () => {
 
           {/* Image Column */}
           {aboutImageUrl && (
-            <div className={`md:col-span-2 flex items-center justify-center transition-all duration-1000 ease-out ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
-              <div className="relative w-10/12 md:w-11/12 group">
+            <div className={`md:col-span-1 flex items-start justify-center transition-all duration-1000 ease-out ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+              <div className="relative w-10/12 md:w-full group">
                 {/* Offset background frame */}
                 <div className="absolute top-4 -left-4 rtl:left-auto rtl:-right-4 w-full h-full bg-gray-800 rounded-lg border-2 border-gray-700 transition-transform duration-500 ease-in-out group-hover:rotate-[-2deg]"></div>
                 {/* Image */}
