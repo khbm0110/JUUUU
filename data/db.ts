@@ -9,7 +9,7 @@ export const initialDb: SiteData = {
     email: "hassar.fz@gmail.com",
     whatsappNumber: "212616351285",
     address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33, Casablanca",
-    googleMapsLink: "https://www.google.com/maps/place/?q=place_id:ChIJ6rq1UUVspg0RDTL1I1G_3t4",
+    googleMapsLink: "https://www.google.com/maps/place/33%C2%B032'59.4%22N+7%C2%B040'34.7%22W/@33.5498439,-7.6788807,17z/data=!4m4!3m3!8m2!3d33.549835!4d-7.676295?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D",
   },
   socials: {
     linkedin: "https://www.linkedin.com",
