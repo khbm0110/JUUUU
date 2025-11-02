@@ -47,6 +47,26 @@ const About: React.FC = () => {
               <h2 className="text-4xl font-bold font-heading mb-6 text-yellow-400">{`${translations.titlePrefix} ${lawyerName}`}</h2>
               <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
               <p className="text-gray-400 leading-relaxed">{translations.p2}</p>
+              
+              {/* Our Values Section */}
+              {translations.values && translations.values.length > 0 && (
+                <div className="mt-10 pt-8 border-t border-gray-700/50">
+                  <h3 className="text-3xl font-semibold font-heading mb-6 text-white">{translations.valuesTitle}</h3>
+                  <div className="space-y-6">
+                    {translations.values.map((value) => (
+                      <div key={value.title}>
+                        <h4 className="text-xl font-bold text-yellow-400 flex items-center gap-3">
+                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                          <span>{value.title}</span>
+                        </h4>
+                        <p className="text-gray-400 mt-1 pl-8">{value.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

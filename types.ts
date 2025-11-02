@@ -64,6 +64,11 @@ export interface Translations {
     titlePrefix: string;
     p1: string;
     p2: string;
+    valuesTitle: string;
+    values: {
+      title: string;
+      description: string;
+    }[];
   };
   stats: {
     items: Stat[];

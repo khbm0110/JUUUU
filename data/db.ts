@@ -47,6 +47,12 @@ export const initialDb: SiteData = {
         titlePrefix: 'À propos de',
         p1: 'Forte d\'une solide expérience et d\'une passion pour la justice, Maître Fatima Azzahraa Hassar a fondé son cabinet avec la conviction que chaque client mérite une défense rigoureuse et personnalisée. Diplômée des plus grandes universités, elle allie expertise technique et qualités humaines pour vous offrir une représentation juridique de premier ordre.',
         p2: 'Son approche est fondée sur l\'écoute, la transparence et un engagement sans faille. Que vous soyez un particulier ou une entreprise, Maître Hassar s\'engage à protéger vos intérêts avec détermination et professionnalisme.',
+        valuesTitle: 'Nos Valeurs',
+        values: [
+          { title: 'Professionnalisme', description: 'Nous nous engageons à offrir un service professionnel de la plus haute qualité à nos clients.' },
+          { title: 'Intégrité', description: 'Nous agissons avec intégrité, éthique et transparence dans toutes nos interactions.' },
+          { title: 'Engagement', description: 'Notre engagement envers nos clients guide chaque action que nous entreprenons.' },
+        ],
       },
       stats: {
         items: [
@@ -122,6 +128,12 @@ export const initialDb: SiteData = {
         titlePrefix: 'About',
         p1: 'With solid experience and a passion for justice, Fatima Azzahraa Hassar founded her firm with the belief that every client deserves a rigorous and personalized defense. A graduate of top universities, she combines technical expertise with human qualities to offer you first-class legal representation.',
         p2: 'Her approach is based on listening, transparency, and unwavering commitment. Whether you are an individual or a business, Ms. Hassar is committed to protecting your interests with determination and professionalism.',
+        valuesTitle: 'Our Values',
+        values: [
+          { title: 'Professionalism', description: 'We are committed to providing a professional service of the highest quality to our clients.' },
+          { title: 'Integrity', description: 'We act with integrity, ethics, and transparency in all our interactions.' },
+          { title: 'Commitment', description: 'Our commitment to our clients guides every action we take.' },
+        ],
       },
       stats: {
         items: [
@@ -196,6 +208,12 @@ export const initialDb: SiteData = {
         titlePrefix: 'عن',
         p1: 'بفضل خبرتها الراسخة وشغفها بالعدالة، أسست الأستاذة فاطمة الزهراء حصار مكتبها إيمانا منها بأن كل موكل يستحق دفاعًا دقيقًا وشخصيًا. تخرجت من أرقى الجامعات، وتجمع بين الخبرة التقنية والصفات الإنسانية لتقدم لكم تمثيلاً قانونيًا من الدرجة الأولى.',
         p2: 'يعتمد نهجها على الاستماع والشفافية والالتزام المطلق. سواء كنتم أفرادًا أو شركات، تلتزم الأستاذة حصار بحماية مصالحكم بعزم واحترافية.',
+        valuesTitle: 'قيمنا',
+        values: [
+          { title: 'الاحترافية', description: 'نلتزم بتقديم خدمة احترافية بأعلى جودة لعملائنا.' },
+          { title: 'النزاهة', description: 'نتصرف بنزاهة وأخلاق وشفافية في جميع تعاملاتنا.' },
+          { title: 'الالتزام', description: 'التزامنا تجاه عملائنا يوجه كل إجراء نتخذه.' },
+        ],
       },
       stats: {
         items: [
