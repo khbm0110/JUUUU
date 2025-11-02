@@ -12,7 +12,7 @@ const StatCard: React.FC<{ stat: Stat, startAnimation: boolean }> = ({ stat, sta
 
   return (
     <div className="text-center">
-      <p className="text-4xl md:text-5xl font-bold font-heading text-yellow-400">
+      <p className="text-4xl lg:text-5xl font-bold font-body text-yellow-400">
         {count}{stat.suffix}
       </p>
       <p className="text-gray-300 mt-2 font-body text-xs uppercase tracking-widest">{stat.label}</p>
@@ -36,7 +36,7 @@ const Stats: React.FC<StatsProps> = ({ isVisible }) => {
       bg-gray-800 bg-opacity-70 backdrop-blur-md rounded-xl p-6 border border-gray-700/50
       ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}
     `}>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-6 gap-x-4">
         {translations.items.map((stat, index) => (
           <div 
             key={`${state.language}-${index}`}
