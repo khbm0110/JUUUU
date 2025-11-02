@@ -110,6 +110,7 @@ const Contact: React.FC = () => {
               onSubmit={handleSubmit}
               className="space-y-6"
             >
+              <input type="hidden" name="formType" value="contact" />
               <div>
                 <label htmlFor="name" className="sr-only">{translations.form.name}</label>
                 <input

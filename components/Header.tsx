@@ -51,9 +51,13 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openApp
     <>
       <header className="bg-black bg-opacity-50 backdrop-blur-lg sticky top-0 z-40 transition-all duration-300">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-heading font-bold text-gray-100">
-            {lawyerName}
-          </div>
+          <a href="#hero" onClick={(e) => handleNavClick(e, '#hero')} aria-label="Go to homepage">
+            <img 
+              src="https://i.postimg.cc/L87N6rF7/Create-a-luxurious-and-minimalist-logo-for-Cabinet-Hassar-Avocate-a-modern-law-firm-The-text-Cabi.png" 
+              alt={`${lawyerName} Logo`}
+              className="h-12"
+            />
+          </a>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
