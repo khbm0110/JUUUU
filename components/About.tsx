@@ -86,7 +86,7 @@ const About: React.FC = () => {
                 {/* Image */}
                 <img 
                   src={aboutImageUrl} 
-                  alt={lawyerName} 
+                  alt={translations.imageAlt} 
                   className="relative z-10 rounded-lg shadow-2xl w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                   style={{ aspectRatio: '4/5' }}
                 />

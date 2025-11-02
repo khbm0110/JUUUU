@@ -51,6 +51,10 @@ export interface Stat {
 
 export interface Translations {
   lawyerName: string;
+  seo: {
+    title: string;
+    description: string;
+  };
   header: {
     nav: NavLink[];
   };
@@ -62,6 +66,7 @@ export interface Translations {
   };
   about: {
     titlePrefix: string;
+    imageAlt: string;
     p1: string;
     p2: string;
     valuesTitle: string;
@@ -115,6 +120,10 @@ export interface Translations {
   footer: {
     copyright: string;
     legal: string;
+    socialsAria: {
+      linkedin: string;
+      facebook: string;
+    };
   };
 }
 

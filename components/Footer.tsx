@@ -14,10 +14,10 @@ const Footer: React.FC = () => {
     <footer className="bg-black border-t border-gray-800 py-8">
       <div className="container mx-auto px-6 text-center text-gray-500">
         <div className="flex justify-center space-x-6 mb-4">
-          <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300">
+          <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300" aria-label={translations.socialsAria.linkedin}>
             <LinkedInIcon className="h-6 w-6" />
           </a>
-          <a href={socials.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300">
+          <a href={socials.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300" aria-label={translations.socialsAria.facebook}>
             <FacebookIcon className="h-6 w-6" />
           </a>
         </div>
