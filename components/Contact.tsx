@@ -21,8 +21,8 @@ const Contact: React.FC = () => {
   
   const displayNumber = "06 16 35 12 85";
 
-  // IMPORTANT: Replace this with your Google Apps Script Web App URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6vGZ5DMHEAEzYHrOuwyfsec3E-7Vkv_iy1kGGguHElDE2K70HqLPlKsVcMGSlIzOB/exec";
+  // IMPORTANT: Replace this placeholder with your new Google Apps Script Web App URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEayCRLvVf1aSJ0m7_WvUTe2pG9MTd8jnhPPm2X-HgLBO-MtP3f11df0iW8HGkZUPw8g/exec";
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

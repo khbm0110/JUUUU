@@ -38,35 +38,41 @@ const ThreeDWaveSeparator: React.FC = () => (
 const About: React.FC = () => {
   const { state } = useContext(AppContext);
   const { lawyerName, about: translations } = state.siteData.content[state.language];
+  const { aboutImageUrl } = state.siteData;
 
   const [ref, isInView] = useInView({ threshold: 0.2, triggerOnce: true });
-  
-  const imageUrl = "https://i.postimg.cc/WzkqbkNk/Generated-Image-November-02-2025-1-33PM-1.png";
 
   return (
     <section ref={ref} id="about" className="bg-gray-900 relative pt-28 md:pt-40 pb-32 md:pb-48">
       <ThreeDWaveSeparator />
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image Column */}
-          <div 
-            className={`transition-all duration-1000 ease-out ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 rtl:translate-x-10'}`}
-          >
-            <div className="p-2 bg-gray-800/50 rounded-xl shadow-2xl border border-gray-700 transform md:-rotate-3 hover:rotate-0 transition-transform duration-300">
-              <img 
-                src={imageUrl} 
-                alt={translations.imageAlt}
-                className="rounded-lg w-full h-auto object-cover"
-              />
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 lg:gap-20 items-center">
+          
+          {/* Text Content Column */}
+          <div className={aboutImageUrl ? 'md:col-span-3' : 'md:col-span-5'}>
+            <div className={`transition-all duration-1000 ease-out delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} text-center md:text-left rtl:md:text-right`}>
+              <h2 className="text-4xl font-bold font-heading mb-6 text-yellow-400">{`${translations.titlePrefix} ${lawyerName}`}</h2>
+              <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
+              <p className="text-gray-400 leading-relaxed">{translations.p2}</p>
             </div>
           </div>
 
-          {/* Text Content Column */}
-          <div className={`w-full text-center md:text-left rtl:md:text-right transition-all duration-1000 ease-out delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 rtl:-translate-x-10'}`}>
-            <h2 className="text-4xl font-bold font-heading mb-6 text-yellow-400">{`${translations.titlePrefix} ${lawyerName}`}</h2>
-            <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
-            <p className="text-gray-400 leading-relaxed">{translations.p2}</p>
-          </div>
+          {/* Image Column */}
+          {aboutImageUrl && (
+            <div className={`md:col-span-2 flex items-center justify-center transition-all duration-1000 ease-out ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+              <div className="relative w-10/12 md:w-11/12 group">
+                {/* Offset background frame */}
+                <div className="absolute top-4 -left-4 rtl:left-auto rtl:-right-4 w-full h-full bg-gray-800 rounded-lg border-2 border-gray-700 transition-transform duration-500 ease-in-out group-hover:rotate-[-2deg]"></div>
+                {/* Image */}
+                <img 
+                  src={aboutImageUrl} 
+                  alt={lawyerName} 
+                  className="relative z-10 rounded-lg shadow-2xl w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                  style={{ aspectRatio: '4/5' }}
+                />
+              </div>
+            </div>
+          )}
         </div>
         <Stats />
       </div>

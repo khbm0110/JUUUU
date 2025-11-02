@@ -64,7 +64,6 @@ export interface Translations {
     titlePrefix: string;
     p1: string;
     p2: string;
-    imageAlt: string;
   };
   stats: {
     items: Stat[];
@@ -125,6 +124,7 @@ export interface SiteContent {
 
 export interface SiteData {
   heroImageUrl?: string;
+  aboutImageUrl?: string;
   contact: {
     email: string;
     whatsappNumber: string;
