@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openApp
           </a>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center gap-x-8">
             {translations.nav.map((item) => (
               <a
                 key={item.name}

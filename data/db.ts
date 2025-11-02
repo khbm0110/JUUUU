@@ -189,7 +189,7 @@ export const initialDb: SiteData = {
       header: {
         nav: [
           { name: 'الرئيسية', href: '#hero' },
-          { name: 'عني', href: '#about' },
+          { name: 'من نحن', href: '#about' },
           { name: 'الخدمات', href: '#services' },
           { name: 'الشهادات', href: '#testimonials' },
           { name: 'حجز موعد', href: '#appointment' },
