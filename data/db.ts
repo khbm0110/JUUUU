@@ -1,7 +1,7 @@
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  heroImageUrl: 'https://i.postimg.cc/kM8xcGzk/360-F-516209984-APT701DWSDCUPz-Er-By-EBy-Urq-Ej-Hw-RYCX.jpg',
+  heroImageUrl: 'https://i.postimg.cc/hjhB5zbV/Generated-Image-November-02-2025-9-05PM.png',
   aboutImageUrl: 'https://i.postimg.cc/PqBTdhHR/Generated-Image-November-02-2025-1-33PM.png',
   contact: {
     email: "hassar.fz@gmail.com",
