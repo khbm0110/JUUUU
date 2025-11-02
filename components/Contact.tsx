@@ -1,5 +1,3 @@
-
-
 import React, { useState, useContext } from 'react';
 import { useInView } from '../hooks/useInView';
 import { AppContext } from '../contexts/AppContext';
@@ -100,7 +98,7 @@ const Contact: React.FC = () => {
             <div className="w-full h-64 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative">
               <iframe
                 title={translations.addressTitle}
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.084112161474!2d-7.678880724818788!3d33.57723997334336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d30c5e3f3607%3A0x7d6b38ef06487e47!2s33%C2%B032'59.4%22N%207%C2%B040'34.7%22W!5e0!3m2!1sen!2sma!4v1721678129524!5m2!1sen!2sma"
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3325.136359332123!2d-7.6763056!3d33.5498333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDMyJzU5LjQiTiA3wrA0MCczNC43Ilc!5e0!3m2!1sen!2sma!4v1762105363005!5m2!1sen!2sma"
                 width="100%"
                 height="100%"
                 frameBorder="0"
