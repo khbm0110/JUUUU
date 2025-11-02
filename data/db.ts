@@ -6,7 +6,7 @@ export const initialDb: SiteData = {
   contact: {
     email: "contact@cabinethassar.ma",
     whatsappNumber: "212616351285",
-    address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33",
+    address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33, Casablanca",
     googleMapsLink: "https://www.google.com/maps/place/?q=place_id:ChIJ6rq1UUVspg0RDTL1I1G_3t4",
   },
   socials: {
@@ -46,6 +46,7 @@ export const initialDb: SiteData = {
         titlePrefix: 'À propos de',
         p1: 'Forte d\'une solide expérience et d\'une passion pour la justice, Maître Fatima Azzahraa Hassar a fondé son cabinet avec la conviction que chaque client mérite une défense rigoureuse et personnalisée. Diplômée des plus grandes universités, elle allie expertise technique et qualités humaines pour vous offrir une représentation juridique de premier ordre.',
         p2: 'Son approche est fondée sur l\'écoute, la transparence et un engagement sans faille. Que vous soyez un particulier ou une entreprise, Maître Hassar s\'engage à protéger vos intérêts avec détermination et professionnalisme.',
+        imageAlt: "Portrait de Maître Fatima Azzahraa Hassar",
       },
       stats: {
         items: [
@@ -119,6 +120,7 @@ export const initialDb: SiteData = {
         titlePrefix: 'About',
         p1: 'With solid experience and a passion for justice, Fatima Azzahraa Hassar founded her firm with the belief that every client deserves a rigorous and personalized defense. A graduate of top universities, she combines technical expertise with human qualities to offer you first-class legal representation.',
         p2: 'Her approach is based on listening, transparency, and unwavering commitment. Whether you are an individual or a business, Ms. Hassar is committed to protecting your interests with determination and professionalism.',
+        imageAlt: "Portrait of Fatima Azzahraa Hassar, Esq.",
       },
       stats: {
         items: [
@@ -191,6 +193,7 @@ export const initialDb: SiteData = {
         titlePrefix: 'عن',
         p1: 'بفضل خبرتها الراسخة وشغفها بالعدالة، أسست الأستاذة فاطمة الزهراء حصار مكتبها إيمانا منها بأن كل موكل يستحق دفاعًا دقيقًا وشخصيًا. تخرجت من أرقى الجامعات، وتجمع بين الخبرة التقنية والصفات الإنسانية لتقدم لكم تمثيلاً قانونيًا من الدرجة الأولى.',
         p2: 'يعتمد نهجها على الاستماع والشفافية والالتزام المطلق. سواء كنتم أفرادًا أو شركات، تلتزم الأستاذة حصار بحماية مصالحكم بعزم واحترافية.',
+        imageAlt: "صورة المحامية فاطمة الزهراء حصار",
       },
       stats: {
         items: [

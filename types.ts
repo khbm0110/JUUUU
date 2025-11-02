@@ -63,6 +63,7 @@ export interface Translations {
     titlePrefix: string;
     p1: string;
     p2: string;
+    imageAlt: string;
   };
   stats: {
     items: Stat[];
