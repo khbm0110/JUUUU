@@ -55,6 +55,7 @@ const About: React.FC = () => {
               <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
               <p className="text-gray-400 leading-relaxed">{translations.p2}</p>
             </div>
+            <Stats />
           </div>
 
           {/* Image Column */}
@@ -74,7 +75,6 @@ const About: React.FC = () => {
             </div>
           )}
         </div>
-        <Stats />
       </div>
       <CurvedSeparator type="bottom" colorClass="text-black" />
     </section>
