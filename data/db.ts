@@ -16,9 +16,9 @@ export const initialDb: SiteData = {
     facebook: "https://www.facebook.com",
   },
   testimonials: [
-    { id: 't1', name: 'Société A', comment: 'Une expertise et une réactivité hors pair. Maître Hassar a été un atout majeur dans notre litige commercial.', rating: 5 },
-    { id: 't2', name: 'M. Dupont', comment: "Très à l'écoute et d'un grand professionnalisme. Je recommande vivement ses services pour toute affaire familiale.", rating: 5 },
-    { id: 't3', name: 'Immo Corp', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellente avocate.', rating: 4 },
+    { id: 't1', name: 'Atlas Trading & Co.', comment: 'Une expertise et une réactivité hors pair. Maître Hassar a été un atout majeur dans notre litige commercial.', rating: 5 },
+    { id: 't2', name: 'Karim Alami', comment: "Très à l'écoute et d'un grand professionnalisme. Je recommande vivement ses services pour toute affaire familiale.", rating: 5 },
+    { id: 't3', name: 'Casablanca Immobilier', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellente avocate.', rating: 4 },
   ],
   // consultations: [], // Deprecated
   // appointmentRequests: [], // Deprecated
