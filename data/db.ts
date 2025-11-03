@@ -1,8 +1,8 @@
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  heroImageUrl: 'https://i.postimg.cc/hjhB5zbV/Generated-Image-November-02-2025-9-05PM.png',
-  aboutImageUrl: 'https://i.postimg.cc/PqBTdhHR/Generated-Image-November-02-2025-1-33PM.png',
+  heroImageUrl: "https://i.postimg.cc/hjhB5zbV/Generated-Image-November-02-2025-9-05PM.png",
+  aboutImageUrl: "https://i.postimg.cc/KvmMpq7K/Generated-Image-November-02-2025-1-33PM.png",
   contact: {
     email: "hassar.fz@gmail.com",
     whatsappNumber: "212616351285",
@@ -18,8 +18,9 @@ export const initialDb: SiteData = {
     { id: 't2', name: 'Karim Alami', comment: "Très à l'écoute et d'un grand professionnalisme. Je recommande vivement ses services pour toute affaire familiale.", rating: 5 },
     { id: 't3', name: 'Casablanca Immobilier', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellente avocate.', rating: 4 },
   ],
-  // consultations: [], // Deprecated
-  // appointmentRequests: [], // Deprecated
+  // FIX: Re-enabled consultations and appointmentRequests for admin dashboard functionality.
+  consultations: [],
+  appointmentRequests: [],
   settings: {
     themeColor: 'gold',
     copyrightName: "Maître Fatima Azzahraa Hassar"
@@ -27,6 +28,7 @@ export const initialDb: SiteData = {
   content: {
     [Language.FR]: {
       lawyerName: "Maître Fatima Azzahraa Hassar",
+      logoText: "Cabinet Hassar",
       seo: {
         title: "Maître Fatima Azzahraa Hassar - Avocate à Casablanca, Maroc",
         description: "Cabinet d'avocat à Casablanca spécialisé en droit des affaires, droit de la famille et droit immobilier. Conseil juridique et représentation par Maître Fatima Azzahraa Hassar.",
@@ -116,6 +118,7 @@ export const initialDb: SiteData = {
     },
     [Language.EN]: {
       lawyerName: "Fatima Azzahraa Hassar, Esq.",
+      logoText: "Hassar Law",
       seo: {
         title: "Fatima Azzahraa Hassar, Esq. - Lawyer in Casablanca, Morocco",
         description: "Law firm in Casablanca specializing in business law, family law, and real estate law. Legal advice and representation by Fatima Azzahraa Hassar, Esq.",
@@ -204,6 +207,7 @@ export const initialDb: SiteData = {
     },
     [Language.AR]: {
       lawyerName: "المحامية فاطمة الزهراء حصار",
+      logoText: "مكتب حصار للمحاماة",
       seo: {
         title: "المحامية فاطمة الزهراء حصار - محامية في الدار البيضاء، المغرب",
         description: "مكتب محاماة في الدار البيضاء متخصص في قانون الأعمال، قانون الأسرة، والقانون العقاري. استشارات قانونية وتمثيل قضائي مع المحامية فاطمة الزهراء حصار.",

@@ -88,7 +88,7 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
                     className="bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
                   >
                     <PhoneIcon className="h-5 w-5" />
-                    <span>{displayNumber}</span>
+                    <span dir="ltr">{displayNumber}</span>
                   </a>
                   <button
                     onClick={openAppointmentModal}

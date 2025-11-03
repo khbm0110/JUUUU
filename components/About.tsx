@@ -3,6 +3,7 @@ import { useInView } from '../hooks/useInView';
 import { AppContext } from '../contexts/AppContext';
 import Stats from './Stats';
 import CurvedSeparator from './CurvedSeparator';
+import { LogoIcon } from './icons/LogoIcon';
 
 const About: React.FC = () => {
   const { state } = useContext(AppContext);
@@ -42,7 +43,7 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 items-start">
           
           {/* Text Content Column */}
-          <div className={aboutImageUrl ? 'md:col-span-2' : 'md:col-span-3'}>
+          <div className="md:col-span-2">
             <div className={`transition-all duration-1000 ease-out delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} text-center md:text-left rtl:md:text-right`}>
               <h2 className="text-4xl font-bold font-heading mb-6 text-yellow-400">{`${translations.titlePrefix} ${lawyerName}`}</h2>
               <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
@@ -70,30 +71,41 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Image Column */}
-          {aboutImageUrl && (
-            <div className={`md:col-span-1 flex items-start justify-center transition-all duration-1000 ease-out ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+          {/* Frame & Stats Column */}
+          <div className={`md:col-span-1 flex items-start justify-center transition-all duration-1000 ease-out ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+            <div 
+              className="relative w-10/12 md:w-full group"
+              onMouseEnter={() => setIsStatsVisible(true)}
+              onMouseLeave={() => setIsStatsVisible(false)}
+              onFocus={() => setIsStatsVisible(true)}
+              onBlur={() => setIsStatsVisible(false)}
+              tabIndex={0}
+            >
+              {/* Offset background frame */}
+              <div className="absolute top-4 -left-4 rtl:left-auto rtl:-right-4 w-full h-full bg-gray-800 rounded-lg border-2 border-gray-700 transition-transform duration-500 ease-in-out group-hover:rotate-[-2deg]"></div>
+              
+              {/* Main styled box that holds the image or fallback */}
               <div 
-                className="relative w-10/12 md:w-full group"
-                onMouseEnter={() => setIsStatsVisible(true)}
-                onMouseLeave={() => setIsStatsVisible(false)}
-                onFocus={() => setIsStatsVisible(true)}
-                onBlur={() => setIsStatsVisible(false)}
-                tabIndex={0}
+                className="relative z-10 rounded-lg shadow-2xl w-full h-auto border border-gray-700 overflow-hidden"
+                style={{ aspectRatio: '4/5' }}
               >
-                {/* Offset background frame */}
-                <div className="absolute top-4 -left-4 rtl:left-auto rtl:-right-4 w-full h-full bg-gray-800 rounded-lg border-2 border-gray-700 transition-transform duration-500 ease-in-out group-hover:rotate-[-2deg]"></div>
-                {/* Image */}
-                <img 
-                  src={aboutImageUrl} 
-                  alt={translations.imageAlt} 
-                  className="relative z-10 rounded-lg shadow-2xl w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                  style={{ aspectRatio: '4/5' }}
-                />
-                <Stats isVisible={isStatsVisible} />
+                {aboutImageUrl ? (
+                   <img 
+                    src={aboutImageUrl}
+                    alt={translations.imageAlt}
+                    className="w-full h-full object-cover object-center"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="bg-gray-900 w-full h-full flex items-center justify-center">
+                    <LogoIcon className="w-2/3 h-auto text-gray-700" showText={false} />
+                  </div>
+                )}
               </div>
+              
+              <Stats isVisible={isStatsVisible} />
             </div>
-          )}
+          </div>
         </div>
       </div>
     </section>

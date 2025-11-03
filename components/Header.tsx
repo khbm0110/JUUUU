@@ -14,7 +14,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openAppointmentModal }) => {
   const { state, setLanguage } = useAppContext();
   const { language } = state;
-  const { header: translations } = state.siteData.content[language];
+  const { header: translations, logoText } = state.siteData.content[language];
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -58,43 +58,48 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openApp
             aria-label="Go to homepage"
             className="group flex items-center"
           >
-            <LogoIcon className="h-12 w-auto transition-opacity duration-300 group-hover:opacity-80" />
+            <LogoIcon
+              className="h-12 w-auto transition-opacity duration-300 group-hover:opacity-80"
+              text={logoText}
+              isRtl={language === Language.AR}
+            />
           </a>
           
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-x-8">
-            {translations.nav.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className={`font-medium transition-colors duration-300 ${
-                  activeSection === item.href
-                      ? 'text-yellow-400'
-                      : 'text-gray-300 hover:text-yellow-400'
-                }`}
-              >
-                {item.name}
-              </a>
-            ))}
-          </nav>
-          
           <div className="flex items-center">
-            {/* Desktop Language Switcher */}
-            <div className="hidden md:flex items-center space-x-4">
-              {(Object.keys(Language) as Array<keyof typeof Language>).map((langKey) => (
-                <button
-                  key={langKey}
-                  onClick={() => setLanguage(Language[langKey])}
-                  className={`px-2 py-1 text-sm font-semibold transition-colors duration-300 ${
-                    language === Language[langKey]
-                      ? 'text-yellow-400 border-b-2 border-yellow-400'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  {langKey}
-                </button>
-              ))}
+            {/* Desktop Navigation & Language Switcher */}
+            <div className="hidden md:flex items-center gap-x-8">
+              <nav className="flex items-center gap-x-8">
+                {translations.nav.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className={`font-medium transition-colors duration-300 ${
+                      activeSection === item.href
+                          ? 'text-yellow-400'
+                          : 'text-gray-300 hover:text-yellow-400'
+                    }`}
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </nav>
+              
+              <div className="flex items-center space-x-4">
+                {(Object.keys(Language) as Array<keyof typeof Language>).map((langKey) => (
+                  <button
+                    key={langKey}
+                    onClick={() => setLanguage(Language[langKey])}
+                    className={`px-2 py-1 text-sm font-semibold transition-colors duration-300 ${
+                      language === Language[langKey]
+                        ? 'text-yellow-400 border-b-2 border-yellow-400'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    {langKey}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Mobile Menu Button and Dropdown */}

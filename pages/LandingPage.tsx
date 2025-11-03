@@ -1,5 +1,3 @@
-
-
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -78,14 +76,14 @@ const LandingPage: React.FC = () => {
   
   const openAppointmentModal = () => setIsModalOpen(true);
 
-  // SEO and Language Effect
+  // SEO, Language, and Performance Effect
   useEffect(() => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === Language.AR ? 'rtl' : 'ltr';
 
     const currentContent = siteData.content[language];
     const { seo, lawyerName } = currentContent;
-    const { contact, aboutImageUrl } = siteData;
+    const { contact } = siteData;
 
     // Update Title
     document.title = seo.title;
@@ -110,6 +108,7 @@ const LandingPage: React.FC = () => {
     setMetaTag('property', 'twitter:title', seo.title);
     setMetaTag('property', 'twitter:description', seo.description);
 
+    // Image preloading logic removed as images are no longer used.
 
     // Update or create JSON-LD structured data
     let ldJsonScript = document.getElementById('ld-json-script');
@@ -128,7 +127,7 @@ const LandingPage: React.FC = () => {
       "@context": "https://schema.org",
       "@type": "Attorney",
       "name": lawyerName,
-      "image": aboutImageUrl,
+      // "image" property removed as images are no longer used.
       "telephone": `+${contact.whatsappNumber}`,
       "email": contact.email,
       "address": {

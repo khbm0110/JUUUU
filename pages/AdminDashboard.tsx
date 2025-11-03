@@ -1,14 +1,7 @@
-
-
-
-
-
-
-
-
 // FIX: Imported `ReactNode` to resolve a type error in the `CollapsibleSection` component.
 import React, { useState, useContext, useEffect, ChangeEvent, ReactElement, ReactNode } from 'react';
-import { AppContext } from '../contexts/AppContext';
+// FIX: Imported `useAppContext` to make it available within the component.
+import { useAppContext } from '../contexts/AppContext';
 import { AdminDashboardIcon, AdminAboutIcon, AdminServicesIcon, AdminConsultationsIcon, AdminAppointmentsIcon, AdminContactIcon, AdminTestimonialsIcon, AdminLanguagesIcon, AdminSettingsIcon, AdminLogoutIcon, AdminMenuIcon, AdminCloseIcon, AdminSaveIcon, AdminPlusIcon, AdminDeleteIcon, AdminEditIcon, AdminStarFilledIcon, AdminStarOutlineIcon } from '../components/admin/icons';
 import { Language, Service, Testimonial, SiteData, Consultation, AppointmentRequest } from '../types';
 
@@ -57,7 +50,8 @@ const NavItem = ({ icon, text, active = false, isOpen, onClick, notificationCoun
         title={!isOpen ? text : ''}
         className={`flex items-center w-full px-4 py-3 transition-colors duration-200 relative ${isOpen ? '' : 'justify-center'} ${active ? 'bg-yellow-500 text-black' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
     >
-        <span className={active ? 'text-black' : 'text-yellow-400'}>{React.cloneElement(icon, { className: 'w-6 h-6' })}</span>
+        {/* FIX: Cast icon props to 'any' to resolve cloneElement typing issue with SVG components. */}
+        <span className={active ? 'text-black' : 'text-yellow-400'}>{React.cloneElement(icon, { className: 'w-6 h-6' } as any)}</span>
         {isOpen && <span className="ml-4 font-semibold flex-grow text-left">{text}</span>}
         {notificationCount && notificationCount > 0 && (
              <span className={`flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white bg-red-600 rounded-full ${isOpen ? '' : 'absolute top-1 right-1'}`}>
@@ -71,6 +65,7 @@ const NavItem = ({ icon, text, active = false, isOpen, onClick, notificationCoun
 // --- View Components ---
 
 const DashboardHome: React.FC<{ siteData: SiteData }> = ({ siteData }) => {
+    // FIX: Added optional property access and fallback to prevent crashes if `handled` property doesn't exist.
     const newConsultations = (siteData.consultations || []).filter(c => !c.handled).length;
     const totalAppointments = (siteData.appointmentRequests || []).length;
     const newAppointments = (siteData.appointmentRequests || []).filter(a => !a.handled).length;
@@ -341,11 +336,12 @@ const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.S
             </div>
             <div className="space-y-6">
                 <CollapsibleSection title="Général & Navigation">
-                     <AdminInput label="Nom de l'avocat (Titre principal)" value={currentLangData.lawyerName || ''} onChange={(e) => handleTextChange('lawyerName', e.target.value)} />
+                    {/* FIX: Added optional chaining to prevent crash on missing language data. */}
+                     <AdminInput label="Nom de l'avocat (Titre principal)" value={currentLangData?.lawyerName || ''} onChange={(e) => handleTextChange('lawyerName', e.target.value)} />
                       <div className="space-y-4 mt-4 pl-4 border-l-2 border-gray-700">
                         <h4 className="text-md font-semibold text-gray-300">Liens de navigation</h4>
                         {/* BUG FIX: Added optional chaining and fallback to prevent crashes. */}
-                        {(currentLangData.header?.nav || []).map((navItem, index) => (
+                        {(currentLangData?.header?.nav || []).map((navItem, index) => (
                             <div key={index}>
                                 <AdminInput label={`Texte du lien #${index + 1} (${navItem.href})`} value={navItem.name} onChange={e => handleTextChange(`header.nav.${index}.name`, e.target.value)} />
                             </div>
@@ -355,22 +351,22 @@ const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.S
 
                 <CollapsibleSection title="Section Hero">
                     {/* BUG FIX: Added optional chaining and fallbacks for all nested properties. */}
-                    <AdminTextarea label="Titre Principal (utilisez \n pour un saut de ligne)" value={(currentLangData.hero?.title || '').replace(/\n/g, '\\n')} onChange={(e) => handleTextChange('hero.title', e.target.value)} rows={2} />
-                    <AdminInput label="Sous-titre" value={currentLangData.hero?.subtitle || ''} onChange={(e) => handleTextChange('hero.subtitle', e.target.value)} />
-                    <AdminInput label="Texte du bouton (Appel)" value={currentLangData.hero?.ctaCall || ''} onChange={(e) => handleTextChange('hero.ctaCall', e.target.value)} />
-                    <AdminInput label="Texte du bouton (Rendez-vous)" value={currentLangData.hero?.ctaAppointment || ''} onChange={(e) => handleTextChange('hero.ctaAppointment', e.target.value)} />
+                    <AdminTextarea label="Titre Principal (utilisez \n pour un saut de ligne)" value={(currentLangData?.hero?.title || '').replace(/\n/g, '\\n')} onChange={(e) => handleTextChange('hero.title', e.target.value)} rows={2} />
+                    <AdminInput label="Sous-titre" value={currentLangData?.hero?.subtitle || ''} onChange={(e) => handleTextChange('hero.subtitle', e.target.value)} />
+                    <AdminInput label="Texte du bouton (Appel)" value={currentLangData?.hero?.ctaCall || ''} onChange={(e) => handleTextChange('hero.ctaCall', e.target.value)} />
+                    <AdminInput label="Texte du bouton (Rendez-vous)" value={currentLangData?.hero?.ctaAppointment || ''} onChange={(e) => handleTextChange('hero.ctaAppointment', e.target.value)} />
                 </CollapsibleSection>
                 
                 <CollapsibleSection title="Section À Propos">
-                     <AdminInput label="Préfixe du titre (ex: 'À propos de')" value={currentLangData.about?.titlePrefix || ''} onChange={(e) => handleTextChange('about.titlePrefix', e.target.value)} />
-                     <AdminTextarea label="Paragraphe 1" value={currentLangData.about?.p1 || ''} onChange={(e) => handleTextChange('about.p1', e.target.value)} rows={4} />
-                     <AdminTextarea label="Paragraphe 2" value={currentLangData.about?.p2 || ''} onChange={(e) => handleTextChange('about.p2', e.target.value)} rows={4} />
+                     <AdminInput label="Préfixe du titre (ex: 'À propos de')" value={currentLangData?.about?.titlePrefix || ''} onChange={(e) => handleTextChange('about.titlePrefix', e.target.value)} />
+                     <AdminTextarea label="Paragraphe 1" value={currentLangData?.about?.p1 || ''} onChange={(e) => handleTextChange('about.p1', e.target.value)} rows={4} />
+                     <AdminTextarea label="Paragraphe 2" value={currentLangData?.about?.p2 || ''} onChange={(e) => handleTextChange('about.p2', e.target.value)} rows={4} />
                 </CollapsibleSection>
 
                 <CollapsibleSection title="Section Services">
-                    <AdminInput label="Titre de la section" value={currentLangData.services?.title || ''} onChange={(e) => handleTextChange('services.title', e.target.value)} />
+                    <AdminInput label="Titre de la section" value={currentLangData?.services?.title || ''} onChange={(e) => handleTextChange('services.title', e.target.value)} />
                     <div className="space-y-4 mt-4 pl-4 border-l-2 border-gray-700">
-                        {(currentLangData.services?.items || []).map((service, index) => (
+                        {(currentLangData?.services?.items || []).map((service, index) => (
                             <div key={service.id}>
                                 <AdminInput label={`Titre du service #${index + 1}`} value={service.title} onChange={e => handleTextChange(`services.items.${index}.title`, e.target.value)} />
                                 <AdminTextarea label={`Description du service #${index + 1}`} value={service.description} onChange={e => handleTextChange(`services.items.${index}.description`, e.target.value)} rows={3}/>
@@ -380,8 +376,97 @@ const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.S
                 </CollapsibleSection>
 
                 <CollapsibleSection title="Section Témoignages">
-                    <AdminInput label="Titre de la section" value={currentLangData.testimonials?.title || ''} onChange={(e) => handleTextChange('testimonials.title', e.target.value)} />
+                    <AdminInput label="Titre de la section" value={currentLangData?.testimonials?.title || ''} onChange={(e) => handleTextChange('testimonials.title', e.target.value)} />
                 </CollapsibleSection>
                 
                 <CollapsibleSection title="Section Contact">
-                    <AdminInput label="
+                    {/* FIX: Completed the truncated AdminInput component with value and onChange props and added optional chaining to prevent crashes. */}
+                    <AdminInput label="Préfixe du titre (ex: 'Contactez')" value={currentLangData?.contact?.titlePrefix || ''} onChange={(e) => handleTextChange('contact.titlePrefix', e.target.value)} />
+                </CollapsibleSection>
+            </div>
+        </div>
+    );
+};
+
+const AdminDashboard: React.FC = () => {
+    const { state, updateSiteData, logout, isLoggedIn, navigate } = useAppContext();
+    const [currentView, setCurrentView] = useState<AdminView>('dashboard');
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [tempData, setTempData] = useState<SiteData>(state.siteData);
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login');
+        }
+    }, [isLoggedIn, navigate]);
+
+    useEffect(() => {
+        setTempData(state.siteData);
+    }, [state.siteData]);
+
+    const handleSave = () => {
+        updateSiteData(tempData);
+    };
+
+    const newConsultations = (tempData.consultations || []).filter(c => !c.handled).length;
+    const newAppointments = (tempData.appointmentRequests || []).filter(a => !a.handled).length;
+
+    const renderView = () => {
+        switch (currentView) {
+            case 'dashboard':
+                return <DashboardHome siteData={tempData} />;
+            case 'services':
+                return <ServicesEditor data={tempData} setData={setTempData} />;
+            case 'testimonials':
+                return <TestimonialsEditor data={tempData} setData={setTempData} />;
+            case 'languages':
+                return <LanguageEditor data={tempData} setData={setTempData} />;
+            default:
+                return <div className="text-white">Section en construction...</div>;
+        }
+    };
+    
+    if (!isLoggedIn) return null;
+
+    return (
+        <div className="flex h-screen bg-gray-900 text-gray-300 font-body">
+            {/* Sidebar */}
+            <aside className={`bg-gray-800 border-r border-gray-700 flex flex-col transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
+                <div className="flex items-center justify-between h-20 px-4 border-b border-gray-700">
+                    {isSidebarOpen && <span className="text-xl font-bold text-white">Admin Panel</span>}
+                    <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 rounded-full hover:bg-gray-700">
+                        {isSidebarOpen ? <AdminCloseIcon className="w-6 h-6" /> : <AdminMenuIcon className="w-6 h-6" />}
+                    </button>
+                </div>
+                <nav className="flex-grow pt-4">
+                    <NavItem text="Tableau de bord" icon={<AdminDashboardIcon />} active={currentView === 'dashboard'} onClick={() => setCurrentView('dashboard')} isOpen={isSidebarOpen} />
+                    <NavItem text="Services" icon={<AdminServicesIcon />} active={currentView === 'services'} onClick={() => setCurrentView('services')} isOpen={isSidebarOpen} />
+                    <NavItem text="Témoignages" icon={<AdminTestimonialsIcon />} active={currentView === 'testimonials'} onClick={() => setCurrentView('testimonials')} isOpen={isSidebarOpen} />
+                    <NavItem text="Traductions" icon={<AdminLanguagesIcon />} active={currentView === 'languages'} onClick={() => setCurrentView('languages')} isOpen={isSidebarOpen} />
+                    <NavItem text="Consultations" icon={<AdminConsultationsIcon />} active={currentView === 'consultations'} onClick={() => setCurrentView('consultations')} isOpen={isSidebarOpen} notificationCount={newConsultations} />
+                    <NavItem text="Rendez-vous" icon={<AdminAppointmentsIcon />} active={currentView === 'appointments'} onClick={() => setCurrentView('appointments')} isOpen={isSidebarOpen} notificationCount={newAppointments} />
+                </nav>
+                <div className="py-4 border-t border-gray-700">
+                    <NavItem text="Déconnexion" icon={<AdminLogoutIcon />} onClick={logout} isOpen={isSidebarOpen} />
+                </div>
+            </aside>
+            
+            {/* Main Content */}
+            <div className="flex-1 flex flex-col overflow-hidden">
+                <header className="flex items-center justify-between h-20 px-6 bg-gray-800 border-b border-gray-700">
+                    <h1 className="text-2xl font-semibold text-white">
+                        {currentView.charAt(0).toUpperCase() + currentView.slice(1)}
+                    </h1>
+                    <button onClick={handleSave} className="flex items-center gap-2 bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-lg hover:bg-yellow-400 transition-colors">
+                        <AdminSaveIcon /> {isSidebarOpen ? 'Enregistrer les modifications' : ''}
+                    </button>
+                </header>
+                <main className="flex-1 overflow-y-auto p-6">
+                    {renderView()}
+                </main>
+            </div>
+        </div>
+    );
+};
+
+export default AdminDashboard;
