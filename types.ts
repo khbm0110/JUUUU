@@ -31,8 +31,6 @@ export interface Consultation {
   email: string;
   message: string;
   date: string; // ISO String
-  // FIX: Added handled property for admin dashboard tracking.
-  handled?: boolean;
 }
 
 export interface AppointmentRequest {
@@ -43,8 +41,6 @@ export interface AppointmentRequest {
   preferredDateTime: string;
   confirmationMethod: 'sms' | 'email';
   date: string; // ISO String of submission
-  // FIX: Added handled property for admin dashboard tracking.
-  handled?: boolean;
 }
 
 export interface Stat {
@@ -55,11 +51,6 @@ export interface Stat {
 
 export interface Translations {
   lawyerName: string;
-  logoText: string;
-  seo: {
-    title: string;
-    description: string;
-  };
   header: {
     nav: NavLink[];
   };
@@ -71,7 +62,6 @@ export interface Translations {
   };
   about: {
     titlePrefix: string;
-    imageAlt: string;
     p1: string;
     p2: string;
     valuesTitle: string;
@@ -125,10 +115,6 @@ export interface Translations {
   footer: {
     copyright: string;
     legal: string;
-    socialsAria: {
-      linkedin: string;
-      facebook: string;
-    };
   };
 }
 
@@ -158,9 +144,8 @@ export interface SiteData {
   };
   testimonials: Testimonial[];
   // DEPRECATED: Consultations and appointments are now handled by an external form service.
-  // FIX: Re-enabled consultations and appointmentRequests for admin dashboard functionality.
-  consultations: Consultation[];
-  appointmentRequests: AppointmentRequest[];
+  // consultations: Consultation[];
+  // appointmentRequests: AppointmentRequest[];
   settings: SiteSettings;
   content: SiteContent;
 }

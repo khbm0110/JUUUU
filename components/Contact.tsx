@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section ref={ref} id="contact" className="bg-gray-900 pb-32 md:pb-48 relative">
+    <section ref={ref} className="bg-gray-900 pb-32 md:pb-48 relative">
       <div className="container mx-auto px-6">
         <h2 className={`text-4xl font-bold font-heading text-center mb-12 text-yellow-400 transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>{`${translations.titlePrefix} ${lawyerName}`}</h2>
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -65,7 +65,7 @@ const Contact: React.FC = () => {
                 <div>
                   <h3 className="text-lg font-semibold text-white">{translations.phonePrompt}</h3>
                   <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-gray-400 hover:text-yellow-400 transition-colors">
-                    <span dir="ltr">{displayNumber}</span>
+                    {displayNumber}
                   </a>
                 </div>
               </div>

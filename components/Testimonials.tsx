@@ -23,7 +23,7 @@ const Testimonials: React.FC = () => {
 
   return (
     <>
-      <section ref={ref} id="testimonials" className="bg-gray-900 pt-20 md:pt-24 overflow-hidden">
+      <section ref={ref} className="bg-gray-900 pt-20 md:pt-24 overflow-hidden">
         <div className="container mx-auto px-6 text-center">
           <h2 className={`text-4xl font-bold font-heading mb-16 text-white transition-opacity duration-1000 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
             {translations.title}

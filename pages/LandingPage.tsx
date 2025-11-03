@@ -13,7 +13,7 @@ import AppointmentModal from '../components/AppointmentModal';
 
 const LandingPage: React.FC = () => {
   const { state } = useContext(AppContext);
-  const { language, siteData } = state;
+  const { language } = state;
   const [activeSection, setActiveSection] = useState<string>('#hero');
   const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -23,6 +23,9 @@ const LandingPage: React.FC = () => {
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   
+  const isScrollingProgrammatically = useRef(false);
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const sectionRefs = {
     '#hero': heroRef,
     '#about': aboutRef,
@@ -42,6 +45,14 @@ const LandingPage: React.FC = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        if (isScrollingProgrammatically.current) return;
+
+        // On initial load or when scrolled to the top, force active section to be #hero.
+        if (window.scrollY < window.innerHeight * 0.5) {
+          setActiveSection('#hero');
+          return;
+        }
+
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionId = sectionIdMap[entry.target.id as keyof typeof sectionIdMap];
@@ -66,82 +77,35 @@ const LandingPage: React.FC = () => {
           observer.unobserve(ref.current);
         }
       });
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
     };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
     const ref = sectionRefs[sectionId as keyof typeof sectionRefs];
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    if (ref.current) {
+      setActiveSection(sectionId);
+      isScrollingProgrammatically.current = true;
+      ref.current?.scrollIntoView({ behavior: 'smooth' });
+
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+
+      scrollTimeout.current = setTimeout(() => {
+        isScrollingProgrammatically.current = false;
+      }, 1000);
+    }
   };
   
   const openAppointmentModal = () => setIsModalOpen(true);
 
-  // SEO, Language, and Performance Effect
   useEffect(() => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === Language.AR ? 'rtl' : 'ltr';
-
-    const currentContent = siteData.content[language];
-    const { seo, lawyerName } = currentContent;
-    const { contact } = siteData;
-
-    // Update Title
-    document.title = seo.title;
-
-    // Helper to update or create meta tags
-    const setMetaTag = (attr: 'name' | 'property', value: string, content: string) => {
-      let element = document.querySelector(`meta[${attr}='${value}']`) as HTMLMetaElement;
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute(attr, value);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-    
-    // Update Meta Description and OpenGraph tags
-    setMetaTag('name', 'description', seo.description);
-    setMetaTag('property', 'og:title', seo.title);
-    setMetaTag('property', 'og:description', seo.description);
-    setMetaTag('property', 'og:type', 'website');
-    setMetaTag('property', 'twitter:card', 'summary_large_image');
-    setMetaTag('property', 'twitter:title', seo.title);
-    setMetaTag('property', 'twitter:description', seo.description);
-
-    // Image preloading logic removed as images are no longer used.
-
-    // Update or create JSON-LD structured data
-    let ldJsonScript = document.getElementById('ld-json-script');
-    if (!ldJsonScript) {
-      // FIX: Property 'type' does not exist on type 'HTMLElement'.
-      // Solved by creating a new `script` const which is correctly typed as HTMLScriptElement,
-      // allowing access to the `type` property without a type assertion.
-      const newScript = document.createElement('script');
-      newScript.id = 'ld-json-script';
-      newScript.type = 'application/ld+json';
-      document.head.appendChild(newScript);
-      ldJsonScript = newScript;
-    }
-    
-    const structuredData = {
-      "@context": "https://schema.org",
-      "@type": "Attorney",
-      "name": lawyerName,
-      // "image" property removed as images are no longer used.
-      "telephone": `+${contact.whatsappNumber}`,
-      "email": contact.email,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33",
-        "addressLocality": "Casablanca",
-        "addressCountry": "MA"
-      },
-      "url": window.location.origin,
-      "description": seo.description,
-    };
-    ldJsonScript.textContent = JSON.stringify(structuredData);
-
-  }, [language, siteData]);
+  }, [language]);
 
   return (
     <div className={`bg-gray-900 font-body ${language === Language.AR ? 'font-body' : ''}`}>

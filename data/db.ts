@@ -1,8 +1,8 @@
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  heroImageUrl: "https://i.postimg.cc/hjhB5zbV/Generated-Image-November-02-2025-9-05PM.png",
-  aboutImageUrl: "https://i.postimg.cc/KvmMpq7K/Generated-Image-November-02-2025-1-33PM.png",
+  heroImageUrl: 'https://i.postimg.cc/hjhB5zbV/Generated-Image-November-02-2025-9-05PM.png',
+  aboutImageUrl: 'https://i.postimg.cc/PqBTdhHR/Generated-Image-November-02-2025-1-33PM.png',
   contact: {
     email: "hassar.fz@gmail.com",
     whatsappNumber: "212616351285",
@@ -18,9 +18,8 @@ export const initialDb: SiteData = {
     { id: 't2', name: 'Karim Alami', comment: "Très à l'écoute et d'un grand professionnalisme. Je recommande vivement ses services pour toute affaire familiale.", rating: 5 },
     { id: 't3', name: 'Casablanca Immobilier', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellente avocate.', rating: 4 },
   ],
-  // FIX: Re-enabled consultations and appointmentRequests for admin dashboard functionality.
-  consultations: [],
-  appointmentRequests: [],
+  // consultations: [], // Deprecated
+  // appointmentRequests: [], // Deprecated
   settings: {
     themeColor: 'gold',
     copyrightName: "Maître Fatima Azzahraa Hassar"
@@ -28,11 +27,6 @@ export const initialDb: SiteData = {
   content: {
     [Language.FR]: {
       lawyerName: "Maître Fatima Azzahraa Hassar",
-      logoText: "Cabinet Hassar",
-      seo: {
-        title: "Maître Fatima Azzahraa Hassar - Avocate à Casablanca, Maroc",
-        description: "Cabinet d'avocat à Casablanca spécialisé en droit des affaires, droit de la famille et droit immobilier. Conseil juridique et représentation par Maître Fatima Azzahraa Hassar.",
-      },
       header: {
         nav: [
           { name: 'Accueil', href: '#hero' },
@@ -51,7 +45,6 @@ export const initialDb: SiteData = {
       },
       about: {
         titlePrefix: 'À propos de',
-        imageAlt: "Portrait de Maître Fatima Azzahraa Hassar, avocate à Casablanca",
         p1: 'Forte d\'une solide expérience et d\'une passion pour la justice, Maître Fatima Azzahraa Hassar a fondé son cabinet avec la conviction que chaque client mérite une défense rigoureuse et personnalisée. Diplômée des plus grandes universités, elle allie expertise technique et qualités humaines pour vous offrir une représentation juridique de premier ordre.',
         p2: 'Son approche est fondée sur l\'écoute, la transparence et un engagement sans faille. Que vous soyez un particulier ou une entreprise, Maître Hassar s\'engage à protéger vos intérêts avec détermination et professionnalisme.',
         valuesTitle: 'Nos Valeurs',
@@ -110,19 +103,10 @@ export const initialDb: SiteData = {
       footer: {
         copyright: '© 2025 {lawyerName}. Tous droits réservés.',
         legal: 'Mentions légales',
-        socialsAria: {
-          linkedin: 'Visitez notre profil LinkedIn',
-          facebook: 'Visitez notre page Facebook',
-        },
       },
     },
     [Language.EN]: {
       lawyerName: "Fatima Azzahraa Hassar, Esq.",
-      logoText: "Hassar Law",
-      seo: {
-        title: "Fatima Azzahraa Hassar, Esq. - Lawyer in Casablanca, Morocco",
-        description: "Law firm in Casablanca specializing in business law, family law, and real estate law. Legal advice and representation by Fatima Azzahraa Hassar, Esq.",
-      },
       header: {
         nav: [
             { name: 'Home', href: '#hero' },
@@ -141,7 +125,6 @@ export const initialDb: SiteData = {
       },
       about: {
         titlePrefix: 'About',
-        imageAlt: "Portrait of Fatima Azzahraa Hassar, lawyer in Casablanca",
         p1: 'With solid experience and a passion for justice, Fatima Azzahraa Hassar founded her firm with the belief that every client deserves a rigorous and personalized defense. A graduate of top universities, she combines technical expertise with human qualities to offer you first-class legal representation.',
         p2: 'Her approach is based on listening, transparency, and unwavering commitment. Whether you are an individual or a business, Ms. Hassar is committed to protecting your interests with determination and professionalism.',
         valuesTitle: 'Our Values',
@@ -199,19 +182,10 @@ export const initialDb: SiteData = {
       footer: {
         copyright: '© 2025 {lawyerName}. All rights reserved.',
         legal: 'Legal Notice',
-        socialsAria: {
-          linkedin: 'Visit our LinkedIn profile',
-          facebook: 'Visit our Facebook page',
-        },
       },
     },
     [Language.AR]: {
       lawyerName: "المحامية فاطمة الزهراء حصار",
-      logoText: "مكتب حصار للمحاماة",
-      seo: {
-        title: "المحامية فاطمة الزهراء حصار - محامية في الدار البيضاء، المغرب",
-        description: "مكتب محاماة في الدار البيضاء متخصص في قانون الأعمال، قانون الأسرة، والقانون العقاري. استشارات قانونية وتمثيل قضائي مع المحامية فاطمة الزهراء حصار.",
-      },
       header: {
         nav: [
           { name: 'الرئيسية', href: '#hero' },
@@ -230,7 +204,6 @@ export const initialDb: SiteData = {
       },
       about: {
         titlePrefix: 'عن',
-        imageAlt: "صورة المحامية فاطمة الزهراء حصار، محامية بالدار البيضاء",
         p1: 'بفضل خبرتها الراسخة وشغفها بالعدالة، أسست الأستاذة فاطمة الزهراء حصار مكتبها إيمانا منها بأن كل موكل يستحق دفاعًا دقيقًا وشخصيًا. تخرجت من أرقى الجامعات، وتجمع بين الخبرة التقنية والصفات الإنسانية لتقدم لكم تمثيلاً قانونيًا من الدرجة الأولى.',
         p2: 'يعتمد نهجها على الاستماع والشفافية والالتزام المطلق. سواء كنتم أفرادًا أو شركات، تلتزم الأستاذة حصار بحماية مصالحكم بعزم واحترافية.',
         valuesTitle: 'قيمنا',
@@ -288,10 +261,6 @@ export const initialDb: SiteData = {
       footer: {
         copyright: '© 2025 {lawyerName}. جميع الحقوق محفوظة.',
         legal: 'إشعارات قانونية',
-        socialsAria: {
-          linkedin: 'زوروا ملفنا على لينكد إن',
-          facebook: 'زوروا صفحتنا على فيسبوك',
-        },
       },
     },
   },
