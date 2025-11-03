@@ -154,7 +154,7 @@ const Contact: React.FC = () => {
           
           {/* Map Section */}
           <div className={`md:col-span-2 mt-8 transition-all duration-1000 ease-out delay-500 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="w-full h-80 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative">
+            <div className="w-full h-80 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative group">
               <iframe
                 title={translations.addressTitle}
                 src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3325.136359332123!2d-7.6763056!3d33.5498333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDMyJzU5LjQiTiA3wrA0MCczNC43Ilc!5e0!3m2!1sen!2sma!4v1762105363005!5m2!1sen!2sma"
@@ -165,13 +165,21 @@ const Contact: React.FC = () => {
                 marginHeight={0}
                 marginWidth={0}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full"
+                className="absolute inset-0 w-full h-full transition-all duration-300"
                 style={{ filter: 'grayscale(0.8) contrast(1.2) opacity(0.8)' }}
               ></iframe>
+               <a 
+                href={siteConfig.contact.googleMapsLink} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="absolute bottom-4 right-4 rtl:right-auto rtl:left-4 z-10 bg-black/60 backdrop-blur-sm text-yellow-400 font-semibold py-2 px-4 rounded-lg shadow-lg flex items-center gap-2 hover:bg-black/80 hover:scale-105 transform transition-all duration-300"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                <span>{translations.viewOnMap}</span>
+              </a>
             </div>
-            <a href={siteConfig.contact.googleMapsLink} target="_blank" rel="noopener noreferrer" className="inline-block mt-4 text-yellow-400 hover:underline">
-              {translations.viewOnMap}
-            </a>
           </div>
         </div>
       </div>
