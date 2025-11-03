@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from 'react';
 import { useInView } from '../hooks/useInView';
 import { AppContext } from '../contexts/AppContext';
@@ -64,7 +65,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">{translations.phonePrompt}</h3>
-                  <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-gray-400 hover:text-yellow-400 transition-colors" dir="ltr">
                     {displayNumber}
                   </a>
                 </div>

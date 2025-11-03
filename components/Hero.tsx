@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect, useContext } from 'react';
 import { useTypewriter } from '../hooks/useTypewriter';
 import { AppContext } from '../contexts/AppContext';
@@ -86,6 +85,7 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
                   <a
                     href={`tel:+${phoneNumber}`}
                     className="bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
+                    dir="ltr"
                   >
                     <PhoneIcon className="h-5 w-5" />
                     <span>{displayNumber}</span>
