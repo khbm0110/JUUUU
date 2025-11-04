@@ -1,6 +1,5 @@
 
 
-
 export enum Language {
   FR = 'fr',
   EN = 'en',
@@ -106,9 +105,6 @@ export interface Translations {
       dateLabel: string;
       timeLabel: string;
       weekendWarning: string;
-      confirmation: string;
-      bySms: string;
-      byEmail: string;
       submit: string;
       success: string;
       close: string;

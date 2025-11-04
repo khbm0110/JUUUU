@@ -114,6 +114,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
               >
                 <input type="hidden" name="formType" value="appointment" />
                 <input type="hidden" name="preferredDateTime" value={selectedDate && selectedTime ? `${selectedDate}T${selectedTime}` : ''} />
+                <input type="hidden" name="confirmationMethod" value="email" />
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-x-6">
                   <div className="space-y-4">
@@ -150,20 +151,6 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
                         className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
                       />
                     </div>
-
-                    <fieldset className="pt-2">
-                      <legend className="text-sm font-medium text-gray-400 mb-2">{translations.confirmation}</legend>
-                      <div className="flex gap-4">
-                        <label className="flex items-center gap-2 cursor-pointer text-gray-300">
-                          <input type="radio" name="confirmationMethod" value="email" defaultChecked className="accent-yellow-500" />
-                          <span>{translations.byEmail}</span>
-                        </label>
-                        <label className="flex items-center gap-2 cursor-pointer text-gray-300">
-                          <input type="radio" name="confirmationMethod" value="sms" className="accent-yellow-500" />
-                          <span>{translations.bySms}</span>
-                        </label>
-                      </div>
-                    </fieldset>
                   </div>
                 </div>
               </form>
