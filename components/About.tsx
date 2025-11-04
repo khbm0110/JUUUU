@@ -14,12 +14,17 @@ const About: React.FC = () => {
     <section ref={ref} className="bg-gray-900 relative pt-28 md:pt-40 pb-20 md:pb-24">
       <CurvedSeparator type="top" colorClass="text-gray-800" />
       <div className="container mx-auto px-6">
+        
+        {/* Title */}
+        <div className={`transition-all duration-1000 ease-out ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} text-center md:text-left rtl:md:text-right mb-8 md:mb-6`}>
+            <h2 className="text-4xl font-bold font-heading text-yellow-400">{`${translations.titlePrefix} ${lawyerName}`}</h2>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 items-start">
           
           {/* Text Content Column */}
-          <div className={aboutImageUrl ? 'md:col-span-2' : 'md:col-span-3'}>
+          <div className={aboutImageUrl ? 'md:col-span-2 order-last md:order-first' : 'md:col-span-3'}>
             <div className={`transition-all duration-1000 ease-out delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} text-center md:text-left rtl:md:text-right`}>
-              <h2 className="text-4xl font-bold font-heading mb-6 text-yellow-400">{`${translations.titlePrefix} ${lawyerName}`}</h2>
               <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
               <p className="text-gray-400 leading-relaxed">{translations.p2}</p>
               
@@ -47,7 +52,7 @@ const About: React.FC = () => {
 
           {/* Image Column */}
           {aboutImageUrl && (
-            <div className={`md:col-span-1 flex items-start justify-center transition-all duration-1000 ease-out ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+            <div className={`md:col-span-1 flex items-start justify-center transition-all duration-1000 ease-out order-first md:order-last ${isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
               <div 
                 className="relative w-10/12 md:w-full group"
               >
