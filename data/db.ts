@@ -54,13 +54,6 @@ export const initialDb: SiteData = {
           { title: 'Engagement', description: 'Notre engagement envers nos clients guide chaque action que nous entreprenons.' },
         ],
       },
-      stats: {
-        items: [
-          { value: 10, label: "Ans d'expérience", suffix: '+' },
-          { value: 100, label: "Avis Clients", suffix: '+' },
-          { value: 3, label: "Langues Parlées" },
-        ],
-      },
       services: {
         title: 'Nos Domaines d\'Expertise',
         items: [
@@ -134,13 +127,6 @@ export const initialDb: SiteData = {
           { title: 'Commitment', description: 'Our commitment to our clients guides every action we take.' },
         ],
       },
-      stats: {
-        items: [
-          { value: 10, label: "Years of Experience", suffix: '+' },
-          { value: 100, label: "Client Reviews", suffix: '+' },
-          { value: 3, label: "Languages Spoken" },
-        ],
-      },
       services: {
         title: 'Our Areas of Expertise',
         items: [
@@ -211,13 +197,6 @@ export const initialDb: SiteData = {
           { title: 'الاحترافية', description: 'نلتزم بتقديم خدمة احترافية بأعلى جودة لعملائنا.' },
           { title: 'النزاهة', description: 'نتصرف بنزاهة وأخلاق وشفافية في جميع تعاملاتنا.' },
           { title: 'الالتزام', description: 'التزامنا تجاه عملائنا يوجه كل إجراء نتخذه.' },
-        ],
-      },
-      stats: {
-        items: [
-          { value: 10, label: "سنوات من الخبرة", suffix: '+' },
-          { value: 100, label: "تقييمات العملاء", suffix: '+' },
-          { value: 3, label: "لغات متحدث بها" },
         ],
       },
       services: {

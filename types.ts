@@ -1,5 +1,6 @@
 
 
+
 export enum Language {
   FR = 'fr',
   EN = 'en',
@@ -25,6 +26,13 @@ export interface Testimonial {
   rating: number; // 1 to 5
 }
 
+// FIX: Added missing Stat interface for the Stats component.
+export interface Stat {
+  value: number;
+  suffix: string;
+  label: string;
+}
+
 export interface Consultation {
   id: string;
   name: string;
@@ -41,12 +49,6 @@ export interface AppointmentRequest {
   preferredDateTime: string;
   confirmationMethod: 'sms' | 'email';
   date: string; // ISO String of submission
-}
-
-export interface Stat {
-  value: number;
-  label: string;
-  suffix?: string;
 }
 
 export interface Translations {
@@ -70,12 +72,12 @@ export interface Translations {
       description: string;
     }[];
   };
-  stats: {
-    items: Stat[];
-  };
   services: {
     title: string;
     items: Service[];
+  };
+  stats?: {
+    items: Stat[];
   };
   testimonials: {
     title: string;
