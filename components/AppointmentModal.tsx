@@ -9,8 +9,6 @@ interface AppointmentModalProps {
   onClose: () => void;
 }
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby27xOFjCSzgcc9QBkPUIW5uuh8jg7rWFFxf4XUFloG0yl7sY8FxOnyKHR5kgEx0VM7/exec';
-
 const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) => {
   const { state } = useContext(AppContext);
   const translations = state.siteData.content[state.language].contact.appointmentModal;
@@ -26,22 +24,23 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(SCRIPT_URL, {
+      const response = await fetch('/api/submit-appointment', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        const result = await response.json();
-        if (result.status === 'success') {
-          setIsSubmitted(true);
-        } else {
-          throw new Error(result.message || 'An unknown error occurred.');
-        }
+      const result = await response.json();
+
+      if (response.ok && result.status === 'success') {
+        setIsSubmitted(true);
       } else {
-        throw new Error(`Server responded with status: ${response.status}`);
+        throw new Error(result.message || 'An unknown error occurred.');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send request. Please try again later.');

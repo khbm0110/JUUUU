@@ -23,7 +23,8 @@ export const initialDb: SiteData = {
   appointmentRequests: [],
   settings: {
     themeColor: 'gold',
-    copyrightName: "Maître Fatima Azzahraa Hassar"
+    copyrightName: "Maître Fatima Azzahraa Hassar",
+    domain: "https://www.cabinethassar.ma/"
   },
   content: {
     [Language.FR]: {

@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 // FIX: Imported `ReactNode` to resolve a type error in the `CollapsibleSection` component.
 import React, { useState, useContext, useEffect, ChangeEvent, ReactElement, ReactNode } from 'react';
 import { AppContext } from '../contexts/AppContext';
@@ -427,3 +415,155 @@ const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.S
         </div>
     );
 };
+
+const SettingsEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
+    
+    // Generic handler to update nested state
+    const handleChange = (path: string, value: string) => {
+        setData(prevData => {
+            const newData = JSON.parse(JSON.stringify(prevData));
+            // Basic path traversal. For production, a library like lodash.set would be safer.
+            const keys = path.split('.');
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            let current: any = newData;
+            for (let i = 0; i < keys.length - 1; i++) {
+                // Create path if it doesn't exist
+                if (current[keys[i]] === undefined) {
+                    current[keys[i]] = {};
+                }
+                current = current[keys[i]];
+            }
+            current[keys[keys.length - 1]] = value;
+            return newData;
+        });
+    };
+
+    return (
+        <div className="space-y-6">
+             <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-2">Réglages Généraux</h3>
+             
+             <CollapsibleSection title="Domaine & Images">
+                <AdminInput label="Domaine principal (utilisé pour le SEO)" name="domain" value={data.settings.domain || ''} onChange={(e) => handleChange('settings.domain', e.target.value)} />
+                <AdminInput label="URL de l'image Hero" name="heroImageUrl" value={data.heroImageUrl || ''} onChange={(e) => handleChange('heroImageUrl', e.target.value)} />
+                <AdminInput label="URL de l'image 'À propos'" name="aboutImageUrl" value={data.aboutImageUrl || ''} onChange={(e) => handleChange('aboutImageUrl', e.target.value)} />
+            </CollapsibleSection>
+            
+             <CollapsibleSection title="Coordonnées">
+                 <AdminInput label="Email de contact" name="email" value={data.contact.email} onChange={(e) => handleChange('contact.email', e.target.value)} />
+                 <AdminInput label="Numéro WhatsApp (Format International, ex: 212...)" name="whatsappNumber" value={data.contact.whatsappNumber} onChange={(e) => handleChange('contact.whatsappNumber', e.target.value)} />
+                 <AdminTextarea label="Adresse" name="address" value={data.contact.address} onChange={(e) => handleChange('contact.address', e.target.value)} />
+                 <AdminInput label="Lien Google Maps" name="googleMapsLink" value={data.contact.googleMapsLink} onChange={(e) => handleChange('contact.googleMapsLink', e.target.value)} />
+            </CollapsibleSection>
+
+             <CollapsibleSection title="Réseaux Sociaux & Copyright">
+                <AdminInput label="URL LinkedIn" name="linkedin" value={data.socials.linkedin} onChange={(e) => handleChange('socials.linkedin', e.target.value)} />
+                <AdminInput label="URL Facebook" name="facebook" value={data.socials.facebook} onChange={(e) => handleChange('socials.facebook', e.target.value)} />
+                <AdminInput label="Nom pour le Copyright" name="copyrightName" value={data.settings.copyrightName} onChange={(e) => handleChange('settings.copyrightName', e.target.value)} />
+            </CollapsibleSection>
+        </div>
+    );
+};
+
+// --- Main Dashboard Component ---
+
+const AdminDashboard: React.FC = () => {
+    const { state, updateSiteData, logout } = useContext(AppContext);
+    const [localData, setLocalData] = useState<SiteData>(() => JSON.parse(JSON.stringify(state.siteData))); // Deep copy
+    const [view, setView] = useState<AdminView>('dashboard');
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveSuccess, setSaveSuccess] = useState(false);
+    
+    useEffect(() => {
+        setLocalData(JSON.parse(JSON.stringify(state.siteData)));
+    }, [state.siteData]);
+
+    const handleSave = () => {
+        setIsSaving(true);
+        // In a real app, this would be an API call.
+        setTimeout(() => {
+            updateSiteData(localData);
+            setIsSaving(false);
+            setSaveSuccess(true);
+            setTimeout(() => setSaveSuccess(false), 2500);
+        }, 1000);
+    };
+
+    const newConsultationsCount = (localData.consultations || []).filter(c => !c.handled).length;
+    const newAppointmentsCount = (localData.appointmentRequests || []).filter(a => !a.handled).length;
+
+    const renderView = () => {
+        switch (view) {
+            case 'dashboard':
+                return <DashboardHome siteData={localData} />;
+            case 'services':
+                return <ServicesEditor data={localData} setData={setLocalData} />;
+            case 'testimonials':
+                 return <TestimonialsEditor data={localData} setData={setLocalData} />;
+            case 'languages':
+                return <LanguageEditor data={localData} setData={setLocalData} />;
+            case 'settings':
+                return <SettingsEditor data={localData} setData={setLocalData} />;
+            default:
+                return <div className="text-gray-400">Section non implémentée.</div>;
+        }
+    };
+
+    return (
+        <div className="flex h-screen bg-gray-900 text-gray-300 font-body">
+            {/* Sidebar */}
+            <aside className={`bg-gray-800 border-r border-gray-700 flex flex-col transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
+                <div className={`flex items-center h-20 border-b border-gray-700 px-4 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
+                    {isSidebarOpen && <h1 className="text-xl font-bold text-white">Administration</h1>}
+                    <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-gray-400 hover:text-white">
+                        {isSidebarOpen ? <AdminCloseIcon className="w-6 h-6" /> : <AdminMenuIcon className="w-6 h-6" />}
+                    </button>
+                </div>
+                <nav className="flex-grow">
+                    <NavItem icon={<AdminDashboardIcon />} text="Dashboard" isOpen={isSidebarOpen} active={view === 'dashboard'} onClick={() => setView('dashboard')} />
+                    <NavItem icon={<AdminServicesIcon />} text="Services" isOpen={isSidebarOpen} active={view === 'services'} onClick={() => setView('services')} />
+                    <NavItem icon={<AdminTestimonialsIcon />} text="Témoignages" isOpen={isSidebarOpen} active={view === 'testimonials'} onClick={() => setView('testimonials')} />
+                    <NavItem icon={<AdminConsultationsIcon />} text="Consultations" isOpen={isSidebarOpen} active={view === 'consultations'} onClick={() => setView('consultations')} notificationCount={newConsultationsCount} />
+                    <NavItem icon={<AdminAppointmentsIcon />} text="Rendez-vous" isOpen={isSidebarOpen} active={view === 'appointments'} onClick={() => setView('appointments')} notificationCount={newAppointmentsCount} />
+                    <NavItem icon={<AdminLanguagesIcon />} text="Langues" isOpen={isSidebarOpen} active={view === 'languages'} onClick={() => setView('languages')} />
+                    <NavItem icon={<AdminSettingsIcon />} text="Réglages" isOpen={isSidebarOpen} active={view === 'settings'} onClick={() => setView('settings')} />
+                </nav>
+                <div className="border-t border-gray-700">
+                    <NavItem icon={<AdminLogoutIcon />} text="Déconnexion" isOpen={isSidebarOpen} onClick={logout} />
+                </div>
+            </aside>
+
+            {/* Main Content */}
+            <div className="flex flex-col flex-1 overflow-hidden">
+                {/* Header */}
+                <header className="flex justify-end items-center h-20 bg-gray-800 border-b border-gray-700 px-6">
+                    <button 
+                        onClick={handleSave}
+                        disabled={isSaving || saveSuccess}
+                        className="flex items-center gap-2 bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-lg hover:bg-yellow-400 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                        {isSaving ? (
+                           <>
+                              <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                              Enregistrement...
+                           </>
+                        ) : saveSuccess ? (
+                            <>
+                                <AdminSaveIcon className="h-5 w-5" />
+                                Enregistré !
+                            </>
+                        ) : (
+                            'Enregistrer les modifications'
+                        )}
+                    </button>
+                </header>
+                {/* Content Area */}
+                <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
+                    {renderView()}
+                </main>
+            </div>
+        </div>
+    );
+};
+
+export default AdminDashboard;

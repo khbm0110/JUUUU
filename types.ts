@@ -123,6 +123,7 @@ export interface Translations {
 export interface SiteSettings {
   themeColor: 'gold' | 'blue'; // Example setting
   copyrightName: string;
+  domain?: string;
 }
 
 export interface SiteContent {

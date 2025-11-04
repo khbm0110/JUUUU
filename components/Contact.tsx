@@ -8,8 +8,6 @@ import { PhoneIcon } from './icons/PhoneIcon';
 import { EmailIcon } from './icons/EmailIcon';
 import { LocationIcon } from './icons/LocationIcon';
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby27xOFjCSzgcc9QBkPUIW5uuh8jg7rWFFxf4XUFloG0yl7sY8FxOnyKHR5kgEx0VM7/exec';
-
 const Contact: React.FC = () => {
   const { state } = useContext(AppContext);
   const { lawyerName, contact: translations } = state.siteData.content[state.language];
@@ -30,23 +28,24 @@ const Contact: React.FC = () => {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(SCRIPT_URL, {
+      const response = await fetch('/api/submit-contact', {
         method: 'POST',
-        body: formData,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
+      
+      const result = await response.json();
 
-      if (response.ok) {
-        const result = await response.json();
-        if (result.status === 'success') {
-          setIsSubmitted(true);
-          form.reset();
-        } else {
-          throw new Error(result.message || 'An unknown error occurred.');
-        }
+      if (response.ok && result.status === 'success') {
+        setIsSubmitted(true);
+        form.reset();
       } else {
-        throw new Error(`Server responded with status: ${response.status}`);
+        throw new Error(result.message || 'An unknown error occurred.');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send message. Please try again later.');
