@@ -6,11 +6,16 @@
 
 
 
+
+
+
+
 // FIX: Imported `ReactNode` to resolve a type error in the `CollapsibleSection` component.
 import React, { useState, useContext, useEffect, ChangeEvent, ReactElement, ReactNode } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import { AdminDashboardIcon, AdminAboutIcon, AdminServicesIcon, AdminConsultationsIcon, AdminAppointmentsIcon, AdminContactIcon, AdminTestimonialsIcon, AdminLanguagesIcon, AdminSettingsIcon, AdminLogoutIcon, AdminMenuIcon, AdminCloseIcon, AdminSaveIcon, AdminPlusIcon, AdminDeleteIcon, AdminEditIcon, AdminStarFilledIcon, AdminStarOutlineIcon } from '../components/admin/icons';
-import { Language, Service, Testimonial, SiteData, Consultation, AppointmentRequest } from '../types';
+// FIX: Imported Translations type to fix type errors in LanguageEditor.
+import { Language, Service, Testimonial, SiteData, Consultation, AppointmentRequest, Translations } from '../types';
 
 type AdminView = 'dashboard' | 'about' | 'services' | 'consultations' | 'appointments' | 'contact' | 'testimonials' | 'languages' | 'settings';
 
@@ -51,7 +56,8 @@ const CollapsibleSection: React.FC<{ title: string; children: ReactNode }> = ({ 
     </details>
 );
 
-const NavItem = ({ icon, text, active = false, isOpen, onClick, notificationCount }: { icon: ReactElement, text: string, active?: boolean, isOpen: boolean, onClick?: () => void, notificationCount?: number }) => (
+// FIX: Changed icon type from ReactElement to ReactElement<any> to fix cloneElement error.
+const NavItem = ({ icon, text, active = false, isOpen, onClick, notificationCount }: { icon: ReactElement<any>, text: string, active?: boolean, isOpen: boolean, onClick?: () => void, notificationCount?: number }) => (
     <button
         onClick={onClick}
         title={!isOpen ? text : ''}
@@ -327,8 +333,8 @@ const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.S
         });
     };
     
-    // BUG FIX: Use a fallback empty object to prevent crashes if language data is missing.
-    const currentLangData = data.content[activeLang] || {};
+    // FIX: Cast the fallback object to Translations to prevent type errors on property access.
+    const currentLangData = data.content[activeLang] || ({} as Translations);
 
     return (
         <div>
@@ -383,5 +389,41 @@ const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.S
                     <AdminInput label="Titre de la section" value={currentLangData.testimonials?.title || ''} onChange={(e) => handleTextChange('testimonials.title', e.target.value)} />
                 </CollapsibleSection>
                 
+                {/* FIX: Reconstructed the corrupted contact section editor. */}
                 <CollapsibleSection title="Section Contact">
-                    <AdminInput label="
+                    <AdminInput label="Préfixe du titre" value={currentLangData.contact?.titlePrefix || ''} onChange={(e) => handleTextChange('contact.titlePrefix', e.target.value)} />
+                    <AdminTextarea label="Intro" value={currentLangData.contact?.intro || ''} onChange={(e) => handleTextChange('contact.intro', e.target.value)} />
+                    <AdminInput label="Texte pour le téléphone" value={currentLangData.contact?.phonePrompt || ''} onChange={(e) => handleTextChange('contact.phonePrompt', e.target.value)} />
+                    <AdminInput label="Texte pour WhatsApp" value={currentLangData.contact?.whatsapp || ''} onChange={(e) => handleTextChange('contact.whatsapp', e.target.value)} />
+                    <AdminInput label="Texte pour l'email" value={currentLangData.contact?.emailPrompt || ''} onChange={(e) => handleTextChange('contact.emailPrompt', e.target.value)} />
+                    <AdminInput label="Titre de l'adresse" value={currentLangData.contact?.addressTitle || ''} onChange={(e) => handleTextChange('contact.addressTitle', e.target.value)} />
+                    <AdminInput label="Texte pour le lien de la carte" value={currentLangData.contact?.viewOnMap || ''} onChange={(e) => handleTextChange('contact.viewOnMap', e.target.value)} />
+
+                    <div className="space-y-4 mt-4 pl-4 border-l-2 border-gray-700">
+                        <h4 className="text-md font-semibold text-gray-300">Formulaire de Contact</h4>
+                        <AdminInput label="Champ Nom" value={currentLangData.contact?.form?.name || ''} onChange={e => handleTextChange('contact.form.name', e.target.value)} />
+                        <AdminInput label="Champ Email" value={currentLangData.contact?.form?.email || ''} onChange={e => handleTextChange('contact.form.email', e.target.value)} />
+                        <AdminInput label="Champ Message" value={currentLangData.contact?.form?.message || ''} onChange={e => handleTextChange('contact.form.message', e.target.value)} />
+                        <AdminInput label="Bouton Envoyer" value={currentLangData.contact?.form?.submit || ''} onChange={e => handleTextChange('contact.form.submit', e.target.value)} />
+                        {/* FIX: Corrected property access from non-existent 'success' to 'successTitle' and 'successMessage'. */}
+                        <AdminInput label="Titre du message de succès" value={currentLangData.contact?.form?.successTitle || ''} onChange={e => handleTextChange('contact.form.successTitle', e.target.value)} />
+                        <AdminTextarea label="Message de succès" value={currentLangData.contact?.form?.successMessage || ''} onChange={e => handleTextChange('contact.form.successMessage', e.target.value)} />
+                    </div>
+
+                    <div className="space-y-4 mt-4 pl-4 border-l-2 border-gray-700">
+                        <h4 className="text-md font-semibold text-gray-300">Modale de Rendez-vous</h4>
+                        <AdminInput label="Titre de la modale" value={currentLangData.contact?.appointmentModal?.title || ''} onChange={e => handleTextChange('contact.appointmentModal.title', e.target.value)} />
+                        <AdminInput label="Champ Nom" value={currentLangData.contact?.appointmentModal?.name || ''} onChange={e => handleTextChange('contact.appointmentModal.name', e.target.value)} />
+                        <AdminInput label="Champ Email" value={currentLangData.contact?.appointmentModal?.email || ''} onChange={e => handleTextChange('contact.appointmentModal.email', e.target.value)} />
+                        <AdminInput label="Champ Téléphone" value={currentLangData.contact?.appointmentModal?.phone || ''} onChange={e => handleTextChange('contact.appointmentModal.phone', e.target.value)} />
+                        <AdminInput label="Bouton Envoyer" value={currentLangData.contact?.appointmentModal?.submit || ''} onChange={e => handleTextChange('contact.appointmentModal.submit', e.target.value)} />
+                        {/* FIX: Corrected property access from non-existent 'success' to 'successTitle' and 'successMessage'. */}
+                        <AdminInput label="Titre du message de succès" value={currentLangData.contact?.appointmentModal?.successTitle || ''} onChange={e => handleTextChange('contact.appointmentModal.successTitle', e.target.value)} />
+                        <AdminTextarea label="Message de succès" value={currentLangData.contact?.appointmentModal?.successMessage || ''} onChange={e => handleTextChange('contact.appointmentModal.successMessage', e.target.value)} />
+                        <AdminInput label="Bouton Fermer" value={currentLangData.contact?.appointmentModal?.close || ''} onChange={e => handleTextChange('contact.appointmentModal.close', e.target.value)} />
+                    </div>
+                </CollapsibleSection>
+            </div>
+        </div>
+    );
+};

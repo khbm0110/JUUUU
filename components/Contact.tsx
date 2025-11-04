@@ -1,6 +1,6 @@
 
 
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useInView } from '../hooks/useInView';
 import { AppContext } from '../contexts/AppContext';
 import CurvedSeparator from './CurvedSeparator';
@@ -8,24 +8,26 @@ import { PhoneIcon } from './icons/PhoneIcon';
 import { EmailIcon } from './icons/EmailIcon';
 import { LocationIcon } from './icons/LocationIcon';
 
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby27xOFjCSzgcc9QBkPUIW5uuh8jg7rWFFxf4XUFloG0yl7sY8FxOnyKHR5kgEx0VM7/exec';
+
 const Contact: React.FC = () => {
   const { state } = useContext(AppContext);
   const { lawyerName, contact: translations } = state.siteData.content[state.language];
   const siteConfig = state.siteData;
 
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [ref, isInView] = useInView({ threshold: 0.2, triggerOnce: true });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
   const displayNumber = "06 16 35 12 85";
 
-  // IMPORTANT: Replace this placeholder with your new Google Apps Script Web App URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-c0bBfBq3GjC5hJ6tYvD9eXpT1mRzJ8kLpW0oNnU7iV6aF4sD3bE2c/exec";
-  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+    setError(null);
+
     const form = e.currentTarget;
     const formData = new FormData(form);
 
@@ -36,16 +38,20 @@ const Contact: React.FC = () => {
       });
 
       if (response.ok) {
-        setFormSubmitted(true);
-        form.reset();
-        setTimeout(() => setFormSubmitted(false), 5000);
+        const result = await response.json();
+        if (result.status === 'success') {
+          setIsSubmitted(true);
+          form.reset();
+        } else {
+          throw new Error(result.message || 'An unknown error occurred.');
+        }
       } else {
-        alert('Une erreur est survenue. Veuillez réessayer.');
+        throw new Error(`Server responded with status: ${response.status}`);
       }
-    } catch (error) {
-       alert('Une erreur réseau est survenue. Veuillez vérifier votre connexion et réessayer.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again later.');
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -100,57 +106,70 @@ const Contact: React.FC = () => {
           
           {/* Right Column: Form */}
           <div className={`transition-all duration-1000 ease-out delay-300 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 rtl:-translate-x-10'}`}>
-            {formSubmitted ? (
-               <div className="bg-gray-800 p-8 rounded-lg text-center h-full flex items-center justify-center">
-                 <p className="text-xl text-green-400">{translations.form.success}</p>
-               </div>
+            {isSubmitted ? (
+               <div className="bg-gray-800 p-8 rounded-lg border border-gray-700 text-center flex flex-col items-center justify-center h-full min-h-[360px]">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-green-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 className="text-2xl font-bold font-heading text-white mb-2">{translations.form.successTitle}</h3>
+                <p className="text-gray-400">{translations.form.successMessage}</p>
+              </div>
             ) : (
-            <form 
-              onSubmit={handleSubmit}
-              className="space-y-6"
-            >
-              <input type="hidden" name="formType" value="contact" />
-              <div>
-                <label htmlFor="name" className="sr-only">{translations.form.name}</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder={translations.form.name}
-                  required
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="sr-only">{translations.form.email}</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder={translations.form.email}
-                  required
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="sr-only">{translations.form.message}</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder={translations.form.message}
-                  required
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg hover:bg-yellow-400 transition-colors duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              <form 
+                onSubmit={handleSubmit}
+                className="space-y-6"
               >
-                {isSubmitting ? 'Envoi en cours...' : translations.form.submit}
-              </button>
-            </form>
+                <input type="hidden" name="formType" value="contact" />
+                <div>
+                  <label htmlFor="name" className="sr-only">{translations.form.name}</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder={translations.form.name}
+                    required
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="sr-only">{translations.form.email}</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder={translations.form.email}
+                    required
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="sr-only">{translations.form.message}</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    placeholder={translations.form.message}
+                    required
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
+                  ></textarea>
+                </div>
+                {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-yellow-400 transform hover:scale-105 flex items-center justify-center"
+                >
+                   {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Envoi en cours...
+                    </>
+                  ) : translations.form.submit}
+                </button>
+              </form>
             )}
           </div>
           

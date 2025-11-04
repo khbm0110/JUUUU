@@ -1,4 +1,4 @@
-
+import { ReactElement } from 'react';
 
 export enum Language {
   FR = 'fr',
@@ -38,6 +38,8 @@ export interface Consultation {
   email: string;
   message: string;
   date: string; // ISO String
+  // FIX: Added handled property for admin dashboard functionality.
+  handled?: boolean;
 }
 
 export interface AppointmentRequest {
@@ -45,9 +47,12 @@ export interface AppointmentRequest {
   name: string;
   email: string;
   phone: string;
+  message?: string;
   preferredDateTime: string;
   confirmationMethod: 'sms' | 'email';
   date: string; // ISO String of submission
+  // FIX: Added handled property for admin dashboard functionality.
+  handled?: boolean;
 }
 
 export interface Translations {
@@ -94,19 +99,18 @@ export interface Translations {
       email: string;
       message: string;
       submit: string;
-      success: string;
+      successTitle: string;
+      successMessage: string;
     };
     appointmentModal: {
       title: string;
       name: string;
       email: string;
       phone: string;
-      subject: string;
-      dateLabel: string;
-      timeLabel: string;
-      weekendWarning: string;
+      message: string;
       submit: string;
-      success: string;
+      successTitle: string;
+      successMessage: string;
       close: string;
     };
   };
@@ -142,8 +146,9 @@ export interface SiteData {
   };
   testimonials: Testimonial[];
   // DEPRECATED: Consultations and appointments are now handled by an external form service.
-  // consultations: Consultation[];
-  // appointmentRequests: AppointmentRequest[];
+  // FIX: Uncommented consultations and appointmentRequests for use in the admin dashboard.
+  consultations: Consultation[];
+  appointmentRequests: AppointmentRequest[];
   settings: SiteSettings;
   content: SiteContent;
 }

@@ -1,4 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+
+
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import { CloseIcon } from './icons/CloseIcon';
 
@@ -7,100 +9,73 @@ interface AppointmentModalProps {
   onClose: () => void;
 }
 
-// Helper to format a Date object to 'YYYY-MM-DD' string, respecting local timezone.
-const formatDateForInput = (date: Date): string => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
-
-const getNextBusinessDay = () => {
-  const today = new Date();
-  let nextDay = new Date(today.getTime());
-  nextDay.setDate(today.getDate() + 1);
-
-  while (nextDay.getDay() === 0 || nextDay.getDay() === 6) { // Sunday or Saturday
-    nextDay.setDate(nextDay.getDate() + 1);
-  }
-  return formatDateForInput(nextDay);
-};
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby27xOFjCSzgcc9QBkPUIW5uuh8jg7rWFFxf4XUFloG0yl7sY8FxOnyKHR5kgEx0VM7/exec';
 
 const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) => {
   const { state } = useContext(AppContext);
   const translations = state.siteData.content[state.language].contact.appointmentModal;
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
-
-  useEffect(() => {
-    if (isOpen) {
-      setSelectedDate(getNextBusinessDay());
-      setSelectedTime('');
-      setIsSubmitted(false);
-    }
-  }, [isOpen]);
-
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-c0bBfBq3GjC5hJ6tYvD9eXpT1mRzJ8kLpW0oNnU7iV6aF4sD3bE2c/exec";
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+    setError(null);
+
     const form = e.currentTarget;
     const formData = new FormData(form);
 
     try {
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: formData,
-        });
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+      });
 
-        if (response.ok) {
-            setIsSubmitted(true);
-            form.reset();
-            setTimeout(() => {
-                onClose();
-                setTimeout(() => setIsSubmitted(false), 300);
-            }, 4000);
+      if (response.ok) {
+        const result = await response.json();
+        if (result.status === 'success') {
+          setIsSubmitted(true);
         } else {
-            alert('An error occurred. Please try again.');
+          throw new Error(result.message || 'An unknown error occurred.');
         }
-    } catch (error) {
-        alert('A network error occurred. Please check your connection and try again.');
+      } else {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send request. Please try again later.');
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
-  
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const date = new Date(e.target.value.replace(/-/g, '/'));
-    const day = date.getDay();
 
-    if (day === 6 || day === 0) { // Saturday or Sunday
-      alert(translations.weekendWarning);
-      return;
-    }
-    setSelectedDate(e.target.value);
-    setSelectedTime('');
+  const handleClose = () => {
+    setIsSubmitted(false);
+    setError(null);
+    onClose();
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 transition-opacity duration-300 overflow-y-auto" onClick={onClose}>
-      <div className="bg-gray-800 rounded-lg shadow-2xl w-full max-w-lg relative border border-gray-700" onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10" aria-label={translations.close}>
+    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 transition-opacity duration-300 overflow-y-auto" onClick={handleClose}>
+      <div className="bg-gray-800 rounded-lg shadow-2xl w-full max-w-md relative border border-gray-700" onClick={e => e.stopPropagation()}>
+        <button onClick={handleClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10" aria-label={translations.close}>
           <CloseIcon className="w-6 h-6" />
         </button>
-
+        
         {isSubmitted ? (
-            <div className="text-center p-10">
-                <h2 className="text-2xl font-bold font-heading text-yellow-400 mb-4">{translations.title}</h2>
-                <p className="text-lg text-green-400">{translations.success}</p>
-            </div>
+          <div className="p-8 md:p-12 text-center flex flex-col items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-green-400 mb-4 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h2 className="text-3xl font-bold font-heading text-white mb-2">{translations.successTitle}</h2>
+            <p className="text-gray-400 mb-8 max-w-xs mx-auto leading-relaxed">{translations.successMessage}</p>
+            <button onClick={handleClose} className="bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg">
+              {translations.close}
+            </button>
+          </div>
         ) : (
           <form
             onSubmit={handleSubmit}
@@ -111,56 +86,32 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
             </div>
             
             <div className="p-6 md:p-8 overflow-y-auto">
-              <input type="hidden" name="formType" value="appointment" />
-              <input type="hidden" name="preferredDateTime" value={selectedDate && selectedTime ? `${selectedDate}T${selectedTime}` : ''} />
-              <input type="hidden" name="confirmationMethod" value="email" />
+              <input type="hidden" name="formType" value="appointment_request" />
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-x-6">
-                <div className="space-y-4">
-                  <input type="text" name="name" placeholder={translations.name} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-                  <input type="email" name="email" placeholder={translations.email} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-                  <input type="tel" name="phone" placeholder={translations.phone} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-                  <input type="text" name="subject" placeholder={translations.subject} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="appointmentDate" className="text-sm font-medium text-gray-400 mb-2 block">{translations.dateLabel}</label>
-                    <input 
-                      type="date" 
-                      id="appointmentDate"
-                      value={selectedDate}
-                      min={getNextBusinessDay()}
-                      onChange={handleDateChange}
-                      required 
-                      className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="appointmentTime" className="text-sm font-medium text-gray-400 mb-2 block">{translations.timeLabel}</label>
-                    <input
-                      type="time"
-                      id="appointmentTime"
-                      value={selectedTime}
-                      onChange={(e) => setSelectedTime(e.target.value)}
-                      min="08:30"
-                      max="16:30"
-                      required
-                      className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
-                    />
-                  </div>
-                </div>
+              <div className="space-y-4">
+                <input type="text" name="name" placeholder={translations.name} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
+                <input type="email" name="email" placeholder={translations.email} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
+                <input type="tel" name="phone" placeholder={translations.phone} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
+                <textarea name="message" placeholder={translations.message} rows={3} className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"></textarea>
               </div>
             </div>
             
             <div className="p-6 md:p-8 flex-shrink-0 border-t border-gray-700">
+              {error && <p className="text-red-400 text-sm text-center mb-4">{error}</p>}
               <button 
                 type="submit"
-                disabled={isSubmitting || !selectedTime}
-                className="w-full bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isSubmitting}
+                className="w-full bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                {isSubmitting ? 'Envoi en cours...' : translations.submit}
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Envoi en cours...
+                  </>
+                ) : translations.submit}
               </button>
             </div>
           </form>
