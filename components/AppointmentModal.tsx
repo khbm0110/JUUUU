@@ -111,56 +111,61 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
               <form
                 id="appointment-form"
                 onSubmit={handleSubmit}
-                className="space-y-4"
               >
                 <input type="hidden" name="formType" value="appointment" />
                 <input type="hidden" name="preferredDateTime" value={selectedDate && selectedTime ? `${selectedDate}T${selectedTime}` : ''} />
                 
-                <input type="text" name="name" placeholder={translations.name} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-                <input type="email" name="email" placeholder={translations.email} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-                <input type="tel" name="phone" placeholder={translations.phone} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-                <input type="text" name="subject" placeholder={translations.subject} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-
-                <div>
-                  <label htmlFor="appointmentDate" className="text-sm font-medium text-gray-400 mb-2 block">{translations.dateLabel}</label>
-                  <input 
-                    type="date" 
-                    id="appointmentDate"
-                    value={selectedDate}
-                    min={getNextBusinessDay()}
-                    onChange={handleDateChange}
-                    required 
-                    className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="appointmentTime" className="text-sm font-medium text-gray-400 mb-2 block">{translations.timeLabel}</label>
-                  <input
-                    type="time"
-                    id="appointmentTime"
-                    value={selectedTime}
-                    onChange={(e) => setSelectedTime(e.target.value)}
-                    min="08:30"
-                    max="16:30"
-                    required
-                    className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
-                  />
-                </div>
-
-                <fieldset className="pt-2">
-                  <legend className="text-sm font-medium text-gray-400 mb-2">{translations.confirmation}</legend>
-                  <div className="flex gap-4">
-                    <label className="flex items-center gap-2 cursor-pointer text-gray-300">
-                      <input type="radio" name="confirmationMethod" value="email" defaultChecked className="accent-yellow-500" />
-                      <span>{translations.byEmail}</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer text-gray-300">
-                      <input type="radio" name="confirmationMethod" value="sms" className="accent-yellow-500" />
-                      <span>{translations.bySms}</span>
-                    </label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-x-6">
+                  <div className="space-y-4">
+                    <input type="text" name="name" placeholder={translations.name} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
+                    <input type="email" name="email" placeholder={translations.email} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
+                    <input type="tel" name="phone" placeholder={translations.phone} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
+                    <input type="text" name="subject" placeholder={translations.subject} required className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
                   </div>
-                </fieldset>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label htmlFor="appointmentDate" className="text-sm font-medium text-gray-400 mb-2 block">{translations.dateLabel}</label>
+                      <input 
+                        type="date" 
+                        id="appointmentDate"
+                        value={selectedDate}
+                        min={getNextBusinessDay()}
+                        onChange={handleDateChange}
+                        required 
+                        className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="appointmentTime" className="text-sm font-medium text-gray-400 mb-2 block">{translations.timeLabel}</label>
+                      <input
+                        type="time"
+                        id="appointmentTime"
+                        value={selectedTime}
+                        onChange={(e) => setSelectedTime(e.target.value)}
+                        min="08:30"
+                        max="16:30"
+                        required
+                        className="w-full bg-gray-900 border border-gray-600 p-3 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white"
+                      />
+                    </div>
+
+                    <fieldset className="pt-2">
+                      <legend className="text-sm font-medium text-gray-400 mb-2">{translations.confirmation}</legend>
+                      <div className="flex gap-4">
+                        <label className="flex items-center gap-2 cursor-pointer text-gray-300">
+                          <input type="radio" name="confirmationMethod" value="email" defaultChecked className="accent-yellow-500" />
+                          <span>{translations.byEmail}</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer text-gray-300">
+                          <input type="radio" name="confirmationMethod" value="sms" className="accent-yellow-500" />
+                          <span>{translations.bySms}</span>
+                        </label>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
               </form>
             </div>
             
