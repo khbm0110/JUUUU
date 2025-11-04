@@ -1,4 +1,5 @@
 
+
 import React, { useState, useContext } from 'react';
 import { useInView } from '../hooks/useInView';
 import { AppContext } from '../contexts/AppContext';
@@ -19,7 +20,7 @@ const Contact: React.FC = () => {
   const displayNumber = "06 16 35 12 85";
 
   // IMPORTANT: Replace this placeholder with your new Google Apps Script Web App URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEayCRLvVf1aSJ0m7_WvUTe2pG9MTd8jnhPPm2X-HgLBO-MtP3f11df0iW8HGkZUPw8g/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-c0bBfBq3GjC5hJ6tYvD9eXpT1mRzJ8kLpW0oNnU7iV6aF4sD3bE2c/exec";
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -4,7 +4,7 @@ export const initialDb: SiteData = {
   heroImageUrl: 'https://i.postimg.cc/hjhB5zbV/Generated-Image-November-02-2025-9-05PM.png',
   aboutImageUrl: 'https://i.postimg.cc/PqBTdhHR/Generated-Image-November-02-2025-1-33PM.png',
   contact: {
-    email: "hassar.fz@gmail.com",
+    email: "avocatehassar@gmail.com",
     whatsappNumber: "212616351285",
     address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33, Casablanca",
     googleMapsLink: "https://www.google.com/maps/place/33%C2%B032'59.4%22N+7%C2%B040'34.7%22W",
