@@ -1,50 +1,49 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import nodemailer from 'nodemailer';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // We only accept POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
   try {
-    const { name, email, message } = req.body;
+    const formData = req.body;
+    const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
 
-    if (!name || !email || !message) {
-        return res.status(400).json({ message: 'Missing required fields: name, email, message' });
+    // Check if the access key is configured in Vercel environment variables
+    if (!accessKey) {
+      console.error("WEB3FORMS_ACCESS_KEY is not set in environment variables.");
+      return res.status(500).json({ status: 'error', message: "Le serveur de messagerie n'est pas configuré." });
     }
 
-    // IMPORTANT: Configure these environment variables in your Vercel project settings
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS, // Use an "App Password" for Gmail
-      },
-    });
-
-    const mailOptions = {
-      from: `"Cabinet Hassar Site" <${process.env.EMAIL_USER}>`,
-      to: 'avocatehassar@gmail.com', // The email address that will receive the notifications
-      subject: 'Nouveau message de contact',
-      html: `
-        <h3>Nouveau message reçu depuis le formulaire de contact :</h3>
-        <ul>
-          <li><strong>Nom :</strong> ${name}</li>
-          <li><strong>Email :</strong> ${email}</li>
-        </ul>
-        <h4>Message :</h4>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-      `,
+    // Append the access key from environment variables to the form data
+    const dataWithKey = {
+      ...formData,
+      access_key: accessKey,
     };
 
-    await transporter.sendMail(mailOptions);
+    // Forward the request to Web3Forms API
+    const web3FormsResponse = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify(dataWithKey),
+    });
 
-    return res.status(200).json({ status: 'success', message: 'Message sent successfully!' });
+    const result = await web3FormsResponse.json();
+
+    // Handle the response from Web3Forms
+    if (result.success) {
+      return res.status(200).json({ status: 'success', message: 'Message sent successfully!' });
+    } else {
+      console.error("Error from Web3Forms:", result);
+      return res.status(500).json({ status: 'error', message: result.message || 'Failed to send message.' });
+    }
 
   } catch (error) {
-    console.error('Error sending email:', error);
-    return res.status(500).json({ status: 'error', message: 'Failed to send message.' });
+    console.error('Proxy error:', error);
+    return res.status(500).json({ status: 'error', message: 'An internal server error occurred.' });
   }
 }

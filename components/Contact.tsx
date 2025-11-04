@@ -30,13 +30,19 @@ const Contact: React.FC = () => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
+    const payload = {
+        ...data,
+        subject: `Nouveau message de contact de ${data.name}`,
+        from_name: "Cabinet Hassar Site"
+    };
+
     try {
       const response = await fetch('/api/submit-contact', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
       
       const result = await response.json();
@@ -195,7 +201,7 @@ const Contact: React.FC = () => {
                 className="absolute bottom-4 right-4 rtl:right-auto rtl:left-4 z-10 bg-black/60 backdrop-blur-sm text-yellow-400 font-semibold py-2 px-4 rounded-lg shadow-lg flex items-center gap-2 hover:bg-black/80 hover:scale-105 transform transition-all duration-300"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002 2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
                 <span>{translations.viewOnMap}</span>
               </a>

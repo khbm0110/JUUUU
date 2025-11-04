@@ -25,14 +25,20 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
     const form = e.currentTarget;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
+    
+    const payload = {
+        ...data,
+        subject: `Nouvelle demande de rappel de ${data.name}`,
+        from_name: "Cabinet Hassar Site"
+    };
 
     try {
-      const response = await fetch('/api/submit-appointment', {
+      const response = await fetch('/api/submit-contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
@@ -50,7 +56,10 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
   };
 
   const handleClose = () => {
-    setIsSubmitted(false);
+    // Reset form state only when closing the modal completely
+    if (isSubmitted) {
+        setIsSubmitted(false);
+    }
     setError(null);
     onClose();
   };
