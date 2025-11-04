@@ -92,8 +92,8 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose }) 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 transition-opacity duration-300" onClick={onClose}>
-      <div className="bg-gray-800 rounded-lg shadow-2xl p-8 w-full max-w-lg relative border border-gray-700" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 transition-opacity duration-300 overflow-y-auto" onClick={onClose}>
+      <div className="bg-gray-800 rounded-lg shadow-2xl p-6 md:p-8 w-full max-w-lg relative border border-gray-700 max-h-[95vh] overflow-y-auto my-auto" onClick={e => e.stopPropagation()}>
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors" aria-label={translations.close}>
           <CloseIcon className="w-6 h-6" />
         </button>
