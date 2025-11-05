@@ -1,4 +1,5 @@
 
+
 import { ReactElement } from 'react';
 
 export enum Language {
@@ -114,6 +115,7 @@ export interface SiteContent {
 export interface SiteData {
   heroImageUrl?: string;
   aboutImageUrl?: string;
+  faviconUrl?: string;
   contact: {
     email: string;
     whatsappNumber: string;

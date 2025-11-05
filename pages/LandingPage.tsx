@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -106,6 +107,19 @@ const LandingPage: React.FC = () => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === Language.AR ? 'rtl' : 'ltr';
   }, [language]);
+
+  useEffect(() => {
+    const faviconUrl = state.siteData.faviconUrl;
+    if (faviconUrl) {
+      let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+      link.href = faviconUrl;
+    }
+  }, [state.siteData.faviconUrl]);
 
   return (
     <div className={`bg-gray-900 font-body ${language === Language.AR ? 'font-body' : ''}`}>
