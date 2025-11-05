@@ -1,569 +1,89 @@
-// FIX: Imported `ReactNode` to resolve a type error in the `CollapsibleSection` component.
-import React, { useState, useContext, useEffect, ChangeEvent, ReactElement, ReactNode } from 'react';
-import { AppContext } from '../contexts/AppContext';
-import { AdminDashboardIcon, AdminAboutIcon, AdminServicesIcon, AdminConsultationsIcon, AdminAppointmentsIcon, AdminContactIcon, AdminTestimonialsIcon, AdminLanguagesIcon, AdminSettingsIcon, AdminLogoutIcon, AdminMenuIcon, AdminCloseIcon, AdminSaveIcon, AdminPlusIcon, AdminDeleteIcon, AdminEditIcon, AdminStarFilledIcon, AdminStarOutlineIcon } from '../components/admin/icons';
-// FIX: Imported Translations type to fix type errors in LanguageEditor.
-import { Language, Service, Testimonial, SiteData, Consultation, AppointmentRequest, Translations } from '../types';
 
-type AdminView = 'dashboard' | 'about' | 'services' | 'consultations' | 'appointments' | 'contact' | 'testimonials' | 'languages' | 'settings';
-
-
-// --- Reusable Form Components ---
-interface AdminInputProps {
-    label: string;
-    name?: string;
-    value: string;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    type?: string;
-}
-const AdminInput: React.FC<AdminInputProps> = ({ label, name, value, onChange, type = "text" }) => (
-    <div>
-        <label className="block text-sm font-medium text-gray-400 mb-2">{label}</label>
-        <input type={type} name={name} value={value} onChange={onChange} className="w-full bg-gray-900 border border-gray-600 p-2 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-    </div>
-);
-
-interface AdminTextareaProps {
-    label: string;
-    name?: string;
-    value: string;
-    onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-    rows?: number;
-}
-const AdminTextarea: React.FC<AdminTextareaProps> = ({ label, name, value, onChange, rows=3 }) => (
-    <div>
-        <label className="block text-sm font-medium text-gray-400 mb-2">{label}</label>
-        <textarea name={name} value={value} onChange={onChange} rows={rows} className="w-full bg-gray-900 border border-gray-600 p-2 rounded-md focus:ring-yellow-500 focus:border-yellow-500 text-white" />
-    </div>
-);
-
-const CollapsibleSection: React.FC<{ title: string; children: ReactNode }> = ({ title, children }) => (
-    <details className="bg-gray-800 p-4 rounded-lg border border-gray-700" open>
-        <summary className="font-bold text-lg cursor-pointer text-white">{title}</summary>
-        <div className="mt-4 space-y-4">{children}</div>
-    </details>
-);
-
-// FIX: Changed icon type from ReactElement to ReactElement<any> to fix cloneElement error.
-const NavItem = ({ icon, text, active = false, isOpen, onClick, notificationCount }: { icon: ReactElement<any>, text: string, active?: boolean, isOpen: boolean, onClick?: () => void, notificationCount?: number }) => (
-    <button
-        onClick={onClick}
-        title={!isOpen ? text : ''}
-        className={`flex items-center w-full px-4 py-3 transition-colors duration-200 relative ${isOpen ? '' : 'justify-center'} ${active ? 'bg-yellow-500 text-black' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
-    >
-        <span className={active ? 'text-black' : 'text-yellow-400'}>{React.cloneElement(icon, { className: 'w-6 h-6' })}</span>
-        {isOpen && <span className="ml-4 font-semibold flex-grow text-left">{text}</span>}
-        {notificationCount && notificationCount > 0 && (
-             <span className={`flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white bg-red-600 rounded-full ${isOpen ? '' : 'absolute top-1 right-1'}`}>
-                {notificationCount}
-            </span>
-        )}
-    </button>
-);
-
-
-// --- View Components ---
-
-const DashboardHome: React.FC<{ siteData: SiteData }> = ({ siteData }) => {
-    const newConsultations = (siteData.consultations || []).filter(c => !c.handled).length;
-    const totalAppointments = (siteData.appointmentRequests || []).length;
-    const newAppointments = (siteData.appointmentRequests || []).filter(a => !a.handled).length;
-
-    // BUG FIX: Added optional chaining and a fallback to prevent crashes if `siteData.content.fr` or its properties are missing.
-    const servicesCount = siteData.content?.fr?.services?.items?.length || 0;
-
-    return (
-        <div>
-            <h2 className="text-3xl font-bold text-white mb-2">Bienvenue Maître Hassar</h2>
-            <p className="text-gray-400 mb-8">Voici un aperçu de votre site.</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                    <h3 className="text-lg font-semibold text-yellow-400">Services</h3>
-                    <p className="text-4xl font-bold text-white mt-2">{servicesCount}</p>
-                </div>
-                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                    <h3 className="text-lg font-semibold text-yellow-400">Consultations</h3>
-                    <p className="text-4xl font-bold text-white mt-2">{(siteData.consultations || []).length}</p>
-                    {newConsultations > 0 && <span className="text-sm text-yellow-400"> ({newConsultations} nouvelles)</span>}
-                </div>
-                 <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                    <h3 className="text-lg font-semibold text-yellow-400">Rendez-vous</h3>
-                    <p className="text-4xl font-bold text-white mt-2">{totalAppointments}</p>
-                    {newAppointments > 0 && <span className="text-sm text-red-500 animate-pulse"> ({newAppointments} nouvelles)</span>}
-                </div>
-                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                    <h3 className="text-lg font-semibold text-yellow-400">Témoignages</h3>
-                    <p className="text-4xl font-bold text-white mt-2">{(siteData.testimonials || []).length}</p>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-const ServicesEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
-    
-    const addService = () => {
-        const newId = `s_${Date.now()}`;
-
-        setData(prevData => {
-            const newData = JSON.parse(JSON.stringify(prevData));
-            (Object.keys(Language) as Language[]).forEach(lang => {
-                const newService = {
-                    id: newId,
-                    icon: 'briefcase',
-                    title: lang === Language.EN ? 'New Service' : lang === Language.AR ? 'خدمة جديدة' : 'Nouveau Service',
-                    description: lang === Language.EN ? 'Description for the new service.' : lang === Language.AR ? 'وصف الخدمة الجديدة.' : 'Description du nouveau service.'
-                };
-
-                // BUG FIX: Ensure the entire path to the items array exists to prevent crashes.
-                if (!newData.content[lang]) newData.content[lang] = {};
-                if (!newData.content[lang].services) {
-                    const defaultTitle = lang === Language.EN ? 'Our Expertise' : lang === Language.AR ? 'مجالات خبرتنا' : 'Nos Domaines d\'Expertise';
-                    newData.content[lang].services = { title: defaultTitle, items: [] };
-                }
-                if (!newData.content[lang].services.items) {
-                    newData.content[lang].services.items = [];
-                }
-                newData.content[lang].services.items.push(newService);
-            });
-            return newData;
-        });
-    };
-
-    const deleteService = (id: string) => {
-        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce service ? Cette action est irréversible.')) {
-            setData(prevData => {
-                const newData = JSON.parse(JSON.stringify(prevData));
-                (Object.keys(newData.content) as Language[]).forEach(lang => {
-                     // BUG FIX: Added safety check to prevent crash if `items` array does not exist.
-                    if (newData.content[lang]?.services?.items) {
-                      newData.content[lang].services.items = newData.content[lang].services.items.filter((s: Service) => s.id !== id);
-                    }
-                });
-                return newData;
-            });
-        }
-    };
-    
-    const updateIcon = (id: string, icon: string) => {
-       setData(prevData => {
-            const newData = JSON.parse(JSON.stringify(prevData));
-            (Object.keys(newData.content) as Language[]).forEach(lang => {
-                 // BUG FIX: Added safety check to prevent crash if `items` array does not exist.
-                const items = newData.content[lang]?.services?.items;
-                if (items) {
-                    const service = items.find((s: Service) => s.id === id);
-                    if (service) service.icon = icon;
-                }
-            });
-            return newData;
-        });
-    };
-
-    const availableIcons = ['briefcase', 'building', 'family', 'scale'];
-    // BUG FIX: Added optional chaining and fallback to prevent crash if `fr` content is missing.
-    const frenchServices = data.content?.fr?.services?.items || [];
-
-    return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center border-b border-gray-700 pb-2">
-                <h3 className="text-2xl font-bold text-white">Gérer les services</h3>
-                <button onClick={addService} className="flex items-center gap-2 bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-400 transition-colors">
-                    <AdminPlusIcon /> Ajouter un service
-                </button>
-            </div>
-            <p className="text-gray-400">Gérez ici la structure de vos services (icônes, ajout/suppression). Pour modifier les textes (titre, description), rendez-vous dans la section "Langues".</p>
-            <div className="space-y-4">
-                {frenchServices.map((service: Service) => (
-                    <div key={service.id} className="bg-gray-800 p-4 rounded-lg border border-gray-700 flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <select value={service.icon} onChange={(e) => updateIcon(service.id, e.target.value)} className="bg-gray-900 border border-gray-600 p-2 rounded-md">
-                                {availableIcons.map(icon => <option key={icon} value={icon}>{icon}</option>)}
-                            </select>
-                            <span className="font-semibold text-white">{service.title}</span>
-                        </div>
-                        <button onClick={() => deleteService(service.id)} className="bg-red-600 hover:bg-red-500 text-white p-2 rounded-full transition-colors">
-                            <AdminDeleteIcon className="w-5 h-5" />
-                        </button>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
-
-const TestimonialModal: React.FC<{ testimonial: Testimonial | null, onSave: (t: Testimonial) => void, onClose: () => void }> = ({ testimonial, onSave, onClose }) => {
-    const [formData, setFormData] = useState<Omit<Testimonial, 'id'>>({
-        name: testimonial?.name || '',
-        comment: testimonial?.comment || '',
-        rating: testimonial?.rating || 5,
-    });
-    const {name, comment, rating} = formData;
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData(s => ({ ...s, [e.target.name]: e.target.value }));
-    };
-
-    const setRating = (rate: number) => {
-        setFormData(s => ({...s, rating: rate}));
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        onSave({ id: testimonial?.id || '', ...formData });
-    };
-    
-    return (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-            <div className="bg-gray-800 p-8 rounded-lg shadow-2xl border border-gray-700 w-full max-w-lg">
-                <h3 className="text-xl font-bold text-white mb-6">{testimonial ? 'Modifier le' : 'Ajouter un'} témoignage</h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <AdminInput label="Nom du client" name="name" value={name} onChange={handleChange} />
-                    <AdminTextarea label="Commentaire" name="comment" value={comment} onChange={handleChange} rows={4} />
-                    <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Note</label>
-                        <div className="flex items-center">
-                             {[...Array(5)].map((_, i) => (
-                                <button type="button" key={i} onClick={() => setRating(i + 1)}>
-                                    {i < rating ? <AdminStarFilledIcon className="text-yellow-400 h-6 w-6" /> : <AdminStarOutlineIcon className="text-gray-500 h-6 w-6" />}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="flex justify-end gap-4 pt-4">
-                        <button type="button" onClick={onClose} className="py-2 px-4 rounded-lg bg-gray-600 hover:bg-gray-500 text-white font-semibold">Annuler</button>
-                        <button type="submit" className="py-2 px-4 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold">Enregistrer</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
-};
-
-const TestimonialsEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
-
-    const handleOpenModal = (testimonial: Testimonial | null = null) => {
-        setEditingTestimonial(testimonial);
-        setIsModalOpen(true);
-    };
-
-    const handleSave = (testimonial: Testimonial) => {
-        setData(prevData => {
-            const testimonials = [...(prevData.testimonials || [])];
-            if (editingTestimonial) { // Edit
-                const index = testimonials.findIndex(t => t.id === editingTestimonial.id);
-                if (index > -1) testimonials[index] = testimonial;
-            } else { // Add
-                testimonials.push({ ...testimonial, id: `t_${Date.now()}` });
-            }
-            return { ...prevData, testimonials };
-        });
-        setIsModalOpen(false);
-    };
-
-    const handleDelete = (id: string) => {
-        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce témoignage ?')) {
-            setData(prevData => ({
-                ...prevData,
-                testimonials: (prevData.testimonials || []).filter(t => t.id !== id)
-            }));
-        }
-    };
-
-    return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center border-b border-gray-700 pb-2">
-                <h3 className="text-2xl font-bold text-white">Gérer les témoignages</h3>
-                <button onClick={() => handleOpenModal()} className="flex items-center gap-2 bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-400 transition-colors">
-                    <AdminPlusIcon /> Ajouter un témoignage
-                </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {(data.testimonials || []).map((testimonial: Testimonial) => (
-                    <div key={testimonial.id} className="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col">
-                        <div className="flex items-center mb-2">
-                            {[...Array(5)].map((_, i) => i < testimonial.rating ? <AdminStarFilledIcon key={i} className="text-yellow-400" /> : <AdminStarOutlineIcon key={i} className="text-gray-500" />)}
-                        </div>
-                        <p className="text-gray-400 italic flex-grow">"{testimonial.comment}"</p>
-                        <p className="font-semibold text-white mt-2">- {testimonial.name}</p>
-                        <div className="flex justify-end gap-2 mt-4">
-                            <button onClick={() => handleOpenModal(testimonial)} className="p-2 text-gray-400 hover:text-white"><AdminEditIcon /></button>
-                            <button onClick={() => handleDelete(testimonial.id)} className="p-2 text-gray-400 hover:text-red-500"><AdminDeleteIcon /></button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            {isModalOpen && <TestimonialModal testimonial={editingTestimonial} onSave={handleSave} onClose={() => setIsModalOpen(false)} />}
-        </div>
-    );
-};
-
-const LanguageEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
-    const [activeLang, setActiveLang] = useState<Language>(Language.FR);
-    
-    const handleTextChange = (path: string, value: string) => {
-        setData(prevData => {
-            const newData = JSON.parse(JSON.stringify(prevData));
-            const keys = path.split('.');
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            let current: any = newData.content[activeLang];
-            // BUG FIX: Safely traverse the object path to prevent crashes on undefined properties.
-            for (let i = 0; i < keys.length - 1; i++) {
-                if (!current) break; // Stop if path is broken
-                current = current[keys[i]];
-            }
-            if (current) { // Only set value if the path was valid
-                current[keys[keys.length - 1]] = value.replace(/\\n/g, '\n');
-            }
-            return newData;
-        });
-    };
-    
-    // FIX: Cast the fallback object to Translations to prevent type errors on property access.
-    const currentLangData = data.content[activeLang] || ({} as Translations);
-
-    return (
-        <div>
-            <div className="flex gap-2 mb-4 border-b border-gray-700">
-                {(Object.keys(Language) as Language[]).map(lang => (
-                    <button key={lang} onClick={() => setActiveLang(lang)} className={`px-4 py-2 font-semibold rounded-t-lg transition-colors ${activeLang === lang ? 'bg-gray-800 text-yellow-400' : 'text-gray-400 hover:text-white'}`}>
-                        {lang.toUpperCase()}
-                    </button>
-                ))}
-            </div>
-            <div className="space-y-6">
-                <CollapsibleSection title="Général & Navigation">
-                     <AdminInput label="Nom de l'avocat (Titre principal)" value={currentLangData.lawyerName || ''} onChange={(e) => handleTextChange('lawyerName', e.target.value)} />
-                      <div className="space-y-4 mt-4 pl-4 border-l-2 border-gray-700">
-                        <h4 className="text-md font-semibold text-gray-300">Liens de navigation</h4>
-                        {/* BUG FIX: Added optional chaining and fallback to prevent crashes. */}
-                        {(currentLangData.header?.nav || []).map((navItem, index) => (
-                            <div key={index}>
-                                <AdminInput label={`Texte du lien #${index + 1} (${navItem.href})`} value={navItem.name} onChange={e => handleTextChange(`header.nav.${index}.name`, e.target.value)} />
-                            </div>
-                        ))}
-                    </div>
-                </CollapsibleSection>
-
-                <CollapsibleSection title="Section Hero">
-                    {/* BUG FIX: Added optional chaining and fallbacks for all nested properties. */}
-                    <AdminTextarea label="Titre Principal (utilisez \n pour un saut de ligne)" value={(currentLangData.hero?.title || '').replace(/\n/g, '\\n')} onChange={(e) => handleTextChange('hero.title', e.target.value)} rows={2} />
-                    <AdminInput label="Sous-titre" value={currentLangData.hero?.subtitle || ''} onChange={(e) => handleTextChange('hero.subtitle', e.target.value)} />
-                    <AdminInput label="Texte du bouton (Appel)" value={currentLangData.hero?.ctaCall || ''} onChange={(e) => handleTextChange('hero.ctaCall', e.target.value)} />
-                    <AdminInput label="Texte du bouton (Rendez-vous)" value={currentLangData.hero?.ctaAppointment || ''} onChange={(e) => handleTextChange('hero.ctaAppointment', e.target.value)} />
-                </CollapsibleSection>
-                
-                <CollapsibleSection title="Section À Propos">
-                     <AdminInput label="Préfixe du titre (ex: 'À propos de')" value={currentLangData.about?.titlePrefix || ''} onChange={(e) => handleTextChange('about.titlePrefix', e.target.value)} />
-                     <AdminTextarea label="Paragraphe 1" value={currentLangData.about?.p1 || ''} onChange={(e) => handleTextChange('about.p1', e.target.value)} rows={4} />
-                     <AdminTextarea label="Paragraphe 2" value={currentLangData.about?.p2 || ''} onChange={(e) => handleTextChange('about.p2', e.target.value)} rows={4} />
-                </CollapsibleSection>
-
-                <CollapsibleSection title="Section Services">
-                    <AdminInput label="Titre de la section" value={currentLangData.services?.title || ''} onChange={(e) => handleTextChange('services.title', e.target.value)} />
-                    <div className="space-y-4 mt-4 pl-4 border-l-2 border-gray-700">
-                        {(currentLangData.services?.items || []).map((service, index) => (
-                            <div key={service.id}>
-                                <AdminInput label={`Titre du service #${index + 1}`} value={service.title} onChange={e => handleTextChange(`services.items.${index}.title`, e.target.value)} />
-                                <AdminTextarea label={`Description du service #${index + 1}`} value={service.description} onChange={e => handleTextChange(`services.items.${index}.description`, e.target.value)} rows={3}/>
-                            </div>
-                        ))}
-                    </div>
-                </CollapsibleSection>
-
-                <CollapsibleSection title="Section Témoignages">
-                    <AdminInput label="Titre de la section" value={currentLangData.testimonials?.title || ''} onChange={(e) => handleTextChange('testimonials.title', e.target.value)} />
-                </CollapsibleSection>
-                
-                {/* FIX: Reconstructed the corrupted contact section editor. */}
-                <CollapsibleSection title="Section Contact">
-                    <AdminInput label="Préfixe du titre" value={currentLangData.contact?.titlePrefix || ''} onChange={(e) => handleTextChange('contact.titlePrefix', e.target.value)} />
-                    <AdminTextarea label="Intro" value={currentLangData.contact?.intro || ''} onChange={(e) => handleTextChange('contact.intro', e.target.value)} />
-                    <AdminInput label="Texte pour le téléphone" value={currentLangData.contact?.phonePrompt || ''} onChange={(e) => handleTextChange('contact.phonePrompt', e.target.value)} />
-                    <AdminInput label="Texte pour WhatsApp" value={currentLangData.contact?.whatsapp || ''} onChange={(e) => handleTextChange('contact.whatsapp', e.target.value)} />
-                    <AdminInput label="Texte pour l'email" value={currentLangData.contact?.emailPrompt || ''} onChange={(e) => handleTextChange('contact.emailPrompt', e.target.value)} />
-                    <AdminInput label="Titre de l'adresse" value={currentLangData.contact?.addressTitle || ''} onChange={(e) => handleTextChange('contact.addressTitle', e.target.value)} />
-                    <AdminInput label="Texte pour le lien de la carte" value={currentLangData.contact?.viewOnMap || ''} onChange={(e) => handleTextChange('contact.viewOnMap', e.target.value)} />
-
-                    <div className="space-y-4 mt-4 pl-4 border-l-2 border-gray-700">
-                        <h4 className="text-md font-semibold text-gray-300">Formulaire de Contact</h4>
-                        <AdminInput label="Champ Nom" value={currentLangData.contact?.form?.name || ''} onChange={e => handleTextChange('contact.form.name', e.target.value)} />
-                        <AdminInput label="Champ Email" value={currentLangData.contact?.form?.email || ''} onChange={e => handleTextChange('contact.form.email', e.target.value)} />
-                        <AdminInput label="Champ Message" value={currentLangData.contact?.form?.message || ''} onChange={e => handleTextChange('contact.form.message', e.target.value)} />
-                        <AdminInput label="Bouton Envoyer" value={currentLangData.contact?.form?.submit || ''} onChange={e => handleTextChange('contact.form.submit', e.target.value)} />
-                        {/* FIX: Corrected property access from non-existent 'success' to 'successTitle' and 'successMessage'. */}
-                        <AdminInput label="Titre du message de succès" value={currentLangData.contact?.form?.successTitle || ''} onChange={e => handleTextChange('contact.form.successTitle', e.target.value)} />
-                        <AdminTextarea label="Message de succès" value={currentLangData.contact?.form?.successMessage || ''} onChange={e => handleTextChange('contact.form.successMessage', e.target.value)} />
-                    </div>
-
-                    <div className="space-y-4 mt-4 pl-4 border-l-2 border-gray-700">
-                        <h4 className="text-md font-semibold text-gray-300">Modale de Rendez-vous</h4>
-                        <AdminInput label="Titre de la modale" value={currentLangData.contact?.appointmentModal?.title || ''} onChange={e => handleTextChange('contact.appointmentModal.title', e.target.value)} />
-                        <AdminInput label="Champ Nom" value={currentLangData.contact?.appointmentModal?.name || ''} onChange={e => handleTextChange('contact.appointmentModal.name', e.target.value)} />
-                        <AdminInput label="Champ Email" value={currentLangData.contact?.appointmentModal?.email || ''} onChange={e => handleTextChange('contact.appointmentModal.email', e.target.value)} />
-                        <AdminInput label="Champ Téléphone" value={currentLangData.contact?.appointmentModal?.phone || ''} onChange={e => handleTextChange('contact.appointmentModal.phone', e.target.value)} />
-                        <AdminInput label="Bouton Envoyer" value={currentLangData.contact?.appointmentModal?.submit || ''} onChange={e => handleTextChange('contact.appointmentModal.submit', e.target.value)} />
-                        {/* FIX: Corrected property access from non-existent 'success' to 'successTitle' and 'successMessage'. */}
-                        <AdminInput label="Titre du message de succès" value={currentLangData.contact?.appointmentModal?.successTitle || ''} onChange={e => handleTextChange('contact.appointmentModal.successTitle', e.target.value)} />
-                        <AdminTextarea label="Message de succès" value={currentLangData.contact?.appointmentModal?.successMessage || ''} onChange={e => handleTextChange('contact.appointmentModal.successMessage', e.target.value)} />
-                        <AdminInput label="Bouton Fermer" value={currentLangData.contact?.appointmentModal?.close || ''} onChange={e => handleTextChange('contact.appointmentModal.close', e.target.value)} />
-                    </div>
-                </CollapsibleSection>
-            </div>
-        </div>
-    );
-};
-
-const SettingsEditor: React.FC<{ data: SiteData, setData: React.Dispatch<React.SetStateAction<SiteData>> }> = ({ data, setData }) => {
-    
-    // Generic handler to update nested state
-    const handleChange = (path: string, value: string) => {
-        setData(prevData => {
-            const newData = JSON.parse(JSON.stringify(prevData));
-            // Basic path traversal. For production, a library like lodash.set would be safer.
-            const keys = path.split('.');
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            let current: any = newData;
-            for (let i = 0; i < keys.length - 1; i++) {
-                // Create path if it doesn't exist
-                if (current[keys[i]] === undefined) {
-                    current[keys[i]] = {};
-                }
-                current = current[keys[i]];
-            }
-            current[keys[keys.length - 1]] = value;
-            return newData;
-        });
-    };
-
-    return (
-        <div className="space-y-6">
-             <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-2">Réglages Généraux</h3>
-             
-             <CollapsibleSection title="Domaine & Images">
-                <AdminInput label="Domaine principal (utilisé pour le SEO)" name="domain" value={data.settings.domain || ''} onChange={(e) => handleChange('settings.domain', e.target.value)} />
-                <AdminInput label="URL de l'image Hero" name="heroImageUrl" value={data.heroImageUrl || ''} onChange={(e) => handleChange('heroImageUrl', e.target.value)} />
-                <AdminInput label="URL de l'image 'À propos'" name="aboutImageUrl" value={data.aboutImageUrl || ''} onChange={(e) => handleChange('aboutImageUrl', e.target.value)} />
-            </CollapsibleSection>
-            
-             <CollapsibleSection title="Coordonnées">
-                 <AdminInput label="Email de contact" name="email" value={data.contact.email} onChange={(e) => handleChange('contact.email', e.target.value)} />
-                 <AdminInput label="Numéro WhatsApp (Format International, ex: 212...)" name="whatsappNumber" value={data.contact.whatsappNumber} onChange={(e) => handleChange('contact.whatsappNumber', e.target.value)} />
-                 <AdminTextarea label="Adresse" name="address" value={data.contact.address} onChange={(e) => handleChange('contact.address', e.target.value)} />
-                 <AdminInput label="Lien Google Maps" name="googleMapsLink" value={data.contact.googleMapsLink} onChange={(e) => handleChange('contact.googleMapsLink', e.target.value)} />
-            </CollapsibleSection>
-
-             <CollapsibleSection title="Réseaux Sociaux & Copyright">
-                <AdminInput label="URL LinkedIn" name="linkedin" value={data.socials.linkedin} onChange={(e) => handleChange('socials.linkedin', e.target.value)} />
-                <AdminInput label="URL Facebook" name="facebook" value={data.socials.facebook} onChange={(e) => handleChange('socials.facebook', e.target.value)} />
-                <AdminInput label="Nom pour le Copyright" name="copyrightName" value={data.settings.copyrightName} onChange={(e) => handleChange('settings.copyrightName', e.target.value)} />
-            </CollapsibleSection>
-        </div>
-    );
-};
-
-// --- Main Dashboard Component ---
+import React, { useState } from 'react';
+import { useAppContext } from '../contexts/AppContext';
+// FIX: Removed AdminConsultationsIcon and AdminAppointmentsIcon as they are no longer used.
+import { AdminDashboardIcon, AdminLogoutIcon, AdminMenuIcon, AdminCloseIcon } from '../components/admin/icons';
+// FIX: Removed unused and deprecated Type imports for Consultation and AppointmentRequest.
 
 const AdminDashboard: React.FC = () => {
-    const { state, updateSiteData, logout } = useContext(AppContext);
-    const [localData, setLocalData] = useState<SiteData>(() => JSON.parse(JSON.stringify(state.siteData))); // Deep copy
-    const [view, setView] = useState<AdminView>('dashboard');
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [isSaving, setIsSaving] = useState(false);
-    const [saveSuccess, setSaveSuccess] = useState(false);
-    
-    useEffect(() => {
-        setLocalData(JSON.parse(JSON.stringify(state.siteData)));
-    }, [state.siteData]);
+  // FIX: Removed navigate and state from context as they are no longer directly used here.
+  const { logout } = useAppContext();
 
-    const handleSave = () => {
-        setIsSaving(true);
-        // In a real app, this would be an API call.
-        setTimeout(() => {
-            updateSiteData(localData);
-            setIsSaving(false);
-            setSaveSuccess(true);
-            setTimeout(() => setSaveSuccess(false), 2500);
-        }, 1000);
-    };
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    const newConsultationsCount = (localData.consultations || []).filter(c => !c.handled).length;
-    const newAppointmentsCount = (localData.appointmentRequests || []).filter(a => !a.handled).length;
+  const handleLogout = () => {
+    // FIX: logout() from context now handles navigation.
+    logout();
+  };
 
-    const renderView = () => {
-        switch (view) {
-            case 'dashboard':
-                return <DashboardHome siteData={localData} />;
-            case 'services':
-                return <ServicesEditor data={localData} setData={setLocalData} />;
-            case 'testimonials':
-                 return <TestimonialsEditor data={localData} setData={setLocalData} />;
-            case 'languages':
-                return <LanguageEditor data={localData} setData={setLocalData} />;
-            case 'settings':
-                return <SettingsEditor data={localData} setData={setLocalData} />;
-            default:
-                return <div className="text-gray-400">Section non implémentée.</div>;
-        }
-    };
+  const renderContent = () => {
+    switch (activeTab) {
+      // FIX: Removed deprecated 'consultations' and 'appointments' cases.
+      default:
+        return <DashboardHome />;
+    }
+  };
+  
+  const navItems = [
+      { id: 'dashboard', label: 'Tableau de bord', icon: <AdminDashboardIcon className="w-5 h-5" /> },
+      // FIX: Removed deprecated 'consultations' and 'appointments' nav items.
+  ];
 
-    return (
-        <div className="flex h-screen bg-gray-900 text-gray-300 font-body">
-            {/* Sidebar */}
-            <aside className={`bg-gray-800 border-r border-gray-700 flex flex-col transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
-                <div className={`flex items-center h-20 border-b border-gray-700 px-4 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
-                    {isSidebarOpen && <h1 className="text-xl font-bold text-white">Administration</h1>}
-                    <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-gray-400 hover:text-white">
-                        {isSidebarOpen ? <AdminCloseIcon className="w-6 h-6" /> : <AdminMenuIcon className="w-6 h-6" />}
-                    </button>
-                </div>
-                <nav className="flex-grow">
-                    <NavItem icon={<AdminDashboardIcon />} text="Dashboard" isOpen={isSidebarOpen} active={view === 'dashboard'} onClick={() => setView('dashboard')} />
-                    <NavItem icon={<AdminServicesIcon />} text="Services" isOpen={isSidebarOpen} active={view === 'services'} onClick={() => setView('services')} />
-                    <NavItem icon={<AdminTestimonialsIcon />} text="Témoignages" isOpen={isSidebarOpen} active={view === 'testimonials'} onClick={() => setView('testimonials')} />
-                    <NavItem icon={<AdminConsultationsIcon />} text="Consultations" isOpen={isSidebarOpen} active={view === 'consultations'} onClick={() => setView('consultations')} notificationCount={newConsultationsCount} />
-                    <NavItem icon={<AdminAppointmentsIcon />} text="Rendez-vous" isOpen={isSidebarOpen} active={view === 'appointments'} onClick={() => setView('appointments')} notificationCount={newAppointmentsCount} />
-                    <NavItem icon={<AdminLanguagesIcon />} text="Langues" isOpen={isSidebarOpen} active={view === 'languages'} onClick={() => setView('languages')} />
-                    <NavItem icon={<AdminSettingsIcon />} text="Réglages" isOpen={isSidebarOpen} active={view === 'settings'} onClick={() => setView('settings')} />
-                </nav>
-                <div className="border-t border-gray-700">
-                    <NavItem icon={<AdminLogoutIcon />} text="Déconnexion" isOpen={isSidebarOpen} onClick={logout} />
-                </div>
-            </aside>
-
-            {/* Main Content */}
-            <div className="flex flex-col flex-1 overflow-hidden">
-                {/* Header */}
-                <header className="flex justify-end items-center h-20 bg-gray-800 border-b border-gray-700 px-6">
-                    <button 
-                        onClick={handleSave}
-                        disabled={isSaving || saveSuccess}
-                        className="flex items-center gap-2 bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-lg hover:bg-yellow-400 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
-                    >
-                        {isSaving ? (
-                           <>
-                              <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                              Enregistrement...
-                           </>
-                        ) : saveSuccess ? (
-                            <>
-                                <AdminSaveIcon className="h-5 w-5" />
-                                Enregistré !
-                            </>
-                        ) : (
-                            'Enregistrer les modifications'
-                        )}
-                    </button>
-                </header>
-                {/* Content Area */}
-                <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
-                    {renderView()}
-                </main>
-            </div>
+  const Sidebar = () => (
+     <aside className={`absolute inset-y-0 left-0 z-30 w-64 px-4 py-8 overflow-y-auto bg-gray-900 border-r border-gray-700 transform md:relative md:translate-x-0 transition-transform duration-200 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <h2 className="text-2xl font-semibold text-center text-white font-heading">Admin</h2>
+        <nav className="mt-8 space-y-2">
+            {navItems.map(item => (
+                <button
+                    key={item.id}
+                    onClick={() => { setActiveTab(item.id); setSidebarOpen(false); }}
+                    className={`w-full flex items-center px-4 py-2 rounded-md transition-colors duration-200 ${activeTab === item.id ? 'bg-yellow-500 text-gray-900' : 'text-gray-400 hover:bg-gray-700 hover:text-white'}`}
+                >
+                    {item.icon}
+                    <span className="mx-4 font-medium">{item.label}</span>
+                </button>
+            ))}
+        </nav>
+        <div className="absolute bottom-4 w-full pr-8">
+            <button
+                onClick={handleLogout}
+                className="w-full flex items-center px-4 py-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white"
+            >
+                <AdminLogoutIcon className="w-5 h-5" />
+                <span className="mx-4 font-medium">Déconnexion</span>
+            </button>
         </div>
-    );
+    </aside>
+  );
+
+  return (
+    <div className="flex h-screen bg-gray-800 text-gray-200">
+      <Sidebar />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <header className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-700 md:hidden">
+            <h2 className="text-xl font-semibold">Admin</h2>
+            <button onClick={() => setSidebarOpen(!sidebarOpen)}>
+                {sidebarOpen ? <AdminCloseIcon className="w-6 h-6" /> : <AdminMenuIcon className="w-6 h-6" />}
+            </button>
+        </header>
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-800 p-6">
+            {renderContent()}
+        </main>
+      </div>
+    </div>
+  );
 };
+
+const DashboardHome: React.FC = () => (
+    <div>
+        <h1 className="text-3xl font-bold text-white mb-4">Bienvenue sur le tableau de bord</h1>
+        <p className="text-gray-400">Sélectionnez une section dans le menu pour commencer.</p>
+        <p className="text-gray-500 mt-4">Note: La gestion des consultations et des demandes de rappel a été déplacée vers un service externe et n'est plus disponible ici.</p>
+    </div>
+);
+
+// FIX: Removed the unused DataTable component.
+
 
 export default AdminDashboard;

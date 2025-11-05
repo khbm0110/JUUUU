@@ -32,29 +32,6 @@ export interface Stat {
   label: string;
 }
 
-export interface Consultation {
-  id: string;
-  name: string;
-  email: string;
-  message: string;
-  date: string; // ISO String
-  // FIX: Added handled property for admin dashboard functionality.
-  handled?: boolean;
-}
-
-export interface AppointmentRequest {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  message?: string;
-  preferredDateTime: string;
-  confirmationMethod: 'sms' | 'email';
-  date: string; // ISO String of submission
-  // FIX: Added handled property for admin dashboard functionality.
-  handled?: boolean;
-}
-
 export interface Translations {
   lawyerName: string;
   header: {
@@ -147,9 +124,6 @@ export interface SiteData {
   };
   testimonials: Testimonial[];
   // DEPRECATED: Consultations and appointments are now handled by an external form service.
-  // FIX: Uncommented consultations and appointmentRequests for use in the admin dashboard.
-  consultations: Consultation[];
-  appointmentRequests: AppointmentRequest[];
   settings: SiteSettings;
   content: SiteContent;
 }

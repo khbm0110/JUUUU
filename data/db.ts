@@ -18,9 +18,6 @@ export const initialDb: SiteData = {
     { id: 't2', name: 'Karim Alami', comment: "Très à l'écoute et d'un grand professionnalisme. Je recommande vivement ses services pour toute affaire familiale.", rating: 5 },
     { id: 't3', name: 'Casablanca Immobilier', comment: 'Conseils juridiques clairs et précis qui nous ont permis de sécuriser notre transaction immobilière. Excellente avocate.', rating: 4 },
   ],
-  // FIX: Uncommented and initialized consultations and appointmentRequests for admin dashboard functionality.
-  consultations: [],
-  appointmentRequests: [],
   settings: {
     themeColor: 'gold',
     copyrightName: "Maître Fatima Azzahraa Hassar",

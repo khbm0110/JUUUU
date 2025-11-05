@@ -1,82 +1,59 @@
-
 import React, { useState } from 'react';
 import { useAppContext } from '../contexts/AppContext';
+import { LogoIcon } from '../components/icons/LogoIcon';
 
 const LoginPage: React.FC = () => {
-  const { login, navigate } = useAppContext();
-  const [email, setEmail] = useState('admin@hassar.com');
-  const [password, setPassword] = useState('123456');
+  const { login } = useAppContext();
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    // Email check is bypassed for this demo
-    if (email !== 'admin@hassar.com') {
-      setError('Email ou mot de passe incorrect.');
-      return;
-    }
     const success = login(password);
     if (!success) {
-      setError('Email ou mot de passe incorrect.');
-    } else {
-      navigate('/admin');
+      setError('Mot de passe incorrect.');
     }
+    // No need to navigate, App.tsx will re-render the correct component
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col justify-center items-center font-body text-gray-300">
-      <div className="w-full max-w-md mx-auto p-8 bg-gray-800 rounded-lg shadow-2xl border border-gray-700">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-heading font-bold text-white">
-            Espace Administration
-          </h1>
-          <p className="text-gray-400">
-            Connectez-vous pour gérer le site
-          </p>
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="w-full max-w-md p-8 space-y-8 bg-gray-800 rounded-lg shadow-lg border border-gray-700">
+        <div className="flex justify-center">
+            <LogoIcon className="h-16 text-yellow-400" />
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-400 mb-2"
-            >
-              Adresse Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full bg-gray-900 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
-            />
-          </div>
+        <h2 className="text-2xl font-bold text-center text-white font-heading">
+          Espace Administration
+        </h2>
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-400 mb-2"
+              className="block mb-2 text-sm font-medium text-gray-400"
             >
               Mot de passe
             </label>
             <input
               type="password"
+              name="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 text-white bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              placeholder="••••••••"
               required
-              className="w-full bg-gray-900 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all"
             />
           </div>
-          
-          {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-
-          <button
-            type="submit"
-            className="w-full bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg hover:bg-yellow-400 transition-colors duration-300 transform hover:scale-105"
-          >
-            Se connecter
-          </button>
+          {error && <p className="text-sm text-red-400">{error}</p>}
+          <div>
+            <button
+              type="submit"
+              className="w-full px-4 py-2 text-lg font-bold text-gray-900 bg-yellow-500 rounded-md hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-yellow-500 transition-all transform hover:scale-105"
+            >
+              Connexion
+            </button>
+          </div>
         </form>
       </div>
     </div>
