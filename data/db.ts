@@ -1,7 +1,7 @@
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  heroImageUrl: 'https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=2076&auto=format&fit=crop',
+  heroImageUrl: '/images/hero-background.jpg',
   aboutImageUrl: '/images/photo_fatima.jpg',
   contact: {
     email: "avocatehassar@gmail.com",
@@ -45,7 +45,7 @@ export const initialDb: SiteData = {
       about: {
         titlePrefix: 'À propos de',
         p1: 'Forte d\'une solide expérience et d\'une passion pour la justice, Maître Fatima Azzahraa Hassar a fondé son cabinet avec la conviction que chaque client mérite une défense rigoureuse et personnalisée. Diplômée des plus grandes universités, elle allie expertise technique et qualités humaines pour vous offrir une représentation juridique de premier ordre.',
-        p2: 'Son approche est fondée sur l\'écoute, la transparence et un engagement sans faille. Que vous soyez un particulier ou une entreprise, Maître Hassar s\'engage à protéger vos intérêts avec détermination et professionnalisme.',
+        p2: 'Son approche est fondée sur l\'écoute, la transparence et un engagement sans faille. Que vous soyez un particulier ou une entreprise, Maître Hassar s\'engage à proteger vos intérêts avec détermination et professionnalisme.',
         valuesTitle: 'Nos Valeurs',
         values: [
           { title: 'Professionnalisme', description: 'Nous nous engageons à offrir un service professionnel de la plus haute qualité à nos clients.' },
