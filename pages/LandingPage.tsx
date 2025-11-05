@@ -1,4 +1,5 @@
 
+
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -104,11 +105,7 @@ const LandingPage: React.FC = () => {
   const openAppointmentModal = () => setIsModalOpen(true);
 
   useEffect(() => {
-    document.documentElement.lang = language;
-    document.documentElement.dir = language === Language.AR ? 'rtl' : 'ltr';
-  }, [language]);
-
-  useEffect(() => {
+    // Favicon update
     const faviconUrl = state.siteData.faviconUrl;
     if (faviconUrl) {
       let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
@@ -119,7 +116,31 @@ const LandingPage: React.FC = () => {
       }
       link.href = faviconUrl;
     }
-  }, [state.siteData.faviconUrl]);
+
+    // Language and metadata update
+    const translations = state.siteData.content[language];
+    if (translations) {
+        document.title = translations.pageTitle;
+
+        const metas: {selector: string, attribute: string, value: string}[] = [
+            {selector: 'meta[name="description"]', attribute: 'content', value: translations.metaDescription},
+            {selector: 'meta[property="og:title"]', attribute: 'content', value: translations.pageTitle},
+            {selector: 'meta[property="og:description"]', attribute: 'content', value: translations.metaDescription},
+            {selector: 'meta[property="twitter:title"]', attribute: 'content', value: translations.pageTitle},
+            {selector: 'meta[property="twitter:description"]', attribute: 'content', value: translations.metaDescription},
+        ];
+
+        metas.forEach(({selector, attribute, value}) => {
+            const element = document.querySelector(selector);
+            if (element) {
+                element.setAttribute(attribute, value);
+            }
+        });
+    }
+
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === Language.AR ? 'rtl' : 'ltr';
+  }, [language, state.siteData]);
 
   return (
     <div className={`bg-gray-900 font-body ${language === Language.AR ? 'font-body' : ''}`}>

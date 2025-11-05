@@ -35,6 +35,8 @@ export interface Stat {
 }
 
 export interface Translations {
+  pageTitle: string;
+  metaDescription: string;
   lawyerName: string;
   header: {
     nav: NavLink[];

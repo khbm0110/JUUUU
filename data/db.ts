@@ -21,11 +21,13 @@ export const initialDb: SiteData = {
   ],
   settings: {
     themeColor: 'gold',
-    copyrightName: "Maître Fatima Azzahraa Hassar",
+    copyrightName: "Cabinet Hassar",
     domain: "https://www.cabinethassar.ma/"
   },
   content: {
     [Language.FR]: {
+      pageTitle: 'Cabinet Hassar - Maître Fatima Azzahraa Hassar, Avocate',
+      metaDescription: 'Cabinet Hassar: Maître Fatima Azzahraa Hassar, avocate à Casablanca, offre une expertise juridique rigoureuse et personnalisée en droit des affaires, droit de la famille, et droit immobilier.',
       lawyerName: "Maître Fatima Azzahraa Hassar",
       header: {
         nav: [
@@ -94,6 +96,8 @@ export const initialDb: SiteData = {
       },
     },
     [Language.EN]: {
+      pageTitle: 'Cabinet Hassar - Fatima Azzahraa Hassar, Esq., Lawyer',
+      metaDescription: 'Cabinet Hassar: Fatima Azzahraa Hassar, Esq., a lawyer in Casablanca, offers rigorous and personalized legal expertise in business law, family law, and real estate law.',
       lawyerName: "Fatima Azzahraa Hassar, Esq.",
       header: {
         nav: [
@@ -161,6 +165,8 @@ export const initialDb: SiteData = {
       },
     },
     [Language.AR]: {
+      pageTitle: 'مكتب حصار - المحامية فاطمة الزهراء حصار',
+      metaDescription: 'مكتب حصار: المحامية فاطمة الزهراء حصار، محامية بالدار البيضاء، تقدم خبرة قانونية دقيقة وشخصية في قانون الأعمال، قانون الأسرة، والقانون العقاري.',
       lawyerName: "المحامية فاطمة الزهراء حصار",
       header: {
         nav: [
