@@ -1,7 +1,7 @@
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  heroImageUrl: '',
+  heroImageUrl: 'https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=2076&auto=format&fit=crop',
   aboutImageUrl: '/images/photo_fatima.jpg',
   contact: {
     email: "avocatehassar@gmail.com",
