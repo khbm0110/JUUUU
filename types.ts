@@ -1,3 +1,4 @@
+
 import { ReactElement } from 'react';
 
 export enum Language {
@@ -25,11 +26,11 @@ export interface Testimonial {
   rating: number; // 1 to 5
 }
 
-// FIX: Added missing Stat interface for the Stats component.
+// FIX: Added Stat interface for use in the Stats component.
 export interface Stat {
   value: number;
-  suffix: string;
   label: string;
+  suffix: string;
 }
 
 export interface Translations {
@@ -57,11 +58,12 @@ export interface Translations {
     title: string;
     items: Service[];
   };
-  stats?: {
-    items: Stat[];
-  };
   testimonials: {
     title: string;
+  };
+  // FIX: Added optional stats property for the Stats component.
+  stats?: {
+    items: Stat[];
   };
   contact: {
     titlePrefix: string;
