@@ -14,17 +14,17 @@ const Footer: React.FC = () => {
     <footer className="bg-black border-t border-gray-800 py-8">
       <div className="container mx-auto px-6 text-center text-gray-500">
         <div className="flex justify-center space-x-6 mb-4">
-          <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300">
+          <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Visitez notre profil LinkedIn" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300">
             <LinkedInIcon className="h-6 w-6" />
           </a>
-          <a href={socials.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300">
+          <a href={socials.facebook} target="_blank" rel="noopener noreferrer" aria-label="Visitez notre page Facebook" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300">
             <FacebookIcon className="h-6 w-6" />
           </a>
         </div>
-        <p className="mb-4 text-sm">{contact.address}</p>
+        <p className="mb-4 text-sm text-gray-400">{contact.address}</p>
         <p className="mb-2">{copyrightText}</p>
         <div className="flex justify-center items-center gap-4 text-sm">
-            <a href="#" className="hover:text-yellow-400 transition-colors duration-300">
+            <a href="/legal" className="hover:text-yellow-400 transition-colors duration-300">
               {translations.legal}
             </a>
         </div>

@@ -1,8 +1,8 @@
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  heroImageUrl: 'https://i.postimg.cc/hjhB5zbV/Generated-Image-November-02-2025-9-05PM.png',
-  aboutImageUrl: 'https://i.postimg.cc/PqBTdhHR/Generated-Image-November-02-2025-1-33PM.png',
+  heroImageUrl: 'https://i.postimg.cc/q7bLgXy2/hero-image-optimized.jpg',
+  aboutImageUrl: 'https://i.postimg.cc/Y0NKy9d1/about-image-optimized.jpg',
   contact: {
     email: "avocatehassar@gmail.com",
     whatsappNumber: "212616351285",
