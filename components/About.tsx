@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useInView } from '../hooks/useInView';
 import { AppContext } from '../contexts/AppContext';
 import CurvedSeparator from './CurvedSeparator';
+import Stats from './Stats';
 
 const About: React.FC = () => {
   const { state } = useContext(AppContext);
@@ -72,6 +73,7 @@ const About: React.FC = () => {
           )}
         </div>
       </div>
+      <Stats isVisible={isInView} />
     </section>
   );
 };

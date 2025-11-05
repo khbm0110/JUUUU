@@ -66,6 +66,13 @@ export const initialDb: SiteData = {
           { id: 's4', icon: 'scale', title: 'Conseils Juridiques', description: 'Une expertise à votre écoute pour anticiper les risques et sécuriser vos projets.' },
         ],
       },
+      stats: {
+        items: [
+          { value: 95, suffix: '%', label: 'Cas traités avec succès' },
+          { value: 10, suffix: '+', label: 'Années d\'expérience' },
+          { value: 150, suffix: '+', label: 'Clients satisfaits' }
+        ]
+      },
       testimonials: {
         title: 'Ce que disent nos clients'
       },
@@ -133,6 +140,13 @@ export const initialDb: SiteData = {
           { id: 's4', icon: 'scale', title: 'Legal Consulting', description: 'Expertise at your disposal to anticipate risks and secure your projects.' },
         ],
       },
+      stats: {
+        items: [
+          { value: 95, suffix: '%', label: 'Successful Cases' },
+          { value: 10, suffix: '+', label: 'Years of Experience' },
+          { value: 150, suffix: '+', label: 'Satisfied Clients' }
+        ]
+      },
       testimonials: {
         title: 'What Our Clients Say'
       },
@@ -199,6 +213,13 @@ export const initialDb: SiteData = {
           { id: 's3', icon: 'family', title: 'قانون الأسرة', description: 'مساعدة في قضايا الطلاق، حضانة الأطفال، والميراث بإنسانية وسرية.' },
           { id: 's4', icon: 'scale', title: 'استشارات قانونية', description: 'خبرة في خدمتكم لتوقع المخاطر وتأمين مشاريعكم.' },
         ],
+      },
+      stats: {
+        items: [
+          { value: 95, suffix: '٪', label: 'قضايا ناجحة' },
+          { value: 10, suffix: '+', label: 'سنوات من الخبرة' },
+          { value: 150, suffix: '+', label: 'عملاء راضون' }
+        ]
       },
       testimonials: {
         title: 'ماذا يقول عملاؤنا'
