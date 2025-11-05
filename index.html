@@ -18,10 +18,13 @@
     <link rel="alternate" hreflang="ar" href="https://www.cabinethassar.ma/" />
     <link rel="alternate" hreflang="x-default" href="https://www.cabinethassar.ma/" />
 
-    <!-- Preload critical assets for faster rendering -->
+    <!-- Preconnect to required origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap">
+    
+    <!-- Asynchronously load Google Fonts to prevent render-blocking -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"></noscript>
 
 
     <!-- Open Graph / Facebook -->
