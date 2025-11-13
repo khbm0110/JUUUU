@@ -49,7 +49,7 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
   return (
     <>
       <section 
-        className="relative bg-black py-12 md:py-20 flex items-center text-white overflow-hidden"
+        className="relative bg-black py-24 md:py-40 flex items-center text-white overflow-hidden"
       >
         {heroImageUrl && (
             <div 
