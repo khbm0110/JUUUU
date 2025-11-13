@@ -88,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openApp
                   <button
                     key={langKey}
                     onClick={() => setLanguage(Language[langKey])}
-                    className={`px-2 py-1 text-sm font-semibold transition-colors duration-300 ${
+                    className={`px-3 py-2 text-sm font-semibold transition-colors duration-300 ${
                       language === Language[langKey]
                         ? 'text-yellow-400 border-b-2 border-yellow-400'
                         : 'text-gray-300 hover:text-white'

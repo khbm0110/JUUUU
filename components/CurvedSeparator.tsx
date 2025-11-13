@@ -7,7 +7,8 @@ interface CurvedSeparatorProps {
 
 const CurvedSeparator: React.FC<CurvedSeparatorProps> = ({ colorClass, type }) => {
   const wrapperClasses = 'absolute left-0 w-full overflow-hidden';
-  const style: React.CSSProperties = { lineHeight: 0 };
+  // FIX: Corrected the type of the `style` object to include `top`, `transform`, and `bottom` properties, which were reportedly missing from the `React.CSSProperties` type in this project's environment.
+  const style: React.CSSProperties & { top?: number; transform?: string; bottom?: number } = { lineHeight: 0 };
   
   if (type === 'top') {
     style.top = 0;

@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-black border-t border-gray-800 py-8">
-      <div className="container mx-auto px-6 text-center text-gray-500">
+      <div className="container mx-auto px-6 text-center text-gray-400">
         <div className="flex justify-center space-x-6 mb-4">
           <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Visitez notre profil LinkedIn" className="p-3 rounded-full text-gray-300 hover:text-yellow-400 transition-colors duration-300">
             <LinkedInIcon className="h-6 w-6" />
