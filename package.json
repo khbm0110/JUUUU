@@ -1,22 +1,23 @@
 {
-  "name": "maître-fatima-azzahraa-hassar---avocate",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "cabinet-hassar-website",
+  "version": "1.0.0",
+  "description": "A professional and elegant landing page for the lawyer Maître Fatima Azzahraa Hassar.",
+  "main": "index.tsx",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "echo \"No dev script configured. Open index.html directly.\"",
+    "build": "echo \"No build step required for this static setup.\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "Cabinet Hassar",
+  "license": "ISC",
   "dependencies": {
-    "react-dom": "^19.2.0",
     "react": "^19.2.0",
-    "@vercel/node": "^5.5.6"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "@vitejs/plugin-react": "^5.0.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vercel/node": "^3.2.0",
+    "typescript": "^5.5.3"
   }
 }
