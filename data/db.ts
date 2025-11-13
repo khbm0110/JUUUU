@@ -92,6 +92,13 @@ export const initialDb: SiteData = {
       testimonials: {
         title: 'Ce que disent nos clients'
       },
+      stats: {
+        items: [
+          { value: 10, label: 'Années d\'expérience', suffix: '+' },
+          { value: 500, label: 'Cas traités', suffix: '+' },
+          { value: 98, label: 'Clients satisfaits', suffix: '%' }
+        ]
+      },
       contact: {
         titlePrefix: 'Contactez',
         intro: "Pour toute demande, vous pouvez nous joindre via les coordonnées ci-dessous ou en utilisant le formulaire de contact.",
@@ -185,6 +192,13 @@ export const initialDb: SiteData = {
       testimonials: {
         title: 'What Our Clients Say'
       },
+      stats: {
+        items: [
+          { value: 10, label: 'Years of Experience', suffix: '+' },
+          { value: 500, label: 'Cases Handled', suffix: '+' },
+          { value: 98, label: 'Satisfied Clients', suffix: '%' }
+        ]
+      },
       contact: {
         titlePrefix: 'Contact',
         intro: "For any inquiries, you can reach us using the contact details below or by using the contact form.",
@@ -277,6 +291,13 @@ export const initialDb: SiteData = {
       },
       testimonials: {
         title: 'ماذا يقول عملاؤنا'
+      },
+      stats: {
+        items: [
+          { value: 10, label: 'سنوات الخبرة', suffix: '+' },
+          { value: 500, label: 'قضية تمت معالجتها', suffix: '+' },
+          { value: 98, label: 'عميل راضٍ', suffix: '%' }
+        ]
       },
       contact: {
         titlePrefix: 'اتصلوا بـ',

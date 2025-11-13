@@ -1,7 +1,9 @@
 
+
 import React, { useState, useEffect, useContext } from 'react';
 import { useTypewriter } from '../hooks/useTypewriter';
 import { AppContext } from '../contexts/AppContext';
+import Stats from './Stats';
 
 const PhoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
@@ -48,11 +50,11 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
   return (
     <>
       <section 
-        className="relative bg-black py-20 md:py-28 flex items-center text-white overflow-hidden bg-cover bg-center"
+        className="relative bg-black py-20 md:py-28 flex flex-col justify-center text-white overflow-hidden bg-cover bg-center min-h-[700px] md:min-h-[800px]"
         style={heroImageUrl ? { backgroundImage: `url(${heroImageUrl})` } : {}}
       >
         <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
-        <div className="container mx-auto px-6 flex items-center relative z-10">
+        <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-center w-full">
             
             {/* Text Content */}
@@ -102,6 +104,7 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
 
           </div>
         </div>
+        <Stats isVisible={showCta} />
       </section>
     </>
   );
