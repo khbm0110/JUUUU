@@ -52,11 +52,15 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
         className="relative bg-black py-24 md:py-40 flex items-center text-white overflow-hidden"
       >
         {heroImageUrl && (
-            <div 
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat hero-bg-zoom"
-                style={{ backgroundImage: `url(${heroImageUrl})` }}
+            <img
+                src={heroImageUrl}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover object-center hero-bg-zoom"
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
                 aria-hidden="true"
-            ></div>
+            />
         )}
         <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
         <div className="container mx-auto px-6 flex items-center relative z-10">
