@@ -5,7 +5,7 @@ export const initialDb: SiteData = {
   aboutImageUrl: '/images/photo_fatima.jpg',
   faviconUrl: '/favicon.ico',
   contact: {
-    email: "avocatehassar@gmail.com",
+    email: "hassar.fz@gmail.com",
     whatsappNumber: "212616351285",
     address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33, Casablanca",
     googleMapsLink: "https://www.google.com/maps/place/33%C2%B032'59.4%22N+7%C2%B040'34.7%22W",
@@ -59,11 +59,34 @@ export const initialDb: SiteData = {
       services: {
         title: 'Nos Domaines d\'Expertise',
         items: [
-          { id: 's1', icon: 'briefcase', title: 'Droit des Affaires', description: 'Accompagnement des entreprises, de la création à la résolution des litiges commerciaux.' },
-          { id: 's2', icon: 'building', title: 'Droit Immobilier', description: 'Conseils et représentation pour toutes vos transactions et contentieux immobiliers.' },
-          // FIX: Corrected service item to include both `title` and `description` properties as required by the `Service` type.
-          { id: 's3', icon: 'family', title: 'Droit de la Famille', description: "Assistance dans les affaires de divorce, garde d'enfants, et successions avec humanité et discrétion." },
-          { id: 's4', icon: 'scale', title: 'Conseils Juridiques', description: 'Une expertise à votre écoute pour anticiper les risques et sécuriser vos projets.' },
+          {
+            id: 's1',
+            icon: 'briefcase',
+            title: 'Droit des Affaires et des Sociétés',
+            description: 'Accompagnement complet des entreprises, de la création à la gestion des litiges.',
+            subServices: ['Droit commercial', 'Droit des sociétés', 'Droit fiscal', 'Recouvrement']
+          },
+          {
+            id: 's2',
+            icon: 'scale',
+            title: 'Droit Civil et Immobilier',
+            description: 'Défense de vos droits personnels et protection de votre patrimoine.',
+            subServices: ['Droit civil', 'Conseil juridique', 'Droit immobilier']
+          },
+          {
+            id: 's3',
+            icon: 'family',
+            title: 'Droit Social et de la Famille',
+            description: 'Gestion des relations humaines, au travail comme dans la sphère privée.',
+            subServices: ['Droit de la famille', 'Droit du travail', 'Droit social']
+          },
+          {
+            id: 's4',
+            icon: 'star',
+            title: 'Droit du Sport',
+            description: 'Assistance juridique spécialisée pour les acteurs du monde sportif.',
+            subServices: ['Droit sportif']
+          }
         ],
       },
       testimonials: {
@@ -129,10 +152,34 @@ export const initialDb: SiteData = {
       services: {
         title: 'Our Areas of Expertise',
         items: [
-          { id: 's1', icon: 'briefcase', title: 'Business Law', description: 'Supporting businesses, from incorporation to resolving commercial disputes.' },
-          { id: 's2', icon: 'building', title: 'Real Estate Law', description: 'Advice and representation for all your real estate transactions and disputes.' },
-          { id: 's3', icon: 'family', title: 'Family Law', description: 'Assistance in matters of divorce, child custody, and inheritance with humanity and discretion.' },
-          { id: 's4', icon: 'scale', title: 'Legal Consulting', description: 'Expertise at your disposal to anticipate risks and secure your projects.' },
+          {
+            id: 's1',
+            icon: 'briefcase',
+            title: 'Business & Corporate Law',
+            description: 'Comprehensive support for businesses, from incorporation to dispute resolution.',
+            subServices: ['Commercial Law', 'Corporate Law', 'Tax Law', 'Debt Collection']
+          },
+          {
+            id: 's2',
+            icon: 'scale',
+            title: 'Civil & Real Estate Law',
+            description: 'Defending your personal rights and protecting your assets.',
+            subServices: ['Civil Law', 'Legal Consulting', 'Real Estate Law']
+          },
+          {
+            id: 's3',
+            icon: 'family',
+            title: 'Social & Family Law',
+            description: 'Managing human relations, both at work and in the private sphere.',
+            subServices: ['Family Law', 'Labor Law', 'Social Law']
+          },
+          {
+            id: 's4',
+            icon: 'star',
+            title: 'Sports Law',
+            description: 'Specialized legal assistance for athletes, clubs, and federations.',
+            subServices: ['Sports Law']
+          }
         ],
       },
       testimonials: {
@@ -198,10 +245,34 @@ export const initialDb: SiteData = {
       services: {
         title: 'مجالات خبرتنا',
         items: [
-          { id: 's1', icon: 'briefcase', title: 'قانون الأعمال', description: 'مواكبة الشركات، من التأسيس إلى حل النزاعات التجارية.' },
-          { id: 's2', icon: 'building', title: 'قانون العقارات', description: 'استشارات وتمثيل في جميع معاملاتكم ونزاعاتكم العقارية.' },
-          { id: 's3', icon: 'family', title: 'قانون الأسرة', description: 'مساعدة في قضايا الطلاق، حضانة الأطفال، والميراث بإنسانية وسرية.' },
-          { id: 's4', icon: 'scale', title: 'استشارات قانونية', description: 'خبرة في خدمتكم لتوقع المخاطر وتأمين مشاريعكم.' },
+          {
+            id: 's1',
+            icon: 'briefcase',
+            title: 'قانون الأعمال والشركات',
+            description: 'دعم شامل للشركات، من التأسيس إلى إدارة النزاعات.',
+            subServices: ['القانون التجاري', 'قانون الشركات', 'القانون الضريبي', 'تحصيل الديون']
+          },
+          {
+            id: 's2',
+            icon: 'scale',
+            title: 'القانون المدني والعقاري',
+            description: 'الدفاع عن حقوقكم الشخصية وحماية ممتلكاتكم.',
+            subServices: ['القانون المدني', 'استشارات قانونية', 'القانون العقاري']
+          },
+          {
+            id: 's3',
+            icon: 'family',
+            title: 'قانون الأسرة والشغل',
+            description: 'إدارة العلاقات الإنسانية، في العمل والحياة الخاصة.',
+            subServices: ['قانون الأسرة', 'قانون الشغل', 'القانون الاجتماعي']
+          },
+          {
+            id: 's4',
+            icon: 'star',
+            title: 'القانون الرياضي',
+            description: 'مساعدة قانونية متخصصة للرياضيين، الأندية والاتحادات.',
+            subServices: ['القانون الرياضي']
+          }
         ],
       },
       testimonials: {

@@ -18,6 +18,7 @@ export interface Service {
   icon: string; // Icon identifier
   title: string;
   description: string;
+  subServices?: string[];
 }
 
 export interface Testimonial {
