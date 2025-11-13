@@ -56,6 +56,8 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
                 src={heroImageUrl}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover object-center hero-bg-zoom"
+                width="1024"
+                height="1024"
                 fetchPriority="high"
                 loading="eager"
                 decoding="async"
