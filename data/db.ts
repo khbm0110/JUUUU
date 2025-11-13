@@ -1,7 +1,7 @@
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  heroImageUrl: './images/hero-background.jpg',
+  heroImageUrl: 'https://i.postimg.cc/R0vN00QQ/my-hero-background.png',
   aboutImageUrl: './images/photo_fatima.jpg',
   faviconUrl: './favicon.ico',
   contact: {
