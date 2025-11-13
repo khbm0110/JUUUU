@@ -52,17 +52,13 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
         className="relative bg-black py-12 md:py-20 flex items-center text-white overflow-hidden"
       >
         {heroImageUrl && (
-            <img 
-              src={heroImageUrl} 
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="eager"
-// FIX: Corrected typo from `fetchpriority` to `fetchPriority`.
-              fetchPriority="high"
-              aria-hidden="true"
-            />
+            <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat hero-bg-zoom"
+                style={{ backgroundImage: `url(${heroImageUrl})` }}
+                aria-hidden="true"
+            ></div>
         )}
-        <div className="absolute inset-0 bg-black opacity-60"></div>
+        <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
         <div className="container mx-auto px-6 flex items-center relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-center w-full">
             

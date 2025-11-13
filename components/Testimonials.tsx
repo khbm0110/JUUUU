@@ -112,14 +112,14 @@ const Testimonials: React.FC = () => {
                 <button
                   onClick={() => handleManualNavigation(currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1)}
                   aria-label={prevLabel}
-                  className="absolute top-1/2 -translate-y-1/2 left-0 z-10 p-3 bg-black/30 rounded-full hover:bg-black/50 transition-colors"
+                  className="absolute top-1/2 -translate-y-1/2 left-0 z-10 p-2 bg-black/30 rounded-full hover:bg-black/50 transition-colors"
                 >
                   <ChevronLeftIcon className="w-6 h-6 text-white"/>
                 </button>
                 <button
                   onClick={() => handleManualNavigation(currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1)}
                   aria-label={nextLabel}
-                  className="absolute top-1/2 -translate-y-1/2 right-0 z-10 p-3 bg-black/30 rounded-full hover:bg-black/50 transition-colors"
+                  className="absolute top-1/2 -translate-y-1/2 right-0 z-10 p-2 bg-black/30 rounded-full hover:bg-black/50 transition-colors"
                 >
                   <ChevronRightIcon className="w-6 h-6 text-white"/>
                 </button>
@@ -128,13 +128,11 @@ const Testimonials: React.FC = () => {
                     <button
                       key={index}
                       onClick={() => handleManualNavigation(index)}
-                      className={`p-2 rounded-full`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    >
-                      <span className={`block w-3 h-3 rounded-full transition-colors ${
+                      className={`w-3 h-3 rounded-full transition-colors ${
                         currentIndex === index ? 'bg-yellow-400' : 'bg-gray-600 hover:bg-gray-500'
-                      }`} />
-                    </button>
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
                   ))}
                 </div>
               </>
