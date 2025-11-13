@@ -48,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
   return (
     <>
       <section 
-        className="relative bg-black py-20 md:py-28 flex items-center text-white overflow-hidden bg-cover bg-center"
+        className="relative bg-black py-12 md:py-20 flex items-center text-white overflow-hidden bg-cover bg-center"
         style={heroImageUrl ? { backgroundImage: `url(${heroImageUrl})` } : {}}
       >
         <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
