@@ -1,9 +1,9 @@
 import { SiteData, Language } from '../types';
 
 export const initialDb: SiteData = {
-  heroImageUrl: '/images/hero-background.jpg',
-  aboutImageUrl: '/images/photo_fatima.jpg',
-  faviconUrl: '/favicon.ico',
+  heroImageUrl: 'images/hero-background.jpg',
+  aboutImageUrl: 'images/photo_fatima.jpg',
+  faviconUrl: 'favicon.ico',
   contact: {
     email: "hassar.fz@gmail.com",
     whatsappNumber: "212616351285",
