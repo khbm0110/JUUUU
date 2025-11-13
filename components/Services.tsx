@@ -98,7 +98,7 @@ const Services: React.FC = () => {
                     <div className="bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700 h-full flex flex-col items-center justify-center min-h-[280px]">
                       {iconMap[service.icon] || iconMap['briefcase']}
                       <h3 className="text-2xl font-bold font-heading text-white mb-3">{service.title}</h3>
-                      <p className="text-gray-400">{service.description}</p>
+                      <p className="text-gray-300">{service.description}</p>
                     </div>
                   </div>
                 ))}
@@ -148,7 +148,7 @@ const Services: React.FC = () => {
               >
                 {iconMap[service.icon] || iconMap['briefcase']}
                 <h3 className="text-2xl font-bold font-heading text-white mb-3">{service.title}</h3>
-                <p className="text-gray-400">{service.description}</p>
+                <p className="text-gray-300">{service.description}</p>
               </div>
             ))}
           </div>

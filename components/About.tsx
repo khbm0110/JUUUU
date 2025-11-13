@@ -25,8 +25,8 @@ const About: React.FC = () => {
           {/* Text Content Column */}
           <div className={aboutImageUrl ? 'md:col-span-2 order-last md:order-first' : 'md:col-span-3'}>
             <div className={`transition-all duration-1000 ease-out delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} text-center md:text-left rtl:md:text-right`}>
-              <p className="text-gray-400 leading-relaxed mb-4">{translations.p1}</p>
-              <p className="text-gray-400 leading-relaxed">{translations.p2}</p>
+              <p className="text-gray-300 leading-relaxed mb-4">{translations.p1}</p>
+              <p className="text-gray-300 leading-relaxed">{translations.p2}</p>
               
               {/* Our Values Section */}
               {translations.values && translations.values.length > 0 && (
@@ -41,7 +41,7 @@ const About: React.FC = () => {
                             </svg>
                           <span>{value.title}</span>
                         </h4>
-                        <p className="text-gray-400 mt-1 pl-8">{value.description}</p>
+                        <p className="text-gray-300 mt-1 pl-8">{value.description}</p>
                       </div>
                     ))}
                   </div>

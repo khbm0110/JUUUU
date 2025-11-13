@@ -38,7 +38,7 @@ const Testimonials: React.FC = () => {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <StarRating rating={testimonial.rating} />
-                <p className="text-gray-400 my-4 italic">"{testimonial.comment}"</p>
+                <p className="text-gray-300 my-4 italic">"{testimonial.comment}"</p>
                 <h3 className="font-bold text-lg text-white">- {testimonial.name}</h3>
               </div>
             ))}

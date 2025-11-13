@@ -1,62 +1,43 @@
 
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { SiteData, Language } from '../types';
 import { initialDb } from '../data/db';
 
 interface AppState {
   siteData: SiteData;
   language: Language;
-  // FIX: Added authentication and routing state
+  // FIX: Added to track login state for the admin dashboard.
   isAuthenticated: boolean;
-  route: string;
 }
 
 interface AppContextType {
   state: AppState;
   setLanguage: (lang: Language) => void;
-  // FIX: Added authentication and navigation functions
+  // FIX: Added for admin authentication.
   login: (password: string) => boolean;
   logout: () => void;
-  navigate: (path: string) => void;
 }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType);
-
-// This should be a secure secret stored in environment variables in a real application.
-const ADMIN_PASSWORD = 'admin';
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, setState] = useState<AppState>({
     siteData: initialDb,
     language: Language.FR,
+    // FIX: Initialize authentication state.
     isAuthenticated: false,
-    route: window.location.pathname,
   });
-
-  // Handle browser back/forward buttons
-  useEffect(() => {
-    const handlePopState = () => {
-      setState(s => ({ ...s, route: window.location.pathname }));
-    };
-    window.addEventListener('popstate', handlePopState);
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, []);
 
   const setLanguage = (lang: Language) => {
     setState(s => ({ ...s, language: lang }));
   };
 
-  const navigate = (path: string) => {
-    window.history.pushState({}, '', path);
-    setState(s => ({ ...s, route: path }));
-  };
-
+  // FIX: Implement login and logout functions to manage authentication state.
   const login = (password: string): boolean => {
-    if (password === ADMIN_PASSWORD) {
+    // NOTE: This is a placeholder for a real authentication system.
+    // In a real application, this password check would be handled by a secure backend service.
+    if (password === 'adminPassword123!') {
       setState(s => ({ ...s, isAuthenticated: true }));
-      navigate('/admin');
       return true;
     }
     return false;
@@ -64,11 +45,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const logout = () => {
     setState(s => ({ ...s, isAuthenticated: false }));
-    navigate('/');
   };
 
+
   return (
-    <AppContext.Provider value={{ state, setLanguage, login, logout, navigate }}>
+    <AppContext.Provider value={{ state, setLanguage, login, logout }}>
       {children}
     </AppContext.Provider>
   );

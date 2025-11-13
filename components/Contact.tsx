@@ -67,7 +67,7 @@ const Contact: React.FC = () => {
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Left Column: Contact Info */}
           <div className={`flex flex-col items-center md:items-start transition-all duration-1000 ease-out ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 rtl:translate-x-10'}`}>
-            <p className="text-gray-400 leading-relaxed mb-10 text-center md:text-left rtl:md:text-right">{translations.intro}</p>
+            <p className="text-gray-300 leading-relaxed mb-10 text-center md:text-left rtl:md:text-right">{translations.intro}</p>
             
             <div className="space-y-8 mb-10 w-full">
               {/* Phone */}
@@ -77,7 +77,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">{translations.phonePrompt}</h3>
-                  <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-gray-400 hover:text-yellow-400 transition-colors" dir="ltr">
+                  <a href={`tel:+${siteConfig.contact.whatsappNumber}`} className="text-gray-300 hover:text-yellow-400 transition-colors" dir="ltr">
                     {displayNumber}
                   </a>
                 </div>
@@ -90,7 +90,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">{translations.emailPrompt}</h3>
-                  <a href={`mailto:${siteConfig.contact.email}`} className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  <a href={`mailto:${siteConfig.contact.email}`} className="text-gray-300 hover:text-yellow-400 transition-colors">
                     {siteConfig.contact.email}
                   </a>
                 </div>
@@ -103,7 +103,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">{translations.addressTitle}</h3>
-                  <p className="text-gray-400">{siteConfig.contact.address}</p>
+                  <p className="text-gray-300">{siteConfig.contact.address}</p>
                 </div>
               </div>
             </div>
@@ -117,7 +117,7 @@ const Contact: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <h3 className="text-2xl font-bold font-heading text-white mb-2">{translations.form.successTitle}</h3>
-                <p className="text-gray-400">{translations.form.successMessage}</p>
+                <p className="text-gray-300">{translations.form.successMessage}</p>
               </div>
             ) : (
               <form 

@@ -1,24 +1,23 @@
 
 import React from 'react';
 import LandingPage from './pages/LandingPage';
-// FIX: Import components for routing
-import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
+import LoginPage from './pages/LoginPage';
 import { useAppContext } from './contexts/AppContext';
 
 const App: React.FC = () => {
-  // FIX: Add routing logic based on context state
   const { state } = useAppContext();
-  const { route, isAuthenticated } = state;
+  
+  // FIX: Implement simple path-based routing to display the correct page
+  // (LandingPage, LoginPage, or AdminDashboard) based on the URL and authentication state.
+  // This makes the login and admin functionality accessible.
+  const path = window.location.pathname;
 
-  if (route.startsWith('/admin')) {
-    if (isAuthenticated) {
-      return <AdminDashboard />;
-    }
-    return <LoginPage />;
+  if (path.startsWith('/admin')) {
+    return state.isAuthenticated ? <AdminDashboard /> : <LoginPage />;
   }
   
-  // Default to landing page for any other route
+  // Default to landing page for all other paths
   return <LandingPage />;
 };
 
