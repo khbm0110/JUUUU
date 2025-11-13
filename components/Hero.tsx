@@ -53,7 +53,7 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
       >
         {heroImageUrl && (
             <div 
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat hero-bg-zoom"
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${heroImageUrl})` }}
                 aria-hidden="true"
             ></div>
