@@ -28,17 +28,18 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openApp
     };
     if (isMobileMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = '';
     };
   }, [isMobileMenuOpen]);
 
-  // Track scroll for header background change
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 60);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -52,110 +53,144 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openApp
     }
     setIsMobileMenuOpen(false);
   };
-  
+   
   const handleLangClick = (lang: Language) => {
     setLanguage(lang);
     setIsMobileMenuOpen(false);
-  }
+  };
 
   return (
     <>
-      <header className={`sticky top-0 z-40 transition-all duration-300 border-b ${
+      <header className={`sticky top-0 z-40 transition-all duration-500 ${
         isScrolled
-          ? 'bg-[#0B1120]/90 backdrop-blur-xl border-[rgba(201,168,76,0.1)] shadow-lg'
-          : 'bg-transparent backdrop-blur-md border-transparent'
+          ? 'glass-heavy shadow-lg'
+          : 'bg-transparent'
       }`}>
         <div className="container mx-auto px-6 py-4 flex items-center justify-between" dir="ltr">
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, '#hero')}
             aria-label="Go to homepage"
-            className="group flex items-center"
+            className="group flex items-center transition-all duration-300"
           >
-            <LogoIcon className="h-12 w-auto transition-all duration-300 group-hover:opacity-80 group-hover:drop-shadow-[0_0_8px_rgba(201,168,76,0.3)]" />
+            <LogoIcon className="h-11 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(201,168,76,0.3)]" />
           </a>
           
-          {/* Wrapper for right-aligned items */}
-          <div className="flex items-center gap-x-8">
+          <div className="flex items-center gap-x-6">
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-x-8">
+            <nav className="hidden lg:flex items-center gap-x-1">
               {translations.nav.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`font-medium text-[15px] tracking-wide transition-colors duration-200 cursor-pointer ${
+                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer ${
                     activeSection === item.href
-                        ? 'text-[#C9A84C]'
-                        : 'text-[#94A3B8] hover:text-[#C9A84C]'
+                        ? 'text-[var(--gold)]'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {item.name}
+                  {activeSection === item.href && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full" style={{ background: 'var(--gold)' }}></span>
+                  )}
                 </a>
               ))}
             </nav>
             
-            <div className="flex items-center">
+            <div className="flex items-center gap-3">
               {/* Desktop Language Switcher */}
-              <div className="hidden md:flex items-center space-x-1">
+              <div className="hidden lg:flex items-center glass rounded-full p-1">
                 {(Object.keys(Language) as Array<keyof typeof Language>).map((langKey) => (
                   <button
                     key={langKey}
                     onClick={() => setLanguage(Language[langKey])}
-                    className={`px-3 py-1.5 text-sm font-semibold rounded transition-all duration-200 cursor-pointer ${
+                    className={`px-3.5 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 cursor-pointer ${
                       language === Language[langKey]
-                        ? 'text-[#C9A84C] bg-[rgba(201,168,76,0.1)]'
-                        : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
+                        ? 'text-[var(--navy-deep)]'
+                        : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                     }`}
+                    style={language === Language[langKey] ? { background: 'var(--gold)' } : {}}
                   >
                     {langKey}
                   </button>
                 ))}
               </div>
 
-              {/* Mobile Menu Button and Dropdown */}
-              <div className="md:hidden relative" ref={menuRef}>
-                <button onClick={() => setIsMobileMenuOpen(o => !o)} aria-label="Toggle menu" className="text-[#94A3B8] hover:text-[#C9A84C] transition-colors z-10 relative cursor-pointer">
-                   {isMobileMenuOpen ? <CloseIcon className="h-7 w-7" /> : <HamburgerIcon className="h-7 w-7" />}
+              {/* CTA Button Desktop */}
+              <button
+                onClick={openAppointmentModal}
+                className="hidden lg:inline-flex btn-primary text-sm py-2.5 px-5 cursor-pointer"
+              >
+                <span>{translations.nav.find(n => n.href === '#appointment')?.name || 'Rendez-vous'}</span>
+              </button>
+
+              {/* Mobile Menu Button */}
+              <div className="lg:hidden relative" ref={menuRef}>
+                <button 
+                  onClick={() => setIsMobileMenuOpen(o => !o)} 
+                  aria-label="Toggle menu" 
+                  className="relative z-10 w-10 h-10 rounded-xl glass flex items-center justify-center cursor-pointer transition-all duration-200"
+                  style={{ color: 'var(--gold)' }}
+                >
+                  {isMobileMenuOpen ? <CloseIcon className="h-5 w-5" /> : <HamburgerIcon className="h-5 w-5" />}
                 </button>
 
-                {/* Mobile Menu Dropdown */}
+                {/* Mobile Full-Screen Menu */}
                 <div
-                  className={`absolute top-full mt-4 p-6 rounded-xl shadow-2xl bg-[#0F172A] border border-[rgba(201,168,76,0.15)] w-72 transition-all duration-300 ease-in-out right-0 origin-top-right ${
-                    isMobileMenuOpen ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95 pointer-events-none'
+                  className={`fixed inset-0 top-0 z-50 transition-all duration-500 ease-out ${
+                    isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                   }`}
+                  style={{ backgroundColor: 'rgba(6,10,19,0.97)', backdropFilter: 'blur(20px)' }}
                 >
-                  <nav className="flex flex-col space-y-1 mb-6">
-                    {translations.nav.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        onClick={(e) => handleNavClick(e, item.href)}
-                        className={`block text-lg font-medium py-2.5 px-3 rounded-lg transition-all duration-200 cursor-pointer ${
-                          activeSection === item.href
-                              ? 'text-[#C9A84C] bg-[rgba(201,168,76,0.08)]'
-                              : 'text-[#CBD5E1] hover:text-[#C9A84C] hover:bg-white/5'
-                        }`}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </nav>
+                  <div className="flex flex-col items-center justify-center min-h-screen px-8">
+                    {/* Close button */}
+                    <button 
+                      onClick={() => setIsMobileMenuOpen(false)} 
+                      className="absolute top-5 right-5 w-10 h-10 rounded-xl glass flex items-center justify-center cursor-pointer"
+                      style={{ color: 'var(--gold)' }}
+                    >
+                      <CloseIcon className="h-5 w-5" />
+                    </button>
 
-                  <div className="border-t border-[rgba(201,168,76,0.1)] pt-4 flex items-center justify-around">
-                    {(Object.keys(Language) as Array<keyof typeof Language>).map((langKey) => (
-                      <button
-                        key={langKey}
-                        onClick={() => handleLangClick(Language[langKey])}
-                        className={`px-4 py-2 text-base font-bold rounded-lg transition-all duration-200 cursor-pointer ${
-                          language === Language[langKey]
-                            ? 'text-[#C9A84C] bg-[rgba(201,168,76,0.1)]'
-                            : 'text-[#94A3B8] hover:text-white'
-                        }`}
-                      >
-                        {langKey}
-                      </button>
-                    ))}
+                    <nav className="flex flex-col items-center space-y-2 mb-12">
+                      {translations.nav.map((item, index) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          onClick={(e) => handleNavClick(e, item.href)}
+                          className={`text-2xl font-heading font-semibold py-3 px-6 rounded-xl transition-all duration-300 cursor-pointer ${
+                            activeSection === item.href
+                              ? 'text-gold-gradient'
+                              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                          }`}
+                          style={{
+                            transitionDelay: isMobileMenuOpen ? `${index * 60}ms` : '0ms',
+                            opacity: isMobileMenuOpen ? 1 : 0,
+                            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
+                          }}
+                        >
+                          {item.name}
+                        </a>
+                      ))}
+                    </nav>
+
+                    <div className="flex items-center glass rounded-full p-1">
+                      {(Object.keys(Language) as Array<keyof typeof Language>).map((langKey) => (
+                        <button
+                          key={langKey}
+                          onClick={() => handleLangClick(Language[langKey])}
+                          className={`px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-200 cursor-pointer ${
+                            language === Language[langKey]
+                              ? 'text-[var(--navy-deep)]'
+                              : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                          }`}
+                          style={language === Language[langKey] ? { background: 'var(--gold)' } : {}}
+                        >
+                          {langKey}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

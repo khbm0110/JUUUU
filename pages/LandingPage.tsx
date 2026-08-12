@@ -1,10 +1,9 @@
-
-
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Services from '../components/Services';
+import StatsSection from '../components/StatsSection';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import SideNav from '../components/SideNav';
@@ -22,6 +21,7 @@ const LandingPage: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   
@@ -48,18 +48,14 @@ const LandingPage: React.FC = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (isScrollingProgrammatically.current) return;
-
         if (window.scrollY < window.innerHeight * 0.5) {
           setActiveSection('#hero');
           return;
         }
-
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionId = sectionIdMap[entry.target.id as keyof typeof sectionIdMap];
-            if (sectionId) {
-              setActiveSection(sectionId);
-            }
+            if (sectionId) setActiveSection(sectionId);
           }
         });
       },
@@ -67,20 +63,14 @@ const LandingPage: React.FC = () => {
     );
 
     Object.values(sectionRefs).forEach((ref) => {
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
+      if (ref.current) observer.observe(ref.current);
     });
 
     return () => {
       Object.values(sectionRefs).forEach((ref) => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-        }
+        if (ref.current) observer.unobserve(ref.current);
       });
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, []);
 
@@ -90,11 +80,7 @@ const LandingPage: React.FC = () => {
       setActiveSection(sectionId);
       isScrollingProgrammatically.current = true;
       ref.current?.scrollIntoView({ behavior: 'smooth' });
-
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
-
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
         isScrollingProgrammatically.current = false;
       }, 1000);
@@ -107,40 +93,30 @@ const LandingPage: React.FC = () => {
     const faviconUrl = state.siteData.faviconUrl;
     if (faviconUrl) {
       let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'icon';
-        document.head.appendChild(link);
-      }
+      if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
       link.href = faviconUrl;
     }
-
     const translations = state.siteData.content[language];
     if (translations) {
-        document.title = translations.pageTitle;
-
-        const metas: {selector: string, attribute: string, value: string}[] = [
-            {selector: 'meta[name="description"]', attribute: 'content', value: translations.metaDescription},
-            {selector: 'meta[property="og:title"]', attribute: 'content', value: translations.pageTitle},
-            {selector: 'meta[property="og:description"]', attribute: 'content', value: translations.metaDescription},
-            {selector: 'meta[property="twitter:title"]', attribute: 'content', value: translations.pageTitle},
-            {selector: 'meta[property="twitter:description"]', attribute: 'content', value: translations.metaDescription},
-        ];
-
-        metas.forEach(({selector, attribute, value}) => {
-            const element = document.querySelector(selector);
-            if (element) {
-                element.setAttribute(attribute, value);
-            }
-        });
+      document.title = translations.pageTitle;
+      const metas: {selector: string, attribute: string, value: string}[] = [
+        {selector: 'meta[name="description"]', attribute: 'content', value: translations.metaDescription},
+        {selector: 'meta[property="og:title"]', attribute: 'content', value: translations.pageTitle},
+        {selector: 'meta[property="og:description"]', attribute: 'content', value: translations.metaDescription},
+        {selector: 'meta[property="twitter:title"]', attribute: 'content', value: translations.pageTitle},
+        {selector: 'meta[property="twitter:description"]', attribute: 'content', value: translations.metaDescription},
+      ];
+      metas.forEach(({selector, attribute, value}) => {
+        const element = document.querySelector(selector);
+        if (element) element.setAttribute(attribute, value);
+      });
     }
-
     document.documentElement.lang = language;
     document.documentElement.dir = language === Language.AR ? 'rtl' : 'ltr';
   }, [language, state.siteData]);
 
   return (
-    <div className={`font-body`}>
+    <div className="font-body">
       <Header
         scrollToSection={scrollToSection}
         activeSection={activeSection}
@@ -153,6 +129,9 @@ const LandingPage: React.FC = () => {
       <main>
         <div ref={heroRef} id="hero">
           <Hero openAppointmentModal={openAppointmentModal} />
+        </div>
+        <div ref={statsRef} id="stats">
+          <StatsSection />
         </div>
         <div ref={aboutRef} id="about">
           <About />
