@@ -36,33 +36,35 @@ const About: React.FC = () => {
           
           {/* Image Column */}
           {aboutImageUrl && (
-            <div className={`relative transition-all duration-1000 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+            <div className={`relative max-w-md mx-auto lg:mx-0 transition-all duration-1000 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
               {/* Glow effect */}
-              <div className="absolute -inset-4 rounded-3xl blur-3xl opacity-20" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.4), transparent 70%)' }}></div>
+              <div className="absolute -inset-3 rounded-3xl blur-2xl opacity-15" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.35), transparent 65%)' }}></div>
               
-              {/* Main image with glass frame */}
-              <div className="relative glass rounded-2xl overflow-hidden group">
+              {/* Main image with glass frame - constrained size */}
+              <div className="relative glass rounded-2xl overflow-hidden group" style={{ maxHeight: '420px' }}>
                 <img 
                   src={aboutImageUrl} 
                   alt={lawyerName} 
-                  className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                  style={{ maxHeight: '420px' }}
                   loading="lazy"
                   decoding="async"
                 />
                 {/* Bottom gradient overlay */}
-                <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, transparent 60%, rgba(6,10,19,0.6) 100%)' }}></div>
+                <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(6,10,19,0.7) 100%)' }}></div>
               </div>
 
               {/* Floating experience badge */}
-              <div className="absolute -bottom-6 -right-4 md:-right-8 glass-gold rounded-2xl p-5 animate-float shadow-2xl" style={{ animationDelay: '2s' }}>
-                <p className="text-3xl font-bold font-heading text-gold-gradient">15+</p>
-                <p className="text-xs font-medium mt-1" style={{ color: 'var(--text-muted)' }}>
+              <div className="absolute -bottom-5 -right-3 md:-right-6 glass-gold rounded-xl p-4 animate-float shadow-2xl" style={{ animationDelay: '2s' }}>
+                <p className="text-2xl font-bold font-heading text-gold-gradient">15+</p>
+                <p className="text-[10px] font-medium mt-0.5" style={{ color: 'var(--text-muted)' }}>
                   {state.language === 'ar' ? 'سنوات خبرة' : state.language === 'en' ? 'Years Exp.' : 'Ans Exp.'}
                 </p>
               </div>
 
-              {/* Decorative accent line */}
-              <div className="absolute -top-3 -left-3 w-20 h-20 border-t-2 border-l-2 rounded-tl-2xl" style={{ borderColor: 'rgba(201,168,76,0.2)' }}></div>
+              {/* Decorative corners */}
+              <div className="absolute -top-2 -left-2 w-14 h-14 border-t-2 border-l-2 rounded-tl-xl" style={{ borderColor: 'rgba(201,168,76,0.2)' }}></div>
+              <div className="absolute -bottom-2 -right-2 w-14 h-14 border-b-2 border-r-2 rounded-br-xl hidden md:block" style={{ borderColor: 'rgba(201,168,76,0.15)' }}></div>
             </div>
           )}
 

@@ -8,6 +8,7 @@ import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import SideNav from '../components/SideNav';
 import Testimonials from '../components/Testimonials';
+import CTABand from '../components/CTABand';
 import { AppContext } from '../contexts/AppContext';
 import { Language } from '../types';
 import AppointmentModal from '../components/AppointmentModal';
@@ -89,6 +90,13 @@ const LandingPage: React.FC = () => {
   
   const openAppointmentModal = () => setIsModalOpen(true);
 
+  // Listen for custom open-appointment event from CTABand
+  useEffect(() => {
+    const handler = () => setIsModalOpen(true);
+    window.addEventListener('open-appointment', handler);
+    return () => window.removeEventListener('open-appointment', handler);
+  }, []);
+
   useEffect(() => {
     const faviconUrl = state.siteData.faviconUrl;
     if (faviconUrl) {
@@ -139,6 +147,7 @@ const LandingPage: React.FC = () => {
         <div ref={servicesRef} id="services">
           <Services />
         </div>
+        <CTABand />
         <div ref={testimonialsRef} id="testimonials">
           <Testimonials />
         </div>

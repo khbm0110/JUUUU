@@ -55,23 +55,29 @@ const StatCard: React.FC<{ stat: StatItem; language: string; startAnimation: boo
 
   return (
     <div 
-      className={`glass-card rounded-2xl p-6 md:p-8 text-center transition-all duration-600 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      className={`glass-card rounded-2xl p-6 md:p-8 text-center transition-all duration-600 group ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      {/* Icon */}
-      <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4" style={{ 
-        background: 'linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05))',
-        color: 'var(--gold)'
-      }}>
-        {stat.icon}
+      {/* Shimmer line at top on hover */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 group-hover:w-3/4 h-px transition-all duration-500" style={{ background: 'linear-gradient(90deg, transparent, var(--gold), transparent)' }}></div>
+
+      {/* Icon with pulse ring */}
+      <div className="relative inline-flex items-center justify-center mb-4">
+        <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-ping" style={{ background: 'rgba(201,168,76,0.15)' }}></div>
+        <div className="relative w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style={{ 
+          background: 'linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05))',
+          color: 'var(--gold)'
+        }}>
+          {stat.icon}
+        </div>
       </div>
-      {/* Number */}
-      <p className="text-4xl md:text-5xl font-bold font-heading mb-2">
+      {/* Number with glow */}
+      <p className="text-4xl md:text-5xl font-bold font-heading mb-2 animate-counter-glow">
         <span className="text-gold-gradient">{count}</span>
         <span style={{ color: 'var(--gold-light)' }}>{stat.suffix}</span>
       </p>
       {/* Label */}
-      <p className="text-sm font-medium tracking-wide uppercase" style={{ color: 'var(--text-muted)' }}>{label}</p>
+      <p className="text-xs md:text-sm font-medium tracking-wider uppercase" style={{ color: 'var(--text-muted)' }}>{label}</p>
     </div>
   );
 };

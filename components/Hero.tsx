@@ -93,6 +93,16 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
         <div className="deco-dot-grid hidden lg:block" style={{ top: '20%', right: '8%' }}></div>
       </div>
 
+      {/* Scroll indicator */}
+      <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-all duration-1000 delay-[2000ms] ${showCta ? 'opacity-100' : 'opacity-0'}`}>
+        <span className="text-[10px] uppercase tracking-[0.2em] font-medium" style={{ color: 'var(--text-muted)' }}>
+          {state.language === 'ar' ? 'اكتشف المزيد' : state.language === 'en' ? 'Scroll to explore' : 'Decouvrir'}
+        </span>
+        <div className="w-5 h-8 rounded-full flex items-start justify-center pt-1.5" style={{ border: '1.5px solid rgba(201,168,76,0.3)' }}>
+          <div className="w-1 h-2 rounded-full animate-bounce" style={{ background: 'var(--gold)' }}></div>
+        </div>
+      </div>
+
       {/* Gold accent line at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-px z-10" style={{ 
         background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.4) 30%, rgba(201,168,76,0.4) 70%, transparent)' 
