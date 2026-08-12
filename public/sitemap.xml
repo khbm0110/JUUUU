@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Page d'accueil -->
+  <url>
+    <loc>https://www.cabinethassar.ma/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.cabinethassar.ma/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cabinethassar.ma/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.cabinethassar.ma/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cabinethassar.ma/"/>
+    <lastmod>2025-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- À propos -->
+  <url>
+    <loc>https://www.cabinethassar.ma/about</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.cabinethassar.ma/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cabinethassar.ma/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.cabinethassar.ma/ar/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cabinethassar.ma/about"/>
+    <lastmod>2025-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Nos Domaines d'Expertise -->
+  <url>
+    <loc>https://www.cabinethassar.ma/services</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.cabinethassar.ma/services"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cabinethassar.ma/en/services"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.cabinethassar.ma/ar/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cabinethassar.ma/services"/>
+    <lastmod>2025-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Ce que disent nos clients -->
+  <url>
+    <loc>https://www.cabinethassar.ma/testimonials</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.cabinethassar.ma/testimonials"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cabinethassar.ma/en/testimonials"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.cabinethassar.ma/ar/testimonials"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cabinethassar.ma/testimonials"/>
+    <lastmod>2025-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://www.cabinethassar.ma/contact</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.cabinethassar.ma/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cabinethassar.ma/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.cabinethassar.ma/ar/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cabinethassar.ma/contact"/>
+    <lastmod>2025-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Mentions légales -->
+  <url>
+    <loc>https://www.cabinethassar.ma/legal</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.cabinethassar.ma/legal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cabinethassar.ma/en/legal"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.cabinethassar.ma/ar/legal"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cabinethassar.ma/legal"/>
+    <lastmod>2025-11-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

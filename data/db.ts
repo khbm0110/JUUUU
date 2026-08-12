@@ -8,7 +8,7 @@ export const initialDb: SiteData = {
     email: "hassar.fz@gmail.com",
     whatsappNumber: "212616351285",
     address: "Boulevard Taib Naciri, Résidence Mohamed Reda, 3ème étage, N° 33, Casablanca",
-    googleMapsLink: "https://www.google.com/maps/place/33%C2%B032'59.4%22N+7%C2%B040'34.7%22W",
+    googleMapsLink: "https://www.google.com/maps/place/Cabinet+d'avocats+Hassar/@33.5578912,-7.7179215,12z",
   },
   socials: {
     linkedin: "https://www.linkedin.com",
@@ -59,34 +59,17 @@ export const initialDb: SiteData = {
       services: {
         title: 'Nos Domaines d\'Expertise',
         items: [
-          {
-            id: 's1',
-            icon: 'briefcase',
-            title: 'Droit des Affaires et des Sociétés',
-            description: 'Accompagnement complet des entreprises, de la création à la gestion des litiges.',
-            subServices: ['Droit commercial', 'Droit des sociétés', 'Droit fiscal', 'Recouvrement']
-          },
-          {
-            id: 's2',
-            icon: 'scale',
-            title: 'Droit Civil et Immobilier',
-            description: 'Défense de vos droits personnels et protection de votre patrimoine.',
-            subServices: ['Droit civil', 'Conseil juridique', 'Droit immobilier']
-          },
-          {
-            id: 's3',
-            icon: 'family',
-            title: 'Droit Social et de la Famille',
-            description: 'Gestion des relations humaines, au travail comme dans la sphère privée.',
-            subServices: ['Droit de la famille', 'Droit du travail', 'Droit social']
-          },
-          {
-            id: 's4',
-            icon: 'star',
-            title: 'Droit du Sport',
-            description: 'Assistance juridique spécialisée pour les acteurs du monde sportif.',
-            subServices: ['Droit sportif']
-          }
+          'Conseil juridique',
+          'Droit civil',
+          'Droit commercial',
+          'Droit de la famille',
+          'Droit des sociétés',
+          'Droit du travail',
+          'Droit fiscal',
+          'Droit immobilier',
+          'Droit social',
+          'Droit sportif',
+          'Recouvrement'
         ],
       },
       testimonials: {
@@ -115,7 +98,6 @@ export const initialDb: SiteData = {
       },
       footer: {
         copyright: '© 2025 {lawyerName}. Tous droits réservés.',
-        legal: 'Mentions légales',
       },
     },
     [Language.EN]: {
@@ -152,34 +134,17 @@ export const initialDb: SiteData = {
       services: {
         title: 'Our Areas of Expertise',
         items: [
-          {
-            id: 's1',
-            icon: 'briefcase',
-            title: 'Business & Corporate Law',
-            description: 'Comprehensive support for businesses, from incorporation to dispute resolution.',
-            subServices: ['Commercial Law', 'Corporate Law', 'Tax Law', 'Debt Collection']
-          },
-          {
-            id: 's2',
-            icon: 'scale',
-            title: 'Civil & Real Estate Law',
-            description: 'Defending your personal rights and protecting your assets.',
-            subServices: ['Civil Law', 'Legal Consulting', 'Real Estate Law']
-          },
-          {
-            id: 's3',
-            icon: 'family',
-            title: 'Social & Family Law',
-            description: 'Managing human relations, both at work and in the private sphere.',
-            subServices: ['Family Law', 'Labor Law', 'Social Law']
-          },
-          {
-            id: 's4',
-            icon: 'star',
-            title: 'Sports Law',
-            description: 'Specialized legal assistance for athletes, clubs, and federations.',
-            subServices: ['Sports Law']
-          }
+          'Civil Law',
+          'Commercial Law',
+          'Corporate Law',
+          'Debt Collection',
+          'Family Law',
+          'Labor Law',
+          'Legal Consulting',
+          'Real Estate Law',
+          'Social Law',
+          'Sports Law',
+          'Tax Law'
         ],
       },
       testimonials: {
@@ -208,7 +173,6 @@ export const initialDb: SiteData = {
       },
       footer: {
         copyright: '© 2025 {lawyerName}. All rights reserved.',
-        legal: 'Legal Notice',
       },
     },
     [Language.AR]: {
@@ -245,34 +209,17 @@ export const initialDb: SiteData = {
       services: {
         title: 'مجالات خبرتنا',
         items: [
-          {
-            id: 's1',
-            icon: 'briefcase',
-            title: 'قانون الأعمال والشركات',
-            description: 'دعم شامل للشركات، من التأسيس إلى إدارة النزاعات.',
-            subServices: ['القانون التجاري', 'قانون الشركات', 'القانون الضريبي', 'تحصيل الديون']
-          },
-          {
-            id: 's2',
-            icon: 'scale',
-            title: 'القانون المدني والعقاري',
-            description: 'الدفاع عن حقوقكم الشخصية وحماية ممتلكاتكم.',
-            subServices: ['القانون المدني', 'استشارات قانونية', 'القانون العقاري']
-          },
-          {
-            id: 's3',
-            icon: 'family',
-            title: 'قانون الأسرة والشغل',
-            description: 'إدارة العلاقات الإنسانية، في العمل والحياة الخاصة.',
-            subServices: ['قانون الأسرة', 'قانون الشغل', 'القانون الاجتماعي']
-          },
-          {
-            id: 's4',
-            icon: 'star',
-            title: 'القانون الرياضي',
-            description: 'مساعدة قانونية متخصصة للرياضيين، الأندية والاتحادات.',
-            subServices: ['القانون الرياضي']
-          }
+          'استشارات قانونية',
+          'تحصيل الديون',
+          'قانون الأسرة',
+          'قانون الشغل',
+          'قانون الشركات',
+          'القانون الاجتماعي',
+          'القانون التجاري',
+          'القانون الضريبي',
+          'القانون الرياضي',
+          'القانون العقاري',
+          'القانون المدني'
         ],
       },
       testimonials: {
@@ -301,7 +248,6 @@ export const initialDb: SiteData = {
       },
       footer: {
         copyright: '© 2025 {lawyerName}. جميع الحقوق محفوظة.',
-        legal: 'إشعارات قانونية',
       },
     },
   },

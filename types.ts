@@ -13,14 +13,6 @@ export interface NavLink {
   href: string;
 }
 
-export interface Service {
-  id: string;
-  icon: string; // Icon identifier
-  title: string;
-  description: string;
-  subServices?: string[];
-}
-
 export interface Testimonial {
   id:string;
   name: string;
@@ -60,7 +52,7 @@ export interface Translations {
   };
   services: {
     title: string;
-    items: Service[];
+    items: string[];
   };
   testimonials: {
     title: string;
@@ -99,7 +91,6 @@ export interface Translations {
   };
   footer: {
     copyright: string;
-    legal: string;
   };
 }
 

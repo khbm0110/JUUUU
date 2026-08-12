@@ -107,7 +107,7 @@ const Header: React.FC<HeaderProps> = ({ scrollToSection, activeSection, openApp
 
                 {/* Mobile Menu Dropdown */}
                 <div
-                  className={`absolute top-full mt-4 p-6 rounded-lg shadow-2xl bg-gray-900 border border-gray-700 w-64 transition-all duration-300 ease-in-out ${language === Language.AR ? 'left-0 origin-top-left' : 'right-0 origin-top-right'} ${
+                  className={`absolute top-full mt-4 p-6 rounded-lg shadow-2xl bg-gray-900 border border-gray-700 w-64 transition-all duration-300 ease-in-out right-0 origin-top-right ${
                     isMobileMenuOpen ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95 pointer-events-none'
                   }`}
                 >

@@ -183,7 +183,7 @@ const Contact: React.FC = () => {
             <div className="w-full h-80 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 relative group">
               <iframe
                 title={translations.addressTitle}
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3325.136359332123!2d-7.6763056!3d33.5498333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDMyJzU5LjQiTiA3wrA0MCczNC43Ilc!5e0!3m2!1sen!2sma!4v1762105363005!5m2!1sen!2sma"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3187.8923382820244!2d-7.6786413225418215!3d33.55202864072867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda62d002f02a2c5%3A0xb07ed45b0e4fd797!2sCabinet%20d'avocats%20Hassar!5e0!3m2!1sen!2sma!4v1763085523896!5m2!1sen!2sma"
                 width="100%"
                 height="100%"
                 frameBorder="0"
@@ -192,7 +192,6 @@ const Contact: React.FC = () => {
                 marginWidth={0}
                 loading="lazy"
                 className="absolute inset-0 w-full h-full transition-all duration-300"
-                style={{ filter: 'grayscale(0.8) contrast(1.2) opacity(0.8)' }}
               ></iframe>
                <a 
                 href={siteConfig.contact.googleMapsLink} 
