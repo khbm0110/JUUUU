@@ -49,7 +49,6 @@ const LandingPage: React.FC = () => {
       (entries) => {
         if (isScrollingProgrammatically.current) return;
 
-        // On initial load or when scrolled to the top, force active section to be #hero.
         if (window.scrollY < window.innerHeight * 0.5) {
           setActiveSection('#hero');
           return;
@@ -105,7 +104,6 @@ const LandingPage: React.FC = () => {
   const openAppointmentModal = () => setIsModalOpen(true);
 
   useEffect(() => {
-    // Favicon update
     const faviconUrl = state.siteData.faviconUrl;
     if (faviconUrl) {
       let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']");
@@ -117,7 +115,6 @@ const LandingPage: React.FC = () => {
       link.href = faviconUrl;
     }
 
-    // Language and metadata update
     const translations = state.siteData.content[language];
     if (translations) {
         document.title = translations.pageTitle;
@@ -143,7 +140,7 @@ const LandingPage: React.FC = () => {
   }, [language, state.siteData]);
 
   return (
-    <div className={`bg-gray-900 font-body ${language === Language.AR ? 'font-body' : ''}`}>
+    <div className={`font-body`}>
       <Header
         scrollToSection={scrollToSection}
         activeSection={activeSection}

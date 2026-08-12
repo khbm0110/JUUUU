@@ -23,18 +23,15 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
   const [showSubtitle, setShowSubtitle] = useState(false);
   const [showCta, setShowCta] = useState(false);
 
-  // When title typing is finished, wait 500ms then show the subtitle
   useEffect(() => {
     if (isTitleFinished) {
       const subtitleTimer = setTimeout(() => setShowSubtitle(true), 500);
       return () => clearTimeout(subtitleTimer);
     }
-     // Reset animations on text change
-    setShowSubtitle(false);
+     setShowSubtitle(false);
     setShowCta(false);
   }, [isTitleFinished, translations.title]);
 
-  // When subtitle is shown, wait 500ms then show the CTA button
   useEffect(() => {
     if (showSubtitle) {
       const ctaTimer = setTimeout(() => setShowCta(true), 500);
@@ -49,7 +46,8 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
   return (
     <>
       <section 
-        className="relative bg-black py-24 md:py-40 flex items-center text-white overflow-hidden"
+        className="relative py-28 md:py-44 flex items-center text-white overflow-hidden"
+        style={{ backgroundColor: '#0B1120' }}
       >
         {heroImageUrl && (
             <img
@@ -64,21 +62,25 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
                 aria-hidden="true"
             />
         )}
-        <div className="absolute inset-0 bg-black opacity-60 z-0"></div>
+        {/* Refined overlay: navy-to-deep gradient for authority feel */}
+        <div className="absolute inset-0 z-0" style={{ background: 'linear-gradient(135deg, rgba(11,17,32,0.88) 0%, rgba(30,58,138,0.5) 40%, rgba(11,17,32,0.85) 100%)' }}></div>
+        {/* Subtle gold line at bottom of hero */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent z-10"></div>
+        
         <div className="container mx-auto px-6 flex items-center relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-center w-full">
             
             {/* Text Content */}
             <div className="md:w-10/12 lg:w-8/12 text-center">
-              <h1 className="text-4xl md:text-6xl font-extrabold font-heading leading-[1.1] tracking-wide mb-4 min-h-[120px] md:min-h-[135px]">
-                {typedTitle}
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading leading-[1.1] tracking-wide mb-6 min-h-[120px] md:min-h-[140px]">
+                <span className="text-white">{typedTitle}</span>
                 {!isTitleFinished && (
-                   <span className="border-r-2 border-yellow-400 cursor-blink ml-1" aria-hidden="true"></span>
+                   <span className="border-r-2 ml-1 cursor-blink" style={{ borderColor: '#C9A84C' }} aria-hidden="true"></span>
                 )}
               </h1>
               
               <div className="min-h-[70px] md:min-h-[80px]">
-                <p className="text-lg md:text-xl text-gray-300 mb-6 max-w-xl mx-auto">
+                <p className="text-lg md:text-xl mb-8 max-w-xl mx-auto" style={{ color: '#CBD5E1' }}>
                   {subtitleWords.map((word, index) => (
                     <span
                       key={index}
@@ -97,7 +99,10 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
                >
                   <a
                     href={`tel:+${phoneNumber}`}
-                    className="bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
+                    className="font-bold py-3.5 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-[1.03] flex items-center justify-center gap-2.5 shadow-lg cursor-pointer"
+                    style={{ backgroundColor: '#C9A84C', color: '#0B1120' }}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#DABB5E')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#C9A84C')}
                     dir="ltr"
                   >
                     <PhoneIcon className="h-5 w-5" />
@@ -105,7 +110,16 @@ const Hero: React.FC<HeroProps> = ({ openAppointmentModal }) => {
                   </a>
                   <button
                     onClick={openAppointmentModal}
-                    className="bg-transparent border-2 border-yellow-500 text-yellow-500 font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-500 hover:text-gray-900 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+                    className="bg-transparent border-2 font-bold py-3.5 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-[1.03] flex items-center justify-center cursor-pointer"
+                    style={{ borderColor: '#C9A84C', color: '#C9A84C' }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.backgroundColor = '#C9A84C';
+                      e.currentTarget.style.color = '#0B1120';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.color = '#C9A84C';
+                    }}
                   >
                     {translations.ctaAppointment}
                   </button>
