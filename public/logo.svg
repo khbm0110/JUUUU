@@ -1,0 +1,29 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="59" fill="#1E3A8A"/>
+  <circle cx="60" cy="60" r="59" fill="none" stroke="#B45309" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- monogram: stylised H formed by a scale beam -->
+  <g stroke="#B45309" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- central column -->
+    <line x1="60" y1="30" x2="60" y2="80"/>
+    <!-- beam -->
+    <line x1="34" y1="42" x2="86" y2="42"/>
+    <!-- left pan strings -->
+    <line x1="34" y1="42" x2="26" y2="58"/>
+    <line x1="34" y1="42" x2="42" y2="58"/>
+    <!-- right pan strings -->
+    <line x1="86" y1="42" x2="78" y2="58"/>
+    <line x1="86" y1="42" x2="94" y2="58"/>
+    <!-- pans -->
+    <path d="M24 58 Q34 68 44 58" />
+    <path d="M76 58 Q86 68 96 58" />
+    <!-- base -->
+    <line x1="60" y1="80" x2="60" y2="86"/>
+    <line x1="44" y1="92" x2="76" y2="92"/>
+    <line x1="60" y1="86" x2="46" y2="92"/>
+    <line x1="60" y1="86" x2="74" y2="92"/>
+  </g>
+
+  <!-- initials -->
+  <text x="60" y="106" font-family="Georgia, 'Playfair Display', serif" font-size="11" fill="#F8FAFC" text-anchor="middle" letter-spacing="2">F.H</text>
+</svg>
